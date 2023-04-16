@@ -30,8 +30,8 @@ const Time = () => {
   return (
 
     <div className={styles.relogio}>
-      <h1 className={styles.time}>{time.toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'})}</h1>
-      <h2 className={styles.date}>{fullDate}</h2>
+      <p className={styles.time}>{time.toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'})}</p>
+      <p className={styles.date}>{fullDate}</p>
     </div>
 
   )

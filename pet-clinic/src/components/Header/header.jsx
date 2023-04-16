@@ -16,7 +16,7 @@ export default function Header(props) {
             <Time/>
         </div>
         <div class="header__avatar">
-            <img class="header__img-avatar" src=""></img>
+            <img class="header__img-avatar" src="../src/assets/circle-user-solid.svg"/>
             <p class="header__nome-usuario">Ola, {props.name}</p>
         </div>
     </div>

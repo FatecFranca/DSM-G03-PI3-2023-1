@@ -1,6 +1,5 @@
 .relogio{
     display: flex;
-    align-items: center;
     text-align: center;
     flex-direction: column;
     width: 172px;
@@ -8,15 +7,20 @@
 }
 
 .time{
+    font-family: 'Roboto';
     font-style: normal;
-    font-weight: 700;
-    font-size: 24px;
-    color: #3B3E45;
+    font-weight: 800;
+    font-size: 32px;
+    line-height: 38px;
+    color: #ffffff;
+    margin: 10px 0 0 0;
 }
 
 .date{
+    font-family: 'Roboto';
     font-style: normal;
     font-weight: 700;
-    font-size: 12px;
-    color: #3B3E45;
+    font-size: 18px;
+    line-height:21px;
+    color: #ffffff;
 }
