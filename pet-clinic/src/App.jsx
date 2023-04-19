@@ -1,11 +1,11 @@
-import Header from './components/Header/header';
+import RoutesApp from './router/routes';
 import './App.css';
 
 function App() {
 
   return (
     <div className="App">
-      <Header name="Pedro Neves"/>
+      <RoutesApp />
     </div>
   )
 }

@@ -1,0 +1,9 @@
+.home {
+    display: flex;
+    margin-top: 126px;
+    justify-content: space-between;
+}
+
+.home__buttons {
+    margin-right: 22px;
+}

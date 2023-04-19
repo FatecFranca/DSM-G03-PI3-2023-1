@@ -7,11 +7,11 @@ import { useEffect, useState } from 'react'
 const Time = () => {
 
   //DATA
-  let month = new Array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
+  let month = new Array('Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro');
 
   let date = new Date();
 
-  let fullDate = month[date.getMonth()] + ' ' + date.getDate() + 'th, ' + date.getFullYear();
+  let fullDate = date.getDate() + ' de ' + month[date.getMonth()] + ' de ' + date.getFullYear();
 
   //HORA
   const [ time , setTime] = useState(new Date());
