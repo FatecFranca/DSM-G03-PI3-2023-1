@@ -16,11 +16,12 @@ function AnimalList() {
   }
 
   return (
-    <div>
-      <ul class="animal">
+    <div class="animal">
+      <ul class="animal__ul">
         {animalData.map(animal => (
-          <li class="animal-list" key={animal.id} onClick={() => handleAnimalClick(animal)}>
-            {animal.name}
+          <li>
+            <input type="radio" id={animal.name} name="animais" value={animal.name} onChange={() => handleAnimalClick(animal)} />
+            <label for={animal.name}>{animal.name}</label>
           </li>
         ))}
       </ul>
@@ -40,12 +41,18 @@ function AnimalCard({ animal }) {
             <img src="../src/assets/pataDog.png" alt="pata animal" />
             <h2>{animal.name}</h2>    
         </div>
-        <ul class="card-animal__infos">
-            <li>Espécie: {animal.species}</li>
-            <li>Raça: {animal.raca}</li>
-            <li>Idade: {animal.idade}</li>
-            <li>Sexo: {animal.sexo}</li>
-        </ul>
+        <div class="card-animal__infos">
+          <div class="card-animal__titulo">
+            Informações:   
+            <a>Editar</a>
+          </div>
+          <ul>
+            <li><strong>Espécie:</strong> {animal.species}</li>
+            <li><strong>Raça:</strong> {animal.raca}</li>
+            <li><strong>Idade:</strong> {animal.idade}</li>
+            <li><strong>Sexo:</strong> {animal.sexo}</li>
+          </ul>
+        </div>
     </div>
   );
 }

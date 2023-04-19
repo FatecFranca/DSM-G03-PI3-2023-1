@@ -1,9 +1,14 @@
 .animal {
+    width: 600px;
+    height: 50px;
+}
+
+.animal__ul {
     display: flex;
     list-style-type: none;
 }
 
-.animal li {
+.animal__ul li {
     padding: 0 50px;
     font-family: 'Roboto';
     font-style: normal;
@@ -11,6 +16,23 @@
     font-size: 14px;
     line-height: 16px;
     text-align: center;
+}
+
+.animal__ul label:hover {
+    color: #008080;
+    cursor: pointer;
+    font-size: 1.5em;
+    text-decoration: underline;
+}
+
+.animal__ul input {
+    display: none;
+}
+
+.animal__ul input[type="radio"]:checked + label {
+    color: #008080;
+    font-size: 1.5em;
+    text-decoration: underline;
 }
 
 .card-animal {
@@ -40,11 +62,43 @@
     background: #FFFFFF;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.6);
     border-radius: 15px;
-    width: 215px;
+    width: 250px;
     height: 206px;
 }
 
+.card-animal__titulo {
+    background: #008080;
+    border-radius: 15px 15px 0 0;
+    color: #FFFFFF;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 21px;
+    padding: 10px;
+}
+
+.card-animal__titulo a{
+    margin-left: 80px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+}
+
+.card-animal__titulo a:hover{
+    cursor: pointer;
+    font-size: 14px;
+}
+
 .card-animal__infos li {
-    margin-left: 30px;
-    padding: 5px;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 22px;
+    letter-spacing: 0.04em;
+    margin-left: 14px;
+    padding: 0.15em;
 }

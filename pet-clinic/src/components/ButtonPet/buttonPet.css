@@ -9,4 +9,10 @@
     font-size: 16px;
     line-height: 16px;
     text-align: center;
+    margin-right: 50px;
+}
+
+.buttonPet:hover {
+    background: #127171;
+    cursor: pointer;
 }

@@ -10,3 +10,8 @@
     line-height: 16px;
     text-align: center;
 }
+
+.btnNovaConsulta:hover {
+    background: #127171;
+    cursor: pointer;
+}

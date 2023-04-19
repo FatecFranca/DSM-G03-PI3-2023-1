@@ -12,7 +12,9 @@ export default function Home() {
         <div class="home__card">
           <AnimalList />
         </div>
-        
+        <div class="home__consultas">
+          <ConsultaList />
+        </div>
         <div class="home__buttons">      
           <ButtonPet />
           <BtnNovaConsulta />
