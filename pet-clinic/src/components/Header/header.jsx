@@ -1,24 +1,22 @@
 import React from 'react';
 import Time from '../Time/time';
-import './style.css';
+import { Header, Logo, ImgLogo, NomeLogo, NomeApp, FraseApp, Avatar, ImgAvatar, NomeUsuario } from './header.style';
 
-export default function Header(props) {
+export default function Cabecalho(props) {
   return (
-    <div class="header">
-        <div class="header__logo">
-            <img class="header__img-logo" src="../src/assets/logoPet.png" alt="Minha Figura"/>
-            <div class="header__nome-logo">
-                <p id="nome-app">PETCLINIC</p>
-                <p id="frase-app">O melhor jeito de cuidar do seu pet</p>
-            </div>
-        </div>
-        <div class="header__date-time">
-            <Time/>
-        </div>
-        <div class="header__avatar">
-            <img class="header__img-avatar" src="../src/assets/userImg.png"/>
-            <p class="header__nome-usuario">Ola, {props.name}</p>
-        </div>
-    </div>
+    <Header>
+        <Logo>
+            <ImgLogo src="../src/assets/logoPet.png" alt="Minha Figura"/>
+            <NomeLogo>
+                <NomeApp>PETCLINIC</NomeApp>
+                <FraseApp>O melhor jeito de cuidar do seu pet</FraseApp>
+            </NomeLogo>
+        </Logo>
+        <Time/>
+        <Avatar>
+            <ImgAvatar src="../src/assets/userImg.png"/>
+            <NomeUsuario>Ola, {props.name}</NomeUsuario>
+        </Avatar>
+    </Header>
   )
 }

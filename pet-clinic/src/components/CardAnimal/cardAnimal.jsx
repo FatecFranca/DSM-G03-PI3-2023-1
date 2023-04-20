@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './cardAnimal.css';
+import * as style from './cardAnimal.styled';
 
 const animalData = [
   { id: 1, name: 'Rex', species: 'Cachorro', raca: 'Pitbull', idade: '10', sexo: 'Macho' },
@@ -16,19 +16,19 @@ function AnimalList() {
   }
 
   return (
-    <div class="animal">
-      <ul class="animal__ul">
+    <style.Animal>
+      <style.AnimalList>
         {animalData.map(animal => (
-          <li>
-            <input type="radio" id={animal.name} name="animais" value={animal.name} onChange={() => handleAnimalClick(animal)} />
-            <label for={animal.name}>{animal.name}</label>
-          </li>
+          <style.AnimalListItem>
+            <style.AnimalListInput type="radio" id={animal.name} name="animais" value={animal.name} onChange={() => handleAnimalClick(animal)} />
+            <style.AnimalListLabel for={animal.name}>{animal.name}</style.AnimalListLabel>
+          </style.AnimalListItem>
         ))}
-      </ul>
+      </style.AnimalList>
       {selectedAnimal && (
         <AnimalCard animal={selectedAnimal} />
       )}
-    </div>
+    </style.Animal>
   );
 }
 
@@ -36,23 +36,23 @@ export default AnimalList;
 
 function AnimalCard({ animal }) {
   return (
-    <div class="card-animal">
-        <div class="card-animal__inicial">
+    <style.CardAnimal>
+        <style.CardAnimalInicial>
             <img src="../src/assets/pataDog.png" alt="pata animal" />
             <h2>{animal.name}</h2>    
-        </div>
-        <div class="card-animal__infos">
-          <div class="card-animal__titulo">
+        </style.CardAnimalInicial>
+        <style.CardAnimalInfos>
+          <style.CardAnimalTitle>
             Informações:   
             <a>Editar</a>
-          </div>
-          <ul>
-            <li><strong>Espécie:</strong> {animal.species}</li>
-            <li><strong>Raça:</strong> {animal.raca}</li>
-            <li><strong>Idade:</strong> {animal.idade}</li>
-            <li><strong>Sexo:</strong> {animal.sexo}</li>
-          </ul>
-        </div>
-    </div>
+          </style.CardAnimalTitle>
+          <style.CardAnimalInfoList>
+            <style.CardAnimalInfoItem><strong>Espécie:</strong> {animal.species}</style.CardAnimalInfoItem>
+            <style.CardAnimalInfoItem><strong>Raça:</strong> {animal.raca}</style.CardAnimalInfoItem>
+            <style.CardAnimalInfoItem><strong>Idade:</strong> {animal.idade}</style.CardAnimalInfoItem>
+            <style.CardAnimalInfoItem><strong>Sexo:</strong> {animal.sexo}</style.CardAnimalInfoItem>
+          </style.CardAnimalInfoList>
+        </style.CardAnimalInfos>
+    </style.CardAnimal>
   );
 }

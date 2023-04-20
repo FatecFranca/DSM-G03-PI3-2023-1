@@ -1,25 +1,23 @@
 import React from 'react';
-import ButtonPet from '../../components/ButtonPet/buttonPet';
-import BtnNovaConsulta from '../../components/BtnNovaConsulta/btnNovaConsulta'
+import NovoPet from '../../components/Buttons/NovoPet';
+import NovaConsulta from '../../components/Buttons/NovaConsulta'
 import AnimalList from '../../components/CardAnimal/cardAnimal';
 import ConsultaList from '../../components/Consultas/consultas';
-import './Home.css';
+import { HomeCard, HomeConsultas, HomeButtons} from './home.styled';
 
 export default function Home() {
   return (
     <>
-      <div class="home">
-        <div class="home__card">
-          <AnimalList />
-        </div>
-        <div class="home__consultas">
+      <HomeCard>
+        <AnimalList />
+        <HomeConsultas>
           <ConsultaList />
-        </div>
-        <div class="home__buttons">      
-          <ButtonPet />
-          <BtnNovaConsulta />
-        </div>
-      </div>
+        </HomeConsultas>
+        <HomeButtons>      
+          <NovoPet />
+          <NovaConsulta />
+        </HomeButtons>
+      </HomeCard>
       
     </>
   )
