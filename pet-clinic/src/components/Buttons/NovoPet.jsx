@@ -29,6 +29,7 @@ const NovoPet = () => {
     pets.push(novoPet);
     localStorage.setItem('pets', JSON.stringify(pets));
     handleClose();
+    window.location.reload();
   };
 
   return (
