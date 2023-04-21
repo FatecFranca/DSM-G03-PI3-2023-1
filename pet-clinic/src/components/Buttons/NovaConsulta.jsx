@@ -28,6 +28,7 @@ const NovaConsulta = () => {
     consultas.push(novaConsulta);
     localStorage.setItem('consultas', JSON.stringify(consultas));
     handleClose();
+    window.location.reload();
   };
 
 
@@ -43,18 +44,18 @@ const NovaConsulta = () => {
             <Label htmlFor="servico">Servico</Label>
             <Select id="servico" value={servico} onChange={(e) => setServico(e.target.value)}>
               <Option value="">Selecione uma opção</Option>
-              <Option value="banhoTosa">Banho & Tosa</Option>
-              <Option value="banho">Banho</Option>
-              <Option value="consultaRotina">Consulta de Rotina</Option>
-              <Option value="consultaEmergencia">Consulta de Emergencia</Option>
-              <Option value="vacinacao">Vacina</Option>
+              <Option value="Banho & Tosa">Banho & Tosa</Option>
+              <Option value="Banho">Banho</Option>
+              <Option value="Consulta de Rotina">Consulta de Rotina</Option>
+              <Option value="Consulta de Emergencia">Consulta de Emergencia</Option>
+              <Option value="Vacina">Vacina</Option>
             </Select>
             <Label htmlFor="veterinario">Veterinario</Label>
             <Select id="veterinario" value={veterinario} onChange={(e) => setVeterinario(e.target.value)}>
               <Option value="">Selecione uma opção</Option>
-              <Option value="oswaldoPeixoto">Dr. Oswaldo Peixoto</Option>
-              <Option value="pauloCoelho">Dr. Paulo Coelho</Option>
-              <Option value="anaSilva">Dra. Ana Silva</Option>
+              <Option value="Dr. Oswaldo Peixoto">Dr. Oswaldo Peixoto</Option>
+              <Option value="Dr. Paulo Coelho">Dr. Paulo Coelho</Option>
+              <Option value="Dra. Ana Silva">Dra. Ana Silva</Option>
             </Select>
             <Label htmlFor="hora">Hora</Label>
             <Input type="time" id="hora" value={hora} onChange={(e) => setHora(e.target.value)} />

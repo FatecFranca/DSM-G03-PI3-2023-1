@@ -16,7 +16,7 @@ function ConsultaList() {
         
         {consultas.map((consulta, index) => (
           <style.Row key={index}>
-            <style.Cell>{consulta.data}</style.Cell>
+            <style.Cell>{new Date(consulta.data).toLocaleDateString('pt-BR')}</style.Cell>
             <style.Cell>{consulta.servico}</style.Cell>
             <style.Cell>{consulta.veterinario}</style.Cell>
             <style.Cell>{consulta.hora}</style.Cell>

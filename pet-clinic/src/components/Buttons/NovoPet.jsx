@@ -44,10 +44,10 @@ const NovoPet = () => {
             <Label htmlFor="especie">Especie</Label>
             <Select id="especie" value={especie} onChange={(e) => setEspecie(e.target.value)}>
               <Option value="">Selecione uma opção</Option>
-              <Option value="cachorro">Cachorro</Option>
-              <Option value="gato">Gato</Option>
-              <Option value="passaro">Pássaro</Option>
-              <Option value="outros">Outros</Option>
+              <Option value="Cachorro">Cachorro</Option>
+              <Option value="Gato">Gato</Option>
+              <Option value="Passaro">Pássaro</Option>
+              <Option value="Outros">Outros</Option>
             </Select>
             <Label htmlFor="raca">Raça</Label>
             <Input type="text" id="raca" value={raca} onChange={(e) => setRaca(e.target.value)} />
@@ -56,8 +56,8 @@ const NovoPet = () => {
             <Label htmlFor="sexo">Sexo</Label>
             <Select id="sexo" value={sexo} onChange={(e) => setSexo(e.target.value)}>
               <Option value="">Selecione uma opção</Option>
-              <Option value="macho">Macho</Option>
-              <Option value="fêmea">Fêmea</Option>
+              <Option value="Macho">Macho</Option>
+              <Option value="Fêmea">Fêmea</Option>
             </Select>
           </Form>
           <Button onClick={handleSubmit}>Adicionar</Button>
