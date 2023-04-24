@@ -40,6 +40,10 @@ export const Cell = styled.p`
   font-size: 14px;
   line-height: 16px;
   text-align: center;
+
+  &:last-child {
+    border-right: none;
+  }
 `;
 
 export const EvenRow = styled(Row)`
