@@ -2,8 +2,6 @@ import { Fragment } from "react"
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 
 import useAuth from '../src/hooks/useAuth'
-
-import Home from '../src/pages/Home/Home'
 import Signin from '../src/pages/Signin/Signin'
 import Signup from '../src/pages/Signup/Signup'
 import Cliente from '../src/pages/Cliente/Cliente'
