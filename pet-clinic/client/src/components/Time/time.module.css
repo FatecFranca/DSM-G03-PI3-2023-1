@@ -1,0 +1,26 @@
+.relogio{
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    width: 172px;
+    height: 60px;
+}
+
+.time{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 32px;
+    line-height: 38px;
+    color: #ffffff;
+    margin: 10px 0 0 0;
+}
+
+.date{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height:21px;
+    color: #ffffff;
+}
