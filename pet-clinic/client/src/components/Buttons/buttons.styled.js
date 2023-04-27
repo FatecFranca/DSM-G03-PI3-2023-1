@@ -27,6 +27,7 @@ export const ButtonLogin = styled.button`
 export const ButtonNew = styled.button`
   border-radius: 10px;
   background: #008080;
+  color: #FFFFFF;
   width: 185px;
   height: 37px;
   font-family: 'Roboto';

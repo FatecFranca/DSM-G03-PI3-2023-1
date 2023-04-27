@@ -7,7 +7,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import useAuth from '../../hooks/useAuth'
 
 import Input from '../../components/Input/Input'
-import Button from '../../components/Button/Button'
+import ButtonLogin from '../../components/Buttons/Button'
 import DogSignup from '../../components/Animacao/DogSignup/DogSignup'
 
 const Signin = () => {
@@ -59,7 +59,7 @@ const Signin = () => {
             onChange={(e) => [setPassword(e.target.value), setError("")]}
           />
           <label className={style.labelError}>{error}</label>
-          <Button
+          <ButtonLogin
             Text="Entrar"
             onClick={handleLogin}
           />

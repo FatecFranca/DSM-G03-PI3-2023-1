@@ -19,7 +19,7 @@ import { validateNome, validateEmail, validatePassword, validateCpf } from '../.
 
 //components
 import Input from '../../components/Input/Input'
-import Button from '../../components/Button/Button'
+import ButtonLogin from '../../components/Buttons/Button'
 import DogSignin from '../../components/Animacao/DogSignin/DogSignin'
 
 
@@ -235,7 +235,7 @@ const Signup = () => {
               onBlur={onBlurHandler}
             />
             <label className={style.labelError}>{error}</label>
-            <Button
+            <ButtonLogin
               Text="Cadastrar-se"
               onClick={handleSignup}
             />
