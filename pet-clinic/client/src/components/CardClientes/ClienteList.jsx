@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import * as style from './clienteCard.styled';
+import * as style from './clienteList.styled';
 
 const clienteData = JSON.parse(localStorage.getItem('users_db')) || [];
 
