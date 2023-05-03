@@ -1,6 +1,5 @@
 import React from 'react';
-import NovoPet from '../../components/Buttons/NovoPet';
-import NovaConsulta from '../../components/Buttons/NovaConsulta'
+import NovoVet from '../../components/Buttons/NovoVet';
 import ClienteList from '../../components/CardClientes/ClienteList';
 import ConsultaList from '../../components/Consultas/Consultas';
 import { AdminCard, AdminConsultas, AdminButtons} from './admin.styled';
@@ -11,13 +10,11 @@ export default function Admin() {
     <>
       <Cabecalho name="Pedro Neves"/>
       <AdminCard>
-        <ClienteList />
         <AdminConsultas>
           <ConsultaList />
         </AdminConsultas>
         <AdminButtons>      
-          <NovoPet />
-          <NovaConsulta />
+          <NovoVet />
         </AdminButtons>
       </AdminCard>
       

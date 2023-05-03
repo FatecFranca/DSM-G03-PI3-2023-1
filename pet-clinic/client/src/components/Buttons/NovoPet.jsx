@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ButtonNew, Popup, Form, Label, Input, Select, Option, Button } from './buttons.styled';
+import { ButtonNew, Popup, Title, Form, Label, Input, Select, Option, Button } from './buttons.styled';
 
 const NovoPet = () => {
   const [open, setOpen] = useState(false);
@@ -37,7 +37,7 @@ const NovoPet = () => {
       <ButtonNew onClick={handleClick}>Novo Pet</ButtonNew>
       {open && (
         <Popup>
-          <h1>Novo Pet</h1>
+          <Title>Novo Pet</Title>
           <Form>
             <Label htmlFor="nome">Nome</Label>
             <Input type="text" id="nome" value={nome} onChange={(e) => setNome(e.target.value)} />

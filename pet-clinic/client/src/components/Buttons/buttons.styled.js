@@ -48,13 +48,24 @@ export const ButtonNew = styled.button`
 
 // POP UP
 
+export const Title = styled.h1`
+  font-family: 'Roboto';
+  font-weight: 600;
+  font-size: 20px;
+  margin-bottom: 10px;
+  padding: 10px;
+  text-align: center;
+  background-color: #9af8f9;
+`;
+
 export const Popup = styled.div`
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 400px;
-  height: 480px;
+  min-height: 480px;
+  height: auto;
   padding: 20px;
   background-color: #fff;
   border-radius: 10px;
@@ -121,3 +132,5 @@ export const Button = styled.div`
     cursor: pointer;
   }
 `;
+
+
