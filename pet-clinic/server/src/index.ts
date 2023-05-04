@@ -1,7 +1,8 @@
-import express from "express";
+import "dotenv/config";
+import app from "./app";
 
-const app = express();
+const PORT = process.env.PORT || process.env.LOCAL_PORT;
 
-app.listen(3333, () => {
-  console.log("server online");
+app.listen(PORT, () => {
+  console.log(`server running in ${PORT}`);
 });
