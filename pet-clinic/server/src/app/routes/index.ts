@@ -1,9 +1,8 @@
 import { Router } from "express";
+import clienteRouter from "./clientes";
 
-const routes = Router();
+const router = Router();
 
-routes.get("/", (req, res) => {
-  res.send("Hello Word!!");
-});
+router.use("/", clienteRouter);
 
-export default routes;
+export default router;
