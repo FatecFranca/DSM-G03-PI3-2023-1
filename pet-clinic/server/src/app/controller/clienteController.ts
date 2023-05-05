@@ -29,7 +29,6 @@ export const clienteController = {
           .status(400)
           .json({ error: "Este email ou CPF já está em uso." });
       }
-      console.error(error);
     }
   },
 };
