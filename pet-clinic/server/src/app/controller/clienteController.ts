@@ -19,8 +19,13 @@ export const clienteController = {
           .status(201)
           .json({ response, msg: "Cliente Cadastrado com sucesso!" });
       }
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      if (error.code === 11000) {
+        return res
+          .status(400)
+          .json({ error: "Este email ou CPF já está em uso." });
+      }
+      console.error(error);
     }
   },
 };

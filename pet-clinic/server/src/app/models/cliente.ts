@@ -9,6 +9,7 @@ export const clienteSchema = new Schema(
     email: {
       type: String,
       required: true,
+      unique: true,
     },
     senha: {
       type: String,
@@ -17,6 +18,7 @@ export const clienteSchema = new Schema(
     cpf: {
       type: String,
       required: true,
+      unique: true,
     },
     endereco: {
       rua: {
