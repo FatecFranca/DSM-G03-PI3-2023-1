@@ -112,6 +112,31 @@ const Signup = () => {
       return setError("Preencha todos os campos")
     }
 
+    // //VALIDA SE OS INPUTS ESTÃO CORRETOS DE ACORDO COM O REGEX
+    // if (!validateNome.test(nome)) {
+    //   return setInputNomeErr(true);
+    // } else {
+    //   setInputNomeErr(false);
+    // }
+
+    // // if (!validateCpf.test(cpf)) {
+    // //   return setInputCpfErr(true);
+    // // } else {
+    // //   setInputCpfErr(false);
+    // // }
+
+    // if (!validateEmail.test(email)) {
+    //   return setInputEmailErr(true);
+    // } else {
+    //   setInputEmailErr(false);
+    // }
+
+    // if (!validatePassword.test(password)) {
+    //   return setInputPasswordErr(true);
+    // } else {
+    //   setInputPasswordErr(false);
+    // }
+
     //RETORNA ERRO CASO A CONFIRMAÇÃO DE SENHA FOR DIFERENTE DA SENHA
     if (password !== passwordConf) {
       setError("As senhas não são iguais")
