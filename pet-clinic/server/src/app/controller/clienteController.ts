@@ -1,3 +1,4 @@
+import bcrypt from "bcrypt";
 import { Request, Response } from "express";
 import { Cliente as clienteModel } from "../models/cliente";
 
@@ -5,10 +6,13 @@ export const clienteController = {
   create: async (req: Request, res: Response) => {
     try {
       if (req.body != null) {
+        const salt = await bcrypt.genSalt(12);
+        const passwordHash = await bcrypt.hash(req.body.senha, salt);
+
         const cliente = {
           nome: req.body.nome,
           email: req.body.email,
-          senha: req.body.senha,
+          senha: passwordHash,
           cpf: req.body.cpf,
           endereco: req.body.endereco,
         };
