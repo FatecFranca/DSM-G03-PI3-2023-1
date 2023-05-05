@@ -1,16 +1,20 @@
 import styled from 'styled-components';
 
-export const AdminCard = styled.div`
+
+export const Container = styled.div`
   display: flex;
-  margin-top: 24px;
   justify-content: space-between;
+  margin-top: 24px;
 `;
 
-export const AdminConsultas = styled.div`
-  margin-top: 100px;
+export const Title = styled.h2`
+  font-family: 'Roboto';
+  font-weight: 600;
+  font-size: 16px;
+  margin-left: 24px;
+
 `;
 
 export const AdminButtons = styled.div`
-  margin-right: 22px;
   display: flex;
 `;

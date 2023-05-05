@@ -49,13 +49,15 @@ export const ButtonNew = styled.button`
 // POP UP
 
 export const Title = styled.h1`
+  border-radius: 10px;
+  color:  #127171;
   font-family: 'Roboto';
   font-weight: 600;
   font-size: 20px;
   margin-bottom: 10px;
   padding: 10px;
   text-align: center;
-  background-color: #9af8f9;
+  box-shadow: 0px 0px 10px rgba(0,139,139, 0.5);
 `;
 
 export const Popup = styled.div`
@@ -64,12 +66,12 @@ export const Popup = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   width: 400px;
-  min-height: 480px;
+  min-height: 300px;
   height: auto;
   padding: 20px;
   background-color: #fff;
   border-radius: 10px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 0px 10px rgba(0,139,139, 1.0);
 `;
 
 export const Form = styled.form`

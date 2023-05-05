@@ -4,7 +4,7 @@ import { ButtonNew, Popup, Title, Form, Label, Input, Button } from './buttons.s
 //utils
 import { validateNome, validateEmail, validatePassword, validateCpf } from '../../Utils/regex'
 
-const NovoPet = () => {
+const NovoVet = () => {
   const [open, setOpen] = useState(false);
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
@@ -38,10 +38,10 @@ const NovoPet = () => {
 
   return (
     <>
-      <ButtonNew onClick={handleClick}>Novo Cliente</ButtonNew>
+      <ButtonNew onClick={handleClick}>Novo Veterinário</ButtonNew>
       {open && (
         <Popup>
-          <Title>Novo Cliente</Title>
+          <Title>Novo Veterinário</Title>
           <Form>
             <Label htmlFor="nome">Nome</Label>
             <Input type="text" id="nome" value={nome} onChange={(e) => setNome(e.target.value)} />
@@ -64,4 +64,4 @@ const NovoPet = () => {
   );
 }
 
-export default NovoPet;
+export default NovoVet;
