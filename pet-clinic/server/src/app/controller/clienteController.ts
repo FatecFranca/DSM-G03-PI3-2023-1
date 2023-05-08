@@ -31,4 +31,32 @@ export const clienteController = {
       }
     }
   },
+  getOne: async (req: Request, res: Response) => {
+    const clienteLogin = {
+      email: req.body.email,
+      senha: req.body.senha,
+    };
+
+    try {
+      const response = await clienteModel.findOne({
+        email: clienteLogin.email,
+      });
+
+      if (response != null) {
+        const checkSenha = await bcrypt.compare(
+          clienteLogin.senha,
+          response.senha
+        );
+        if (!checkSenha) {
+          return res.status(403).json({ error: "Senha incorreta." });
+        }
+      } else {
+        return res.status(403).json({ error: "Email não encontrado." });
+      }
+
+      res.status(200).json(response);
+    } catch (error: any) {
+      return res.status(400).json({ error: error });
+    }
+  },
 };
