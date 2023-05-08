@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
 import { Request, Response } from "express";
 import { Cliente as clienteModel } from "../models/cliente";
+import { newToken, validateToken } from "./token";
 
 export const clienteController = {
   create: async (req: Request, res: Response) => {
@@ -31,7 +32,7 @@ export const clienteController = {
       }
     }
   },
-  getOne: async (req: Request, res: Response) => {
+  login: async (req: Request, res: Response) => {
     const clienteLogin = {
       email: req.body.email,
       senha: req.body.senha,
@@ -54,9 +55,30 @@ export const clienteController = {
         return res.status(403).json({ error: "Email não encontrado." });
       }
 
-      res.status(200).json(response);
+      const token = newToken(response.id);
+      res.status(200).json({ token });
     } catch (error: any) {
       return res.status(400).json({ error: error });
+    }
+  },
+  get: async (req: Request, res: Response) => {
+    const authHeader = req.headers["authorization"];
+    const token = authHeader ? authHeader.split(" ")[1] : "";
+
+    if (token == "") {
+      return res.status(400).json({ error: "acesso negado!" });
+    }
+
+    const id = validateToken(token);
+    try {
+      if (id) {
+        const response = await clienteModel.findOne({ _id: id }, "-senha");
+        return res.status(200).json({ response });
+      } else {
+        return res.status(400).json({ error: "token invalido" });
+      }
+    } catch (error) {
+      return res.status(400).json({ error });
     }
   },
 };
