@@ -168,3 +168,80 @@ Endpoint para validar o token de um cliente.
       }
   }
   ```
+
+## Pet
+
+### Criar Pet
+
+**URL:** `/pet`
+
+**Método HTTP:** `POST`
+
+**Parâmetros de Requisição:**
+
+| Parâmetro | Tipo | Descrição |
+| --------- | ---- | --------- |
+| `nome` | `string` | Nome do pet |
+| `idade` | `number` | Idade do pet |
+| `especie` | `string` | Espécie do pet |
+| `raca` | `string` | Raça do pet |
+
+**Cabeçalhos de Requisição:**
+
+| Cabeçalho | Tipo | Descrição |
+| --------- | ---- | --------- |
+| `Authorization` | `string` | `Bearer` Token de autenticação do cliente |
+
+**Corpo da Requisição:**
+
+```json
+{
+  "nome": "Rex",
+  "idade": 3,
+  "especie": "Cachorro",
+  "raca": "Labrador"
+}
+```
+
+**Respostas:**
+
+- **Status:** 200 OK
+
+  **Corpo:**
+
+  ```json
+  {
+    "response": {
+      "_id": "6156f1a6ebf08e2029ac6f61",
+      "nome": "Rex",
+      "idade": 3,
+      "especie": "Cachorro",
+      "raca": "Labrador",
+      "cliente_id": "6156e14f7d59c3449063f7b5",
+      "createdAt": "2021-10-01T16:19:02.236Z",
+      "updatedAt": "2021-10-01T16:19:02.236Z",
+      "__v": 0
+    },
+    "msg": "Pet Cadastrado com Sucesso"
+  }
+  ```
+
+- **Status:** 400 Bad Request
+
+  **Corpo:**
+
+  ```json
+  {
+    "error": "acesso negado!"
+  }
+  ```
+
+- **Status:** 400 Bad Request
+
+  **Corpo:**
+
+  ```json
+  {
+    "error": "mensagem de erro"
+  }
+  ```
