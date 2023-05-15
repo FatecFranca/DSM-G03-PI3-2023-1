@@ -3,8 +3,10 @@ import { petController } from "../controller/petController";
 
 const router = Router();
 
-router.route("/pet").post((req, res) => petController.create(req, res));
-//   .get((req, res) => petController.get(req, res));
+router
+  .route("/pet")
+  .post((req, res) => petController.create(req, res))
+  .get((req, res) => petController.get(req, res));
 
 // router
 //   .route("/cliente/login")
