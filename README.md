@@ -34,3 +34,214 @@ npm start
 ```
 
 Isso iniciará o servidor e a aplicação estará disponível para uso.
+
+## Documentação da API
+
+### Cadastro de Cliente
+
+Endpoint para cadastrar um cliente na aplicação.
+
+- **URL**
+
+  `/cliente`
+
+- **Método HTTP**
+
+  `POST`
+
+- **Body**
+    ```
+    {
+      "nome": "teste1",
+      "email": "teste1@teste.com",
+      "senha": "123",
+      "cpf": "12345678932",
+      "endereco": {
+        "rua": "rua teste",
+        "numero": "69",
+        "bairro": "centro",
+        "cidade": "Franca",
+        "estado": "SP",
+        "cep": "24251-251"
+       }
+    }
+    ```
+
+- **Resposta de Sucesso**
+
+- **Código:** 200 OK
+- **Conteúdo:** 
+  ```
+  {
+      "response": {
+          "endereco": {
+              "rua": "rua teste",
+              "numero": "69",
+              "bairro": "centro",
+              "cidade": "Franca",
+              "estado": "SP",
+              "cep": "24251-251"
+          },
+          "_id": "6458d198f7a60218f52e97fd",
+          "nome": "teste1",
+          "email": "teste1@teste.com",
+          "cpf": "12345678932",
+          "createdAt": "2023-05-08T10:40:24.673Z",
+          "updatedAt": "2023-05-08T10:40:24.673Z",
+          "__v": 0
+      }
+  }
+  ```
+
+### Login
+
+Endpoint para realizar o login na aplicação.
+
+- **URL**
+
+`/cliente/login`
+
+- **Método HTTP**
+
+`GET`
+
+- **Body**
+
+```
+  {
+    "email": "teste1@teste.com",
+    "senha": "123"
+  }
+```
+
+- **Resposta de Sucesso**
+
+- **Código:** 200 OK
+- **Conteúdo:** 
+  ```
+  {
+      "token": "<token gerado>"
+  }
+  ```
+
+### Validação de Token
+
+Endpoint para validar o token de um cliente.
+
+- **URL**
+
+`/cliente`
+
+- **Método HTTP**
+
+`GET`
+
+- **Header**
+
+```
+  Authorization: Bearer <token gerado>
+```
+
+
+- **Resposta de Sucesso**
+
+- **Código:** 200 OK
+- **Conteúdo:** 
+  ```
+  {
+      "response": {
+          "endereco": {
+              "rua": "rua teste",
+              "numero": "69",
+              "bairro": "centro",
+              "cidade": "Franca",
+              "estado": "SP",
+              "cep": "24251-251"
+          },
+          "_id": "6458d198f7a60218f52e97fd",
+          "nome": "teste1",
+          "email": "teste1@teste.com",
+          "cpf": "12345678932",
+          "createdAt": "2023-05-08T10:40:24.673Z",
+          "updatedAt": "2023-05-08T10:40:24.673Z",
+          "__v": 0
+      }
+  }
+  ```
+
+## Pet
+
+### Criar Pet
+
+**URL:** `/pet`
+
+**Método HTTP:** `POST`
+
+**Parâmetros de Requisição:**
+
+| Parâmetro | Tipo | Descrição |
+| --------- | ---- | --------- |
+| `nome` | `string` | Nome do pet |
+| `idade` | `number` | Idade do pet |
+| `especie` | `string` | Espécie do pet |
+| `raca` | `string` | Raça do pet |
+
+**Cabeçalhos de Requisição:**
+
+| Cabeçalho | Tipo | Descrição |
+| --------- | ---- | --------- |
+| `Authorization` | `string` | `Bearer` Token de autenticação do cliente |
+
+**Corpo da Requisição:**
+
+```json
+{
+  "nome": "Rex",
+  "idade": 3,
+  "especie": "Cachorro",
+  "raca": "Labrador"
+}
+```
+
+**Respostas:**
+
+- **Status:** 200 OK
+
+  **Corpo:**
+
+  ```json
+  {
+    "response": {
+      "_id": "6156f1a6ebf08e2029ac6f61",
+      "nome": "Rex",
+      "idade": 3,
+      "especie": "Cachorro",
+      "raca": "Labrador",
+      "cliente_id": "6156e14f7d59c3449063f7b5",
+      "createdAt": "2021-10-01T16:19:02.236Z",
+      "updatedAt": "2021-10-01T16:19:02.236Z",
+      "__v": 0
+    },
+    "msg": "Pet Cadastrado com Sucesso"
+  }
+  ```
+
+- **Status:** 400 Bad Request
+
+  **Corpo:**
+
+  ```json
+  {
+    "error": "acesso negado!"
+  }
+  ```
+
+- **Status:** 400 Bad Request
+
+  **Corpo:**
+
+  ```json
+  {
+    "error": "mensagem de erro"
+  }
+  ```
