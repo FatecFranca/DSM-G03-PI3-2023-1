@@ -17,7 +17,7 @@ const NovoPet = () => {
     setOpen(false);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const novoPet = {
       nome: nome,
       especie: especie,
@@ -25,12 +25,15 @@ const NovoPet = () => {
       idade: idade,
       sexo: sexo,
     };
-    const pets = JSON.parse(localStorage.getItem('pets') || '[]');
-    pets.push(novoPet);
-    localStorage.setItem('pets', JSON.stringify(pets));
-    handleClose();
-    window.location.reload();
-  };
+
+  try {
+    const response = await axios.post('/pets', novoPet);
+    console.log(response.data);
+    // Faça o que precisar com a resposta da API
+  } catch (error) {
+    console.error(error);
+  }
+};
 
   return (
     <>
