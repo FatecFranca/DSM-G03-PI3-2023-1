@@ -50,27 +50,28 @@ Endpoint para cadastrar um cliente na aplicação.
   `POST`
 
 - **Body**
-    ```
-    {
-      "nome": "teste1",
-      "email": "teste1@teste.com",
-      "senha": "123",
-      "cpf": "12345678932",
-      "endereco": {
-        "rua": "rua teste",
-        "numero": "69",
-        "bairro": "centro",
-        "cidade": "Franca",
-        "estado": "SP",
-        "cep": "24251-251"
-       }
-    }
-    ```
+
+  ```
+  {
+    "nome": "teste1",
+    "email": "teste1@teste.com",
+    "senha": "123",
+    "cpf": "12345678932",
+    "endereco": {
+      "rua": "rua teste",
+      "numero": "69",
+      "bairro": "centro",
+      "cidade": "Franca",
+      "estado": "SP",
+      "cep": "24251-251"
+     }
+  }
+  ```
 
 - **Resposta de Sucesso**
 
 - **Código:** 200 OK
-- **Conteúdo:** 
+- **Conteúdo:**
   ```
   {
       "response": {
@@ -117,7 +118,7 @@ Endpoint para realizar o login na aplicação.
 - **Resposta de Sucesso**
 
 - **Código:** 200 OK
-- **Conteúdo:** 
+- **Conteúdo:**
   ```
   {
       "token": "<token gerado>"
@@ -142,11 +143,10 @@ Endpoint para validar o token de um cliente.
   Authorization: Bearer <token gerado>
 ```
 
-
 - **Resposta de Sucesso**
 
 - **Código:** 200 OK
-- **Conteúdo:** 
+- **Conteúdo:**
   ```
   {
       "response": {
@@ -179,17 +179,17 @@ Endpoint para validar o token de um cliente.
 
 **Parâmetros de Requisição:**
 
-| Parâmetro | Tipo | Descrição |
-| --------- | ---- | --------- |
-| `nome` | `string` | Nome do pet |
-| `idade` | `number` | Idade do pet |
+| Parâmetro | Tipo     | Descrição      |
+| --------- | -------- | -------------- |
+| `nome`    | `string` | Nome do pet    |
+| `idade`   | `number` | Idade do pet   |
 | `especie` | `string` | Espécie do pet |
-| `raca` | `string` | Raça do pet |
+| `raca`    | `string` | Raça do pet    |
 
 **Cabeçalhos de Requisição:**
 
-| Cabeçalho | Tipo | Descrição |
-| --------- | ---- | --------- |
+| Cabeçalho       | Tipo     | Descrição                                 |
+| --------------- | -------- | ----------------------------------------- |
 | `Authorization` | `string` | `Bearer` Token de autenticação do cliente |
 
 **Corpo da Requisição:**
@@ -223,6 +223,122 @@ Endpoint para validar o token de um cliente.
       "__v": 0
     },
     "msg": "Pet Cadastrado com Sucesso"
+  }
+  ```
+
+- **Status:** 400 Bad Request
+
+  **Corpo:**
+
+  ```json
+  {
+    "error": "acesso negado!"
+  }
+  ```
+
+- **Status:** 400 Bad Request
+
+  **Corpo:**
+
+  ```json
+  {
+    "error": "mensagem de erro"
+  }
+  ```
+
+### Obter Pets
+
+**URL:** `/pet`
+
+**Método HTTP:** `GET`
+
+**Cabeçalhos de Requisição:**
+
+| Cabeçalho       | Tipo     | Descrição                                 |
+| --------------- | -------- | ----------------------------------------- |
+| `Authorization` | `string` | `Bearer` Token de autenticação do cliente |
+
+**Respostas:**
+
+- **Status:** 200 OK
+
+  **Corpo:**
+
+  ```json
+  [
+    {
+      "_id": "6156f1a6ebf08e2029ac6f61",
+      "nome": "Rex",
+      "idade": 3,
+      "especie": "Cachorro",
+      "raca": "Labrador",
+      "cliente_id": "6156e14f7d59c3449063f7b5",
+      "createdAt": "2021-10-01T16:19:02.236Z",
+      "updatedAt": "2021-10-01T16:19:02.236Z",
+      "__v": 0
+    },
+    {
+      "_id": "6156f1a6ebf08e2029ac6f62",
+      "nome": "Mia",
+      "idade": 2,
+      "especie": "Gato",
+      "raca": "Siames",
+      "cliente_id": "6156e14f7d59c3449063f7b5",
+      "createdAt": "2021-10-02T10:24:15.456Z",
+      "updatedAt": "2021-10-02T10:24:15.456Z",
+      "__v": 0
+    }
+  ]
+  ```
+
+- **Status:** 400 Bad Request
+
+  **Corpo:**
+
+  ```json
+  {
+    "error": "acesso negado!"
+  }
+  ```
+
+### Atualizar Pet
+
+**URL:** `/pet/:petId`
+
+**Método HTTP:** `PUT`
+
+**Parâmetros de Requisição:**
+
+| Parâmetro | Tipo     | Descrição                  |
+| --------- | -------- | -------------------------- |
+| `petId`   | `string` | ID do pet a ser atualizado |
+
+**Cabeçalhos de Requisição:**
+
+| Cabeçalho       | Tipo     | Descrição                                 |
+| --------------- | -------- | ----------------------------------------- |
+| `Authorization` | `string` | `Bearer` Token de autenticação do cliente |
+
+**Corpo da Requisição:**
+
+```json
+{
+  "nome": "Novo nome",
+  "idade": 4,
+  "especie": "Gato",
+  "raca": "Persa"
+}
+```
+
+**Respostas:**
+
+- **Status:** 200 OK
+
+  **Corpo:**
+
+  ```json
+  {
+    "msg": "Update realizado com sucesso"
   }
   ```
 
