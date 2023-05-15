@@ -8,8 +8,6 @@ router
   .post((req, res) => petController.create(req, res))
   .get((req, res) => petController.get(req, res));
 
-// router
-//   .route("/cliente/login")
-//   .get((req, res) => petController.login(req, res));
+router.route("/pet/:petId").put((req, res) => petController.put(req, res));
 
 export default router;
