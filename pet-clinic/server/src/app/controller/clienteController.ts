@@ -70,6 +70,10 @@ export const clienteController = {
     }
 
     const id = validateToken(token);
+
+    if (id == null) {
+      return res.status(400).json({ error: "acesso negado!" });
+    }
     try {
       if (id) {
         const response = await clienteModel.findOne({ _id: id }, "-senha");

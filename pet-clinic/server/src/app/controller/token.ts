@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import { Cliente as clienteModel } from "../models/cliente";
 
 const secret = process.env.SECRET;
 
@@ -14,13 +15,20 @@ interface DecodedToken {
   exp: number;
 }
 
-export const validateToken = (token: string): string | null => {
+export const validateToken = async (token: string): Promise<string | null> => {
   try {
     const decodedToken: DecodedToken = jwt.verify(
       token.replace(/^['"]|['"]$/g, ""),
       secret || ""
     ) as DecodedToken;
-    return decodedToken.id;
+    const id = decodedToken.id;
+
+    const validate = await clienteModel
+      .findOne({ _id: id })
+      .then(() => id)
+      .catch(() => null);
+
+    return validate;
   } catch (err) {
     return null;
   }
