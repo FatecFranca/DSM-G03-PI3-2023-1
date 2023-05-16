@@ -3,6 +3,15 @@ import { Cliente as clienteModel } from "../models/cliente";
 
 const secret = process.env.SECRET;
 
+const validaId = async (id: string) => {
+  try {
+    await clienteModel.findOne({ _id: id });
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
+
 export const newToken = (id: string): string => {
   const token = jwt.sign({ id: id }, secret || "");
 
@@ -15,20 +24,21 @@ interface DecodedToken {
   exp: number;
 }
 
-export const validateToken = async (token: string): Promise<string | null> => {
+export const validateToken = async (token: string) => {
   try {
     const decodedToken: DecodedToken = jwt.verify(
       token.replace(/^['"]|['"]$/g, ""),
       secret || ""
     ) as DecodedToken;
-    const id = decodedToken.id;
+    const id = decodedToken.id || null;
 
-    const validate = await clienteModel
-      .findOne({ _id: id })
-      .then(() => id)
-      .catch(() => null);
-
-    return validate;
+    if (typeof id == "string") {
+      const validate = (await validaId(id)) ? id : null;
+      console.log(validate);
+      return validate;
+    } else {
+      return null;
+    }
   } catch (err) {
     return null;
   }
