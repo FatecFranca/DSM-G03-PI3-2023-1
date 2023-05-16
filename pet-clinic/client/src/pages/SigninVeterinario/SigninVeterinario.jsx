@@ -7,7 +7,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import useAuth from '../../hooks/useAuth'
 
 import Input from '../../components/Input/Input'
-import Button from '../../components/Button/Button'
+import Button from '../../components/Buttons/Button'
 import DogVeterinario from '../../components/Animacao/DogVeterinario/DogVeterinario'
 
 const SigninVeterinario = () => {

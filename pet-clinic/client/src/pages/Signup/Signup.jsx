@@ -294,69 +294,71 @@ const Signup = () => {
           <label className={style.label1}>Preencha os campos abaixo para se Cadastrar</label>
           <div className={style.formulario}>
             <div className={style.inputPessoa}>
-            <Input
-              name='nome'
-              type="text"
-              placeholder="Nome completo"
-              required
-              value={nome}
-              onChange={(e) => [setNome(e.target.value), setError("")]}
+              <Input
+                name='nome'
+                type="text"
+                placeholder="Nome completo"
+                required
+                value={nome}
+                onChange={(e) => [setNome(e.target.value), setError("")]}
+                onBlur={onBlurHandler}
+              />
+              <div>
+                {inputNomeErr && <p className={style.labelError}>Digite um nome válido</p>}
+              </div>
+              <Input
+                name='cpf'
+                type="text"
+                placeholder="CPF"
+                required
+                value={cpf}
+                onChange={(e) => [setCpf(e.target.value), setError("")]}
               onBlur={onBlurHandler}
-            />
-            <div>
-              {inputNomeErr && <p className={style.labelError}>Digite um nome válido</p>}
+              />
+              <div>
+                {inputCpfErr && <p className={style.labelError}>Digite um CPF válido</p>}
+              </div>
+              <Input
+                name='email'
+                type="email"
+                placeholder="E-mail"
+                required
+                value={email}
+                onChange={(e) => [setEmail(e.target.value), setError("")]}
+                onBlur={onBlurHandler}
+              />
+              <div>
+                {inputEmailErr && <p className={style.labelError}>Digite um e-mail válido</p>}
+              </div>
+              <Input
+                name='password'
+                type="password"
+                placeholder="Senha"
+                required
+                value={password}
+                onChange={(e) => [setPassword(e.target.value), setError("")]}
+                onBlur={onBlurHandler}
+              />
+              <div>
+                {inputPasswordErr && <p className={style.labelError}>Deve ter 6+ caracteres, 1 letra e 1 número</p>}
+              </div>
+              <Input
+                type="password"
+                placeholder="Confirme sua Senha"
+                required
+                value={passwordConf}
+                onChange={(e) => [setPasswordConf(e.target.value), setError("")]}
+                onBlur={onBlurHandler}
+              />
+              <label className={style.labelError}>{error}</label>
+              <Button
+                Text="Cadastrar-se"
+                onClick={handleSignup}
+              />
+              <label className={style.label2}>Já tem uma conta?</label>
+              <Link to='/' className={style.link}>&nbsp;Acesse aqui</Link>
             </div>
-            <Input
-              name='cpf'
-              type="text"
-              placeholder="CPF"
-              required
-              value={cpf}
-              onChange={(e) => [setCpf(e.target.value), setError("")]}
-            onBlur={onBlurHandler}
-            />
-            <div>
-              {inputCpfErr && <p className={style.labelError}>Digite um CPF válido</p>}
-            </div>
-            <Input
-              name='email'
-              type="email"
-              placeholder="E-mail"
-              required
-              value={email}
-              onChange={(e) => [setEmail(e.target.value), setError("")]}
-              onBlur={onBlurHandler}
-            />
-            <div>
-              {inputEmailErr && <p className={style.labelError}>Digite um e-mail válido</p>}
-            </div>
-            <Input
-              name='password'
-              type="password"
-              placeholder="Senha"
-              required
-              value={password}
-              onChange={(e) => [setPassword(e.target.value), setError("")]}
-              onBlur={onBlurHandler}
-            />
-            <div>
-              {inputPasswordErr && <p className={style.labelError}>Deve ter 6+ caracteres, 1 letra e 1 número</p>}
-            </div>
-            <Input
-              type="password"
-              placeholder="Confirme sua Senha"
-              required
-              value={passwordConf}
-              onChange={(e) => [setPasswordConf(e.target.value), setError("")]}
-              onBlur={onBlurHandler}
-            />
-            <label className={style.labelError}>{error}</label>
-            <Button
-              Text="Cadastrar-se"
-              onClick={handleSignup}
-            />
-            <label className={style.label2}>Já tem uma conta?</label>
-            <Link to='/' className={style.link}>&nbsp;Acesse aqui</Link>
+          </div>
         </form>
 
         <div className={style.animacao}>

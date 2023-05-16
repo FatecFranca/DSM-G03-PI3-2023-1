@@ -12,7 +12,7 @@ import { Link, useNavigate } from 'react-router-dom'
 
 //components
 import Input from '../../components/Input/Input'
-import ButtonLogin from '../../components/Buttons/Button'
+import Button from '../../components/Buttons/Button'
 import DogSignup from '../../components/Animacao/DogSignup/DogSignup'
 
 //axios
@@ -88,7 +88,7 @@ const Signin = () => {
             onChange={(e) => [setPassword(e.target.value), setError("")]}
           />
           <label className={style.labelError}>{error}</label>
-          <ButtonLogin
+          <Button
             Text="Entrar"
             onClick={handleSignin}
           />
