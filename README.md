@@ -362,7 +362,6 @@ Endpoint para validar o token de um cliente.
   }
   ```
 
-```
 ## Deletar um Pet
 
 `DELETE /pet/:petId`
@@ -411,4 +410,3 @@ Authorization: Bearer <seu_token_de_autenticação>
 
 - **Código:** 500 Internal Server Error<br>
   **Conteúdo:** `{ "error": "Mensagem de erro" }`
-```
