@@ -69,7 +69,7 @@ export const clienteController = {
       return res.status(400).json({ error: "acesso negado!" });
     }
 
-    const id = validateToken(token);
+    const id = await validateToken(token);
 
     if (id == null) {
       return res.status(400).json({ error: "acesso negado!" });

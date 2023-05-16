@@ -361,3 +361,52 @@ Endpoint para validar o token de um cliente.
     "error": "mensagem de erro"
   }
   ```
+
+## Deletar um Pet
+
+`DELETE /pet/:petId`
+
+Deleta um pet cadastrado pelo cliente autenticado. É necessário enviar o token de autenticação no cabeçalho da requisição.
+
+### Parâmetros da Requisição
+
+- `petId` - **obrigatório**: o ID do pet a ser deletado.
+
+### Cabeçalhos da Requisição
+
+- `Authorization` - **obrigatório**: token de autenticação do usuário.
+
+### Exemplo de Requisição
+
+```
+
+DELETE /pet/60a5b13cb77b1d1884f1d9e5 HTTP/1.1
+Host: localhost:3000
+Authorization: Bearer <seu_token_de_autenticação>
+
+```
+
+### Resposta de Sucesso
+
+**Código:** 200 OK
+
+**Conteúdo:**
+
+```
+
+{
+"msg": "Pet deletado!!"
+}
+
+```
+
+### Respostas de Erro
+
+- **Código:** 400 Bad Request<br>
+  **Conteúdo:** `{ "error": "acesso negado!" }`
+
+- **Código:** 404 Not Found<br>
+  **Conteúdo:** `{ "error": "Pet não encontrado!" }`
+
+- **Código:** 500 Internal Server Error<br>
+  **Conteúdo:** `{ "error": "Mensagem de erro" }`

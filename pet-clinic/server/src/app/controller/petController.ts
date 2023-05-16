@@ -11,7 +11,7 @@ export const petController = {
       return res.status(400).json({ error: "acesso negado!" });
     }
 
-    const id = validateToken(token);
+    const id = await validateToken(token);
 
     if (id == null) {
       return res.status(400).json({ error: "acesso negado!" });
@@ -43,14 +43,17 @@ export const petController = {
       return res.status(400).json({ error: "acesso negado!" });
     }
 
-    const id = validateToken(token);
+    const id = await validateToken(token);
 
     if (id == null) {
       return res.status(400).json({ error: "acesso negado!" });
     }
 
     try {
-      const response = await petModel.find({ cliente_id: id });
+      const response = await petModel.find({
+        cliente_id: id,
+        status: { $ne: false },
+      });
       return res.status(200).json(response);
     } catch (error) {
       return res.status(400).json(error);
@@ -64,7 +67,7 @@ export const petController = {
       return res.status(400).json({ error: "acesso negado!" });
     }
 
-    const id = validateToken(token);
+    const id = await validateToken(token);
 
     if (id == null) {
       return res.status(400).json({ error: "acesso negado!" });
@@ -93,6 +96,7 @@ export const petController = {
         {
           cliente_id: id,
           _id: petId,
+          status: { $ne: false },
         },
         { ...updatePet }
       );
@@ -109,12 +113,23 @@ export const petController = {
       return res.status(400).json({ error: "acesso negado!" });
     }
 
-    const id = validateToken(token);
+    const id = await validateToken(token);
 
     if (id == null) {
       return res.status(400).json({ error: "acesso negado!" });
     }
 
     const petId = req.params.petId;
+
+    try {
+      await petModel.findOneAndUpdate(
+        { _id: petId, cliente_id: id },
+        { status: false }
+      );
+
+      return res.status(200).json({ msg: "Pet deletado!!" });
+    } catch (error) {
+      return res.status(400).json(error);
+    }
   },
 };
