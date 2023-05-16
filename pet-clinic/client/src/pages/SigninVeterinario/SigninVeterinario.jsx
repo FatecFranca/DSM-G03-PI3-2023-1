@@ -19,7 +19,9 @@ const SigninVeterinario = () => {
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
 
-  const handleLogin = () => {
+  const handleLogin = (e) => {
+    e.preventDefault()
+
     if (!email | !password) {
       setError("Preencha todos os campos")
       return
