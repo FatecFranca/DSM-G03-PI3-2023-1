@@ -1,38 +1,67 @@
+//CSS
 import style from './styleSignin.module.css'
 
-import { useState } from "react"
+//hooks
+import { useState, useEffect } from "react"
 
+//router
 import { Link, useNavigate } from 'react-router-dom'
 
-import useAuth from '../../hooks/useAuth'
+//contexts
+// import useAuth from '../../hooks/useAuth'
 
+//components
 import Input from '../../components/Input/Input'
 import Button from '../../components/Button/Button'
 import DogSignup from '../../components/Animacao/DogSignup/DogSignup'
 
-const Signin = () => {
+//axios
+import http from '../../db/http'
 
-  const { signin } = useAuth()
-  const navigate = useNavigate()
+
+const Signin = () => {
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
 
-  const handleLogin = () => {
+  //const { signin } = useAuth()
+  const navigate = useNavigate()
+
+  //API
+  const signinSubmit = async () => {
+
+    await http({
+      method: 'post',
+      url: 'cliente/login',
+      data:{
+        email,
+        password
+      }
+    })
+
+    .then((response) => {
+      console.log(response)
+      navigate('/cliente')
+
+      localStorage.setItem("token_API", JSON.stringify(response.data.token))
+    })
+
+    .catch((error) => {
+      console.log(error)
+    })
+    
+  }
+
+  const handleSignin = (e) => {
+    e.preventDefault()
+
     if (!email | !password) {
       setError("Preencha todos os campos")
       return
+    } else {
+      signinSubmit()
     }
-
-    const res = signin(email, password)
-
-    if (res) {
-      setError(res)
-      return
-    }
-
-    navigate("/cliente")
   }
 
   return (
@@ -40,7 +69,7 @@ const Signin = () => {
       <div className={style.animacao}>
         <DogSignup />
       </div>
-      <div className={style.login}>
+      <form className={style.login} onSubmit={handleSignin}>
         <div className={style.cabecalho}>
           <label className={style.labelTitulo}>PetClinic,</label>
           <label className={style.labelText}>Seja Bem-Vindo</label>
@@ -61,12 +90,12 @@ const Signin = () => {
           <label className={style.labelError}>{error}</label>
           <Button
             Text="Entrar"
-            onClick={handleLogin}
+            onClick={handleSignin}
           />
           <label className={style.label}>Não tem conta?</label>
           <Link to='/signup' className={style.link}>&nbsp;Cadastre-se</Link>
         </div>
-      </div>
+      </form>
     </div>
   )
 }
