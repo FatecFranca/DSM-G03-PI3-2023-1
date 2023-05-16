@@ -4,10 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom"
 import Signin from '../src/pages/Signin/Signin'
 import Signup from '../src/pages/Signup/Signup'
 import Cliente from '../src/pages/Cliente/Cliente'
-<<<<<<< HEAD
-=======
 import SigninVeterinario from '../src/pages/SigninVeterinario/SigninVeterinario'
->>>>>>> origin/higorBraga
 
 const Private = ({Item}) => {
   return localStorage.getItem('token_API') ? Item : <Signin />
