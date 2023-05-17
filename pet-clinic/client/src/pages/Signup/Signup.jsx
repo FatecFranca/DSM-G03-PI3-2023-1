@@ -19,7 +19,7 @@ import { validateText, validateEmail, validatePassword, validateCpf, validateCep
 
 //components
 import Input from '../../components/Input/Input'
-import ButtonLogin from '../../components/Buttons/Button'
+import Button from '../../components/Buttons/Button'
 import DogSignin from '../../components/Animacao/DogSignin/DogSignin'
 
 // axios
@@ -294,71 +294,146 @@ const Signup = () => {
           <label className={style.label1}>Preencha os campos abaixo para se Cadastrar</label>
           <div className={style.formulario}>
             <div className={style.inputPessoa}>
-              <Input
-                name='nome'
-                type="text"
-                placeholder="Nome completo"
-                required
-                value={nome}
-                onChange={(e) => [setNome(e.target.value), setError("")]}
-                onBlur={onBlurHandler}
-              />
-              <div>
-                {inputNomeErr && <p className={style.labelError}>Digite um nome válido</p>}
-              </div>
-              <Input
-                name='cpf'
-                type="text"
-                placeholder="CPF"
-                required
-                value={cpf}
-                onChange={(e) => [setCpf(e.target.value), setError("")]}
+            <Input
+              name='nome'
+              type="text"
+              placeholder="Nome completo"
+              required
+              value={nome}
+              onChange={(e) => [setNome(e.target.value), setError("")]}
               onBlur={onBlurHandler}
-              />
-              <div>
-                {inputCpfErr && <p className={style.labelError}>Digite um CPF válido</p>}
-              </div>
-              <Input
-                name='email'
-                type="email"
-                placeholder="E-mail"
-                required
-                value={email}
-                onChange={(e) => [setEmail(e.target.value), setError("")]}
-                onBlur={onBlurHandler}
-              />
-              <div>
-                {inputEmailErr && <p className={style.labelError}>Digite um e-mail válido</p>}
-              </div>
-              <Input
-                name='password'
-                type="password"
-                placeholder="Senha"
-                required
-                value={password}
-                onChange={(e) => [setPassword(e.target.value), setError("")]}
-                onBlur={onBlurHandler}
-              />
-              <div>
-                {inputPasswordErr && <p className={style.labelError}>Deve ter 6+ caracteres, 1 letra e 1 número</p>}
-              </div>
-              <Input
-                type="password"
-                placeholder="Confirme sua Senha"
-                required
-                value={passwordConf}
-                onChange={(e) => [setPasswordConf(e.target.value), setError("")]}
-                onBlur={onBlurHandler}
-              />
-              <label className={style.labelError}>{error}</label>
-              <Button
-                Text="Cadastrar-se"
-                onClick={handleSignup}
-              />
-              <label className={style.label2}>Já tem uma conta?</label>
-              <Link to='/' className={style.link}>&nbsp;Acesse aqui</Link>
+            />
+            <div>
+              {inputNomeErr && <p className={style.labelError}>Digite um nome válido</p>}
+            </div>
+            <Input
+              name='cpf'
+              type="text"
+              placeholder="CPF"
+              required
+              value={cpf}
+              onChange={(e) => [setCpf(e.target.value), setError("")]}
+            onBlur={onBlurHandler}
+            />
+            <div>
+              {inputCpfErr && <p className={style.labelError}>Digite um CPF válido</p>}
+            </div>
+            <Input
+              name='email'
+              type="email"
+              placeholder="E-mail"
+              required
+              value={email}
+              onChange={(e) => [setEmail(e.target.value), setError("")]}
+              onBlur={onBlurHandler}
+            />
+            <div>
+              {inputEmailErr && <p className={style.labelError}>Digite um e-mail válido</p>}
+            </div>
+            <Input
+              name='password'
+              type="password"
+              placeholder="Senha"
+              required
+              value={password}
+              onChange={(e) => [setPassword(e.target.value), setError("")]}
+              onBlur={onBlurHandler}
+            />
+            <div>
+              {inputPasswordErr && <p className={style.labelError}>Deve ter 6+ caracteres, 1 letra e 1 número</p>}
+            </div>
+            <Input
+              type="password"
+              placeholder="Confirme sua Senha"
+              required
+              value={passwordConf}
+              onChange={(e) => [setPasswordConf(e.target.value), setError("")]}
+              onBlur={onBlurHandler}
+            />
+            </div>
+
+            <div className={style.inputEndereco}>
+            <Input
+              name='cep'
+              type="text"
+              placeholder="CEP"
+              required
+              value={cep}
+              onChange={(e) => [setCep(e.target.value), setError("")]}
+              onBlur={onBlurHandler}
+            />
+            <div>
+              {inputCepErr && <p className={style.labelError}>Digite um CEP válido</p>}
+            </div>
+            <Input
+              name='rua'
+              type="text"
+              placeholder="Rua"
+              required
+              value={rua}
+              onChange={(e) => [setRua(e.target.value), setError("")]}
+              onBlur={onBlurHandler}
+            />
+            <div>
+              {inputRuaErr && <p className={style.labelError}>Não pode conte numeros</p>}
+            </div>
+            <Input
+              name='numero'
+              type="text"
+              placeholder="Numero"
+              required
+              value={numero}
+              onChange={(e) => [setNumero(e.target.value), setError("")]}
+              onBlur={onBlurHandler}
+            />
+            <div>
+              {inputNumeroErr && <p className={style.labelError}>Somente numeros, no máximo até 6 digitos</p>}
+            </div>
+            <Input
+              name='bairro'
+              type="text"
+              placeholder="Bairro"
+              required
+              value={bairro}
+              onChange={(e) => [setBairro(e.target.value), setError("")]}
+              onBlur={onBlurHandler}
+            />
+            <div>
+              {inputBairroErr && <p className={style.labelError}>Não pode conter numeros e características especiais</p>}
+            </div>
+            <Input
+              name='cidade'
+              type="text"
+              placeholder="Cidade"
+              required
+              value={cidade}
+              onChange={(e) => [setCidade(e.target.value), setError("")]}
+              onBlur={onBlurHandler}
+            />
+            <div>
+              {inputCidadeErr && <p className={style.labelError}>Não pode conter numeros</p>}
+            </div>
+            <Input
+              name='estado'
+              type="text"
+              placeholder="Estado"
+              required
+              value={estado}
+              onChange={(e) => [setEstado(e.target.value), setError("")]}
+              onBlur={onBlurHandler}
+            />
+            <div>
+              {inputEstadoErr && <p className={style.labelError}>Não pode conter numeros</p>}
+            </div>
             </div>
           </div>
+          <label className={style.labelError}>{error}</label> 
+           <Button
+              Text="Cadastrar-se"
+              onClick={handleSignup}
+            />
+            <label className={style.label2}>Já tem uma conta?</label>
+            <Link to='/' className={style.link}>&nbsp;Acesse aqui</Link>
         </form>
 
         <div className={style.animacao}>

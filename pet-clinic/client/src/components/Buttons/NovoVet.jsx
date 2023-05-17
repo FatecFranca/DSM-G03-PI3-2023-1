@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ButtonNew, Popup, Title, Form, Label, Input, Button } from './buttons.styled';
 
 //utils
-import { validateNome, validateEmail, validatePassword, validateCpf } from '../../Utils/regex'
+import { validateEmail, validatePassword, validateCpf } from '../../Utils/regex'
 
 const NovoVet = () => {
   const [open, setOpen] = useState(false);
