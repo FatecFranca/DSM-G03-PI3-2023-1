@@ -18,6 +18,10 @@ export const petSchema = new Schema(
       type: String,
       required: true,
     },
+    peso: {
+      type: Number,
+      required: false,
+    },
     cliente_id: {
       type: String,
       required: true,
