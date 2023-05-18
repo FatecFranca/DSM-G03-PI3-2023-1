@@ -7,7 +7,7 @@ import MenuItem from '@mui/material/MenuItem';
 
 export default function BasicMenu() {
 
-    const { signout } = useAuth()
+    const { logout } = useAuth()
     const navigate = useNavigate()
 
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -42,7 +42,7 @@ export default function BasicMenu() {
       >
         <MenuItem onClick={handleClose}>Profile</MenuItem>
         <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={() => [signout(). navigate('/')]}>Logout</MenuItem>
+        <MenuItem onClick={() => [logout(), navigate('/')]}>Logout</MenuItem>
       </Menu>
     </div>
   );

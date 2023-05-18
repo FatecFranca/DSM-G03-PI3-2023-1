@@ -31,7 +31,10 @@ import DogSignin from "../../components/Animacao/DogSignin/DogSignin";
 
 // axios
 import http from "../../db/http";
+
+=======
 import axios from "axios";
+
 
 const Signup = () => {
   //STATE DE VALUE CLIENTE
@@ -208,6 +211,7 @@ const Signup = () => {
 
   //API
   const registerSubmit = async () => {
+
     try {
       const response = await http.post("/cliente", {
         nome,
@@ -217,7 +221,13 @@ const Signup = () => {
         endereco: { cep, rua, numero, bairro, cidade, estado },
       });
 
+
+      navigate('/')
       console.log(response);
+
+
+      console.log(response);
+
     } catch (err) {
       console.log(err);
     }
@@ -249,31 +259,31 @@ const Signup = () => {
       return setError("As senhas precisam ser iguais");
     }
 
-    // if (
-    //   nome &&
-    //   cpf &&
-    //   email &&
-    //   password &&
-    //   passwordConf &&
-    //   inputNomeErr &&
-    //   inputCpfErr &&
-    //   inputEmailErr &&
-    //   inputPasswordErr &&
-    //   cep &&
-    //   rua &&
-    //   numero &&
-    //   bairro &&
-    //   cidade &&
-    //   estado &&
-    //   inputCepErr &&
-    //   inputRuaErr &&
-    //   inputNumeroErr &&
-    //   inputBairroErr &&
-    //   inputCidadeErr &&
-    //   inputEstadoErr
-    // ) {
+    if (
+      nome &&
+      cpf &&
+      email &&
+      password &&
+      passwordConf &&
+      inputNomeErr &&
+      inputCpfErr &&
+      inputEmailErr &&
+      inputPasswordErr &&
+      cep &&
+      rua &&
+      numero &&
+      bairro &&
+      cidade &&
+      estado &&
+      inputCepErr &&
+      inputRuaErr &&
+      inputNumeroErr &&
+      inputBairroErr &&
+      inputCidadeErr &&
+      inputEstadoErr
+    ) {
 
-    // }
+    }
 
     //SE TUDO ESTIVER OK ELE CADASTRA O USUÁRIO
     if (registerSubmit()) {
