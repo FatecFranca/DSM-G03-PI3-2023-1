@@ -4,7 +4,7 @@ import petRouter from "./pet";
 
 const router = Router();
 
-router.use("/", clienteRouter);
-router.use("/", petRouter);
+router.use("/api", clienteRouter);
+router.use("/api", petRouter);
 
 export default router;
