@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "react-scripts start"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
@@ -15,6 +16,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.10.0",
+    "react-scripts": "^5.0.1",
     "react-toastify": "^9.1.2",
     "styled-components": "^5.3.10"
   },
@@ -23,5 +25,17 @@
     "@types/react-dom": "^18.0.11",
     "@vitejs/plugin-react": "^3.1.0",
     "vite": "^4.2.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

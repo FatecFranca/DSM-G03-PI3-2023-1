@@ -6,7 +6,7 @@ import { Header, Logo, ImgLogo, NomeLogo, NomeApp, FraseApp, Avatar, ImgAvatar, 
 export default function Cabecalho(props) {
 
   return (
-    <Header>
+    <Header backgroundColor="#008080">
         <Logo>
             <ImgLogo src="../src/assets/logoPet.png" alt="Minha Figura"/>
             <NomeLogo>
