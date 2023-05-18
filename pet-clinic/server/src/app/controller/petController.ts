@@ -24,6 +24,7 @@ export const petController = {
         especie: req.body.especie,
         raca: req.body.raca,
         cliente_id: id,
+        peso: req.body.peso || null,
       };
 
       const response = await petModel.create(pet);
