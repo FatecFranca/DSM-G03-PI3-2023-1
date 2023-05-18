@@ -32,10 +32,6 @@ import DogSignin from "../../components/Animacao/DogSignin/DogSignin";
 // axios
 import http from "../../db/http";
 
-=======
-import axios from "axios";
-
-
 const Signup = () => {
   //STATE DE VALUE CLIENTE
   const [nome, setNome] = useState("");
