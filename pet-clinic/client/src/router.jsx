@@ -7,9 +7,9 @@ import Cliente from '../src/pages/Cliente/Cliente'
 import Admin from '../src/pages/Admin/Admin'
 import SigninVeterinario from '../src/pages/SigninVeterinario/SigninVeterinario'
 
-const Private = ({Item}) => {
-  return localStorage.getItem('token_API') ? Item : <Signin />
-}
+// const Private = ({Item}) => {
+//   return localStorage.getItem('token_API') ? Item : <Signin />
+// }
 
 const RoutesApp = () => {
   return (

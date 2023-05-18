@@ -30,26 +30,39 @@ const Signin = () => {
 
   //API
   const signinSubmit = async () => {
-
-    await http({
-      method: 'post',
-      url: 'cliente/login',
-      data:{
+   
+    try {
+      const response = await http.post("/cliente/login", {
         email,
-        password
-      }
-    })
+        senha: password
+      })
 
-    .then((response) => {
-      console.log(response)
       navigate('/cliente')
-
       localStorage.setItem("token_API", JSON.stringify(response.data.token))
-    })
 
-    .catch((error) => {
-      console.log(error)
-    })
+    } catch (err){
+      console.log(err)
+    }
+
+    // await http({
+    //   method: 'post',
+    //   url: '/cliente/login',
+    //   data:{
+    //     email,
+    //     senha: password
+    //   }
+    // })
+
+    // .then((response) => {
+    //   console.log(response)
+    //   navigate('/cliente')
+
+    //   localStorage.setItem("token_API", JSON.stringify(response.data.token))
+    // })
+
+    // .catch((error) => {
+    //   console.log(error)
+    // })
     
   }
 

@@ -10,6 +10,6 @@ router
 
 router
   .route("/cliente/login")
-  .get((req, res) => clienteController.login(req, res));
+  .post((req, res) => clienteController.login(req, res));
 
 export default router;
