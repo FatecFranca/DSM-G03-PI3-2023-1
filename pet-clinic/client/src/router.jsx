@@ -18,6 +18,7 @@ const RoutesApp = () => {
                 <Route exact path="/cliente" element={<Cliente />} />
                 {/* <Route exact path="/cliente" element={Private(<Cliente />)} /> */}
                 <Route path="/" element={<Signin />} />
+                <Route path="/veterinario" element={<SigninVeterinario />} />
                 <Route exact path="/signup" element={<Signup />} />
                 <Route path="/portalvet" element={<SigninVeterinario />} />
                 <Route path="*" element={<Signin />} />
