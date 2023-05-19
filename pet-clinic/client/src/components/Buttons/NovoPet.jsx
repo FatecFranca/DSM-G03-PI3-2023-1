@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { ButtonNew, Popup, Title, Form, Label, Input, Select, Option, Button } from './buttons.styled';
+import { toast } from 'react-toastify';
+import http from '../../db/http';
 
 const NovoPet = () => {
   const [open, setOpen] = useState(false);
@@ -8,6 +10,7 @@ const NovoPet = () => {
   const [raca, setRaca] = useState('');
   const [idade, setIdade] = useState('');
   const [sexo, setSexo] = useState('');
+  const [peso, setPeso] = useState('');
 
   const handleClick = () => {
     setOpen(true);
@@ -24,15 +27,37 @@ const NovoPet = () => {
       raca: raca,
       idade: idade,
       sexo: sexo,
+      peso: peso,
     };
 
-  try {
-    const response = await axios.post('/pets', novoPet);
-    console.log(response.data);
-    // Faça o que precisar com a resposta da API
-  } catch (error) {
-    console.error(error);
-  }
+    try {
+      const token = localStorage.getItem('token_API');
+  
+      if (token) {
+        const response = await http.post('/pet', novoPet, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+  
+        console.log(response.data);
+        handleClose();
+        toast.success('Pet adicionado com sucesso!');
+
+        // Recarregar a página após um pequeno atraso
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000); // Tempo em milissegundos antes de recarregar a página
+    
+      } else {
+        // Lógica para lidar com a ausência do token
+        toast.warn("Acesso negado!");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Houve um erro e o pet nao foi adicionado!");
+      // Lógica para lidar com o erro da requisição
+    }
 };
 
   return (
@@ -62,6 +87,8 @@ const NovoPet = () => {
               <Option value="Macho">Macho</Option>
               <Option value="Fêmea">Fêmea</Option>
             </Select>
+            <Label htmlFor="peso">Peso (kg)</Label>
+            <Input type="text" id="pseo" value={peso} onChange={(e) => setPeso(e.target.value)} />
           </Form>
           <Button onClick={handleSubmit}>Adicionar</Button>
           <Button onClick={handleClose}>Cancelar</Button>

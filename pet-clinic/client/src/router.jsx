@@ -16,7 +16,8 @@ const RoutesApp = () => {
     <BrowserRouter>
         <Fragment>
             <Routes>
-                <Route exact path="/cliente" element={<Private Item={Cliente} />} />
+                {/* <Route exact path="/cliente" element={<Private Item={Cliente} />} /> */}
+                <Route exact path="/cliente" element={<Cliente />} />
                 <Route exact path="/admin" element={<Admin />} />
                 <Route path="/" element={<Signin />} />
                 <Route path="/veterinario" element={<SigninVeterinario />} />
