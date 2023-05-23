@@ -33,15 +33,19 @@ const Signin = () => {
     try {
       const response = await http.post("/cliente/login", {
         email,
-        senha: password
-      })
-      
+        password
+      }
+    })
+
+    .then((response) => {
+      console.log(response)
       navigate('/cliente')
       localStorage.setItem("token_API", JSON.stringify(response.data.token))
+    })
 
-    } catch (err){
-      console.log(err)
-    }
+    .catch((error) => {
+      console.log(error)
+    })
     
   }
 
