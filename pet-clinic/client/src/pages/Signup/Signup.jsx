@@ -250,31 +250,30 @@ const Signup = () => {
       return setError("As senhas precisam ser iguais");
     }
 
-    // if (
-    //   nome &&
-    //   cpf &&
-    //   email &&
-    //   password &&
-    //   passwordConf &&
-    //   inputNomeErr &&
-    //   inputCpfErr &&
-    //   inputEmailErr &&
-    //   inputPasswordErr &&
-    //   cep &&
-    //   rua &&
-    //   numero &&
-    //   bairro &&
-    //   cidade &&
-    //   estado &&
-    //   inputCepErr &&
-    //   inputRuaErr &&
-    //   inputNumeroErr &&
-    //   inputBairroErr &&
-    //   inputCidadeErr &&
-    //   inputEstadoErr
-    // ) {
 
-    }
+    if (
+      nome &&
+      cpf &&
+      email &&
+      password &&
+      passwordConf &&
+      inputNomeErr &&
+      inputCpfErr &&
+      inputEmailErr &&
+      inputPasswordErr &&
+      cep &&
+      rua &&
+      numero &&
+      bairro &&
+      cidade &&
+      estado &&
+      inputCepErr &&
+      // inputRuaErr &&
+      inputNumeroErr &&
+      // inputBairroErr &&
+      inputCidadeErr &&
+      inputEstadoErr
+    ) {}
 
     //SE TUDO ESTIVER OK ELE CADASTRA O USUÁRIO
     if (registerSubmit()) {
