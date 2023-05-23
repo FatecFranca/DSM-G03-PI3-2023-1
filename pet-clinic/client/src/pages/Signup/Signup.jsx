@@ -250,6 +250,7 @@ const Signup = () => {
       return setError("As senhas precisam ser iguais");
     }
 
+
     if (
       nome &&
       cpf &&
@@ -272,9 +273,7 @@ const Signup = () => {
       // inputBairroErr &&
       inputCidadeErr &&
       inputEstadoErr
-    ) {
-
-    }
+    ) {}
 
     //SE TUDO ESTIVER OK ELE CADASTRA O USUÁRIO
     if (registerSubmit()) {

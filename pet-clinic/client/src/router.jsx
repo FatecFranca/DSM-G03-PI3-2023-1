@@ -26,6 +26,7 @@ const RoutesApp = () => {
 
                 <Route path="/cliente" element={<PrivateRouteCliente redirectTo='/'> <Cliente /> </PrivateRouteCliente>}/>
 
+
                 <Route path="/" element={<Signin />} />
                 <Route path="/portalvet" element={<SigninVeterinario />} />
 
