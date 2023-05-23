@@ -11,9 +11,6 @@ import { useState, useEffect } from "react";
 //router
 import { Link, useNavigate } from "react-router-dom";
 
-//context
-// import useAuth from '../../hooks/useAuth'
-
 //utils
 import {
   validateText,
@@ -31,7 +28,6 @@ import DogSignin from "../../components/Animacao/DogSignin/DogSignin";
 
 // axios
 import http from "../../db/http";
-import axios from "axios";
 
 const Signup = () => {
   //STATE DE VALUE CLIENTE
@@ -58,15 +54,13 @@ const Signup = () => {
 
   //STATE DE ERROR ENDERECO
   const [inputCepErr, setInputCepErr] = useState(false);
-  const [inputRuaErr, setInputRuaErr] = useState(false);
+  // const [inputRuaErr, setInputRuaErr] = useState(false);
   const [inputNumeroErr, setInputNumeroErr] = useState(false);
-  const [inputBairroErr, setInputBairroErr] = useState(false);
+  // const [inputBairroErr, setInputBairroErr] = useState(false);
   const [inputCidadeErr, setInputCidadeErr] = useState(false);
   const [inputEstadoErr, setInputEstadoErr] = useState(false);
 
   const navigate = useNavigate();
-
-  // const { signup } = useAuth()
 
   //VALIDAÇÃO FORA DO INPUT
   const onBlurHandler = (e) => {
@@ -108,12 +102,12 @@ const Signup = () => {
           return setInputCepErr(false);
         }
 
-      case "rua":
-        if (!validateText.test(rua) && rua.trim() !== "") {
-          return setInputRuaErr(true);
-        } else {
-          return setInputRuaErr(false);
-        }
+      // case "rua":
+      //   if (!validateText.test(rua) && rua.trim() !== "") {
+      //     return setInputRuaErr(true);
+      //   } else {
+      //     return setInputRuaErr(false);
+      //   }
 
       case "numero":
         if (!validateNumero.test(numero) && numero.trim() !== "") {
@@ -122,12 +116,12 @@ const Signup = () => {
           return setInputNumeroErr(false);
         }
 
-      case "bairro":
-        if (!validateText.test(bairro) && bairro.trim() !== "") {
-          return setInputBairroErr(true);
-        } else {
-          return setInputBairroErr(false);
-        }
+      // case "bairro":
+      //   if (!validateText.test(bairro) && bairro.trim() !== "") {
+      //     return setInputBairroErr(true);
+      //   } else {
+      //     return setInputBairroErr(false);
+      //   }
 
       case "cidade":
         if (!validateText.test(cidade) && cidade.trim() !== "") {
@@ -175,11 +169,11 @@ const Signup = () => {
       setInputCepErr(false);
     }
 
-    if (!validateText.test(rua) && rua.trim() !== "") {
-      return setInputRuaErr(true);
-    } else {
-      setInputRuaErr(false);
-    }
+    // if (!validateText.test(rua) && rua.trim() !== "") {
+    //   return setInputRuaErr(true);
+    // } else {
+    //   setInputRuaErr(false);
+    // }
 
     if (!validateNumero.test(numero) && numero.trim() !== "") {
       return setInputNumeroErr(true);
@@ -187,11 +181,11 @@ const Signup = () => {
       setInputNumeroErr(false);
     }
 
-    if (!validateText.test(bairro) && bairro.trim() !== "") {
-      return setInputBairroErr(true);
-    } else {
-      setInputBairroErr(false);
-    }
+    // if (!validateText.test(bairro) && bairro.trim() !== "") {
+    //   return setInputBairroErr(true);
+    // } else {
+    //   setInputBairroErr(false);
+    // }
 
     if (!validateText.test(cidade) && cidade.trim() !== "") {
       return setInputCidadeErr(true);
@@ -204,10 +198,11 @@ const Signup = () => {
     } else {
       setInputEstadoErr(false);
     }
-  }, [nome, cpf, email, password, cep, rua, numero, bairro, cidade, estado]);
+  }, [nome, cpf, email, password, cep, numero, cidade, estado]);
 
   //API
   const registerSubmit = async () => {
+
     try {
       const response = await http.post("/cliente", {
         nome,
@@ -217,7 +212,13 @@ const Signup = () => {
         endereco: { cep, rua, numero, bairro, cidade, estado },
       });
 
+
+      navigate('/')
       console.log(response);
+
+
+      console.log(response);
+
     } catch (err) {
       console.log(err);
     }
@@ -249,31 +250,31 @@ const Signup = () => {
       return setError("As senhas precisam ser iguais");
     }
 
-    // if (
-    //   nome &&
-    //   cpf &&
-    //   email &&
-    //   password &&
-    //   passwordConf &&
-    //   inputNomeErr &&
-    //   inputCpfErr &&
-    //   inputEmailErr &&
-    //   inputPasswordErr &&
-    //   cep &&
-    //   rua &&
-    //   numero &&
-    //   bairro &&
-    //   cidade &&
-    //   estado &&
-    //   inputCepErr &&
-    //   inputRuaErr &&
-    //   inputNumeroErr &&
-    //   inputBairroErr &&
-    //   inputCidadeErr &&
-    //   inputEstadoErr
-    // ) {
+    if (
+      nome &&
+      cpf &&
+      email &&
+      password &&
+      passwordConf &&
+      inputNomeErr &&
+      inputCpfErr &&
+      inputEmailErr &&
+      inputPasswordErr &&
+      cep &&
+      rua &&
+      numero &&
+      bairro &&
+      cidade &&
+      estado &&
+      inputCepErr &&
+      // inputRuaErr &&
+      inputNumeroErr &&
+      // inputBairroErr &&
+      inputCidadeErr &&
+      inputEstadoErr
+    ) {
 
-    // }
+    }
 
     //SE TUDO ESTIVER OK ELE CADASTRA O USUÁRIO
     if (registerSubmit()) {
@@ -387,9 +388,9 @@ const Signup = () => {
                 onBlur={onBlurHandler}
               />
               <div>
-                {inputRuaErr && (
+                {/* {inputRuaErr && (
                   <p className={style.labelError}>Não pode conte numeros</p>
-                )}
+                )} */}
               </div>
               <Input
                 name="numero"
@@ -417,11 +418,11 @@ const Signup = () => {
                 onBlur={onBlurHandler}
               />
               <div>
-                {inputBairroErr && (
+                {/* {inputBairroErr && (
                   <p className={style.labelError}>
                     Não pode conter numeros e características especiais
                   </p>
-                )}
+                )} */}
               </div>
               <Input
                 name="cidade"
