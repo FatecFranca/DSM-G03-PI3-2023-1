@@ -7,9 +7,6 @@ import { useState, useEffect } from "react"
 //router
 import { Link, useNavigate } from 'react-router-dom'
 
-//contexts
-// import useAuth from '../../hooks/useAuth'
-
 //components
 import Input from '../../components/Input/Input'
 import Button from '../../components/Button/Button'
@@ -25,8 +22,10 @@ const Signin = () => {
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
 
-  //const { signin } = useAuth()
+  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate()
+
 
   //API
   const signinSubmit = async () => {
@@ -34,35 +33,30 @@ const Signin = () => {
     try {
       const response = await http.post("/cliente/login", {
         email,
+
         senha: password
       })
+      
+
+        password
+      }
+    })
+
+    .then((response) => {
+      console.log(response)
 
       navigate('/cliente')
       localStorage.setItem("token_API", JSON.stringify(response.data.token))
+    })
 
     } catch (err){
       console.log(err)
     }
 
-    // await http({
-    //   method: 'post',
-    //   url: '/cliente/login',
-    //   data:{
-    //     email,
-    //     senha: password
-    //   }
-    // })
+    .catch((error) => {
+      console.log(error)
+    })
 
-    // .then((response) => {
-    //   console.log(response)
-    //   navigate('/cliente')
-
-    //   localStorage.setItem("token_API", JSON.stringify(response.data.token))
-    // })
-
-    // .catch((error) => {
-    //   console.log(error)
-    // })
     
   }
 
@@ -76,6 +70,12 @@ const Signin = () => {
       signinSubmit()
     }
   }
+
+  useEffect(() => {
+    if (!loading && localStorage.getItem('token_API') !== null) {
+      navigate("/cliente");
+    }
+  }, [loading, navigate]);
 
   return (
     <div className={style.pageLogin}>

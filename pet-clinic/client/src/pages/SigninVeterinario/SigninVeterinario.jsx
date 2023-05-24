@@ -44,7 +44,6 @@ const SigninVeterinario = () => {
       </div>
       <div className={style.login}>
         <div className={style.cabecalho}>
-          {/* <label className={style.labelTitulo}>PetClinic,</label> */}
           <label className={style.labelText}>Seja Bem-Vindo,</label>
           <label className={style.labelTitulo}>Doutor</label>
         </div>
@@ -66,8 +65,6 @@ const SigninVeterinario = () => {
             Text="Entrar"
             onClick={handleLogin}
           />
-          {/* <label className={style.label}>Não tem conta?</label>
-          <Link to='/signup' className={style.link}>&nbsp;Cadastre-se</Link> */}
         </div>
       </div>
     </div>

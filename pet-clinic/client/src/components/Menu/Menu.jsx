@@ -5,6 +5,10 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
+import { Img } from './menu.styled';
+
+import user64px from '../../assets/user64px.png';
+
 export default function BasicMenu() {
 
     const { logout } = useAuth()
@@ -21,16 +25,18 @@ export default function BasicMenu() {
 
   return (
     <div>
-      <Button
-        id="basic-button"
-        aria-controls={open ? 'basic-menu' : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
-        onClick={handleClick}
-        sx={{ width: 40, height: 60 }}
-      >       
-        <img src="../src/assets/user64px.png"></img>
-      </Button>
+      <Img>   
+        <Button
+          id="basic-button"
+          aria-controls={open ? 'basic-menu' : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? 'true' : undefined}
+          onClick={handleClick}
+          sx={{ width: 40, height: 60 }}
+        > 
+          <img src={user64px}></img>
+        </Button>
+      </Img>
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}
