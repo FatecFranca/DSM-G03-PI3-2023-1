@@ -1,78 +1,57 @@
 //CSS
-import style from './styleSignin.module.css'
+import style from "./styleSignin.module.css";
 
 //hooks
-import { useState, useEffect } from "react"
+import { useState, useEffect } from "react";
 
 //router
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from "react-router-dom";
 
 //components
-import Input from '../../components/Input/Input'
-import Button from '../../components/Button/Button'
-import DogSignup from '../../components/Animacao/DogSignup/DogSignup'
+import Input from "../../components/Input/Input";
+import Button from "../../components/Button/Button";
+import DogSignup from "../../components/Animacao/DogSignup/DogSignup";
 
 //axios
-import http from '../../db/http'
-
+import http from "../../db/http";
 
 const Signin = () => {
-
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [error, setError] = useState("")
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const [loading, setLoading] = useState(false);
 
-  const navigate = useNavigate()
-
+  const navigate = useNavigate();
 
   //API
   const signinSubmit = async () => {
-   
     try {
       const response = await http.post("/cliente/login", {
         email,
+        senha: password,
+      });
 
-        senha: password
-      })
-      
-
-        password
-      }
-    })
-
-    .then((response) => {
-      console.log(response)
-
-      navigate('/cliente')
-      localStorage.setItem("token_API", JSON.stringify(response.data.token))
-    })
-
-    } catch (err){
-      console.log(err)
+      navigate("/cliente");
+      localStorage.setItem("token_API", JSON.stringify(response.data.token));
+    } catch (err) {
+      console.log(err);
     }
-
-    .catch((error) => {
-      console.log(error)
-    })
-
-    
-  }
+  };
 
   const handleSignin = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     if (!email | !password) {
-      setError("Preencha todos os campos")
-      return
+      setError("Preencha todos os campos");
+      return;
     } else {
-      signinSubmit()
+      signinSubmit();
     }
-  }
+  };
 
   useEffect(() => {
-    if (!loading && localStorage.getItem('token_API') !== null) {
+    if (!loading && localStorage.getItem("token_API") !== null) {
       navigate("/cliente");
     }
   }, [loading, navigate]);
@@ -101,16 +80,15 @@ const Signin = () => {
             onChange={(e) => [setPassword(e.target.value), setError("")]}
           />
           <label className={style.labelError}>{error}</label>
-          <Button
-            Text="Entrar"
-            onClick={handleSignin}
-          />
+          <Button Text="Entrar" onClick={handleSignin} />
           <label className={style.label}>Não tem conta?</label>
-          <Link to='/signup' className={style.link}>&nbsp;Cadastre-se</Link>
+          <Link to="/signup" className={style.link}>
+            &nbsp;Cadastre-se
+          </Link>
         </div>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default Signin
+export default Signin;
