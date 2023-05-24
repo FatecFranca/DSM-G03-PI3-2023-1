@@ -410,3 +410,79 @@ Authorization: Bearer <seu_token_de_autenticação>
 
 - **Código:** 500 Internal Server Error<br>
   **Conteúdo:** `{ "error": "Mensagem de erro" }`
+  
+  ## VETERINÁRIO
+
+### Cadastrar
+
+**URL:** `/vet`
+
+**Método HTTP:** `POST`
+
+**Parâmetros de Requisição:**
+
+| Parâmetro | Tipo     | 
+| --------- | -------- | 
+| `nome`    | `string` | 
+| `cpf`     | `string` |
+| `crmv`    | `string` | 
+| `email`   | `string` | 
+| `senha`   | `string` | 
+| `celular` | `string` | 
+
+**Corpo da Requisição:**
+
+```json
+{
+  "nome": "jorge",
+  "email": "teste234@teste.com",
+  "senha": "12sssss3",
+  "cpf": "059.834.030-01",
+  "celular": "12345678912",
+	"crmv": "1234B"
+}
+```
+
+**Respostas:**
+
+- **Status:** 200 OK
+
+  **Corpo:**
+
+  ```json
+  {
+    "response": {
+      "_id": "6156f1a6ebf08e2029ac6f61",
+       "nome": "jorge",
+       "email": "teste234@teste.com",
+       "senha": "12sssss3",
+       "cpf": "059.834.030-01",
+       "celular": "12345678912",
+	     "crmv": "1234B"
+      "createdAt": "2021-10-01T16:19:02.236Z",
+      "updatedAt": "2021-10-01T16:19:02.236Z",
+      "__v": 0
+    },
+    "msg": "Veterinario Cadastrado com Sucesso"
+  }
+  ```
+
+- **Status:** 400 Bad Request
+
+  **Corpo:**
+
+  ```json
+  {
+    "error": "acesso negado!"
+  }
+  ```
+
+- **Status:** 400 Bad Request
+
+  **Corpo:**
+
+  ```json
+  {
+    "error": "mensagem de erro"
+  }
+  ```
