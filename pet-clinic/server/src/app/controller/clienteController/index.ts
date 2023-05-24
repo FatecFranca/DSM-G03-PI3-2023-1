@@ -1,7 +1,8 @@
 import bcrypt from "bcrypt";
 import { Request, Response } from "express";
-import { Cliente as clienteModel } from "../models/cliente";
-import { newToken, validateToken } from "./token";
+import { Cliente as clienteModel } from "../../models/cliente";
+import { newToken, validateToken } from "../token";
+import singInValid from "./singInValid";
 
 export const clienteController = {
   create: async (req: Request, res: Response) => {
@@ -18,9 +19,15 @@ export const clienteController = {
           endereco: req.body.endereco,
         };
 
+        const clienteValid = singInValid(cliente);
+
+        if (!clienteValid.valid) {
+          return res.status(400).json(clienteValid.data);
+        }
+
         const response = await clienteModel.create(cliente);
 
-        res
+        return res
           .status(201)
           .json({ response, msg: "Cliente Cadastrado com sucesso!" });
       }
