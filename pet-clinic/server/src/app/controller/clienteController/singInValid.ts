@@ -20,12 +20,12 @@ interface Cliente {
   endereco: endereco;
 }
 
-interface valid {
+interface Valid {
   data: object;
   valid: boolean;
 }
 
-export default (cliente: Cliente): valid => {
+export default (cliente: Cliente): Valid => {
   if (!validNome(cliente.nome)) {
     return { data: { err: "nome inválido" }, valid: false };
   } else if (!validEmail(cliente.email)) {

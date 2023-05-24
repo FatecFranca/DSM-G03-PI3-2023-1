@@ -11,6 +11,10 @@ export const veterinarioSchema = new Schema(
       required: true,
       unique: true,
     },
+    celular: {
+      type: String,
+      required: true,
+    },
     senha: {
       type: String,
       required: true,
@@ -20,7 +24,7 @@ export const veterinarioSchema = new Schema(
       required: true,
       unique: true,
     },
-    crmvce: {
+    crmv: {
       type: String,
       required: true,
       unique: true,
