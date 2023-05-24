@@ -93,7 +93,7 @@ export default (cliente: Cliente): valid => {
     return { data: { err: "nome inválido" }, valid: false };
   } else if (!validEmail(cliente.email)) {
     return { data: { err: "email inválido" }, valid: false };
-  } else if (!cliente.senha) {
+  } else if (!validSenha(cliente.senha)) {
     return { data: { err: "senha inválida" }, valid: false };
   } else if (!validCPF(cliente.cpf)) {
     return { data: { err: "CPF inválido" }, valid: false };
