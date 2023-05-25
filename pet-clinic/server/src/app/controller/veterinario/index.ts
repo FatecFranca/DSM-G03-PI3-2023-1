@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
-import { validateToken } from "../token";
+import { newToken, validateToken } from "../token";
 import { Veterinario as vetModel } from "../../models/veterinario";
 import singInValid from "./singInValid";
 
@@ -26,11 +26,11 @@ export const vetController = {
           return res.status(400).json(veterinarioValid.data);
         }
 
-        const response = await vetModel.create(veterinarioValid.data);
+        await vetModel.create(veterinarioValid.data);
 
         return res
           .status(201)
-          .json({ response, msg: "Veterinario Cadastrado com sucesso!" });
+          .json({ msg: "Veterinario Cadastrado com sucesso!" });
       }
     } catch (error: any) {
       if (error.code === 11000) {
@@ -38,6 +38,56 @@ export const vetController = {
           .status(400)
           .json({ error: "Este email, CPF ou CRMV já está em uso." });
       }
+    }
+  },
+  login: async (req: Request, res: Response) => {
+    const vetLogin = {
+      email: req.body.email,
+      senha: req.body.senha,
+    };
+
+    try {
+      const response = await vetModel.findOne({
+        email: vetLogin.email,
+      });
+
+      if (response != null) {
+        const checkSenha = await bcrypt.compare(vetLogin.senha, response.senha);
+        if (!checkSenha) {
+          return res.status(403).json({ error: "Senha incorreta." });
+        }
+      } else {
+        return res.status(403).json({ error: "Email não encontrado." });
+      }
+
+      const token = newToken(response.id);
+      res.status(200).json({ token });
+    } catch (error: any) {
+      return res.status(400).json({ error: error });
+    }
+  },
+  getOne: async (req: Request, res: Response) => {
+    const authHeader = req.headers["authorization"];
+    const token = authHeader ? authHeader.split(" ")[1] : "";
+
+    if (token == "") {
+      return res.status(400).json({ error: "acesso negado!" });
+    }
+
+    const id = await validateToken(token, "vet");
+
+    if (id == null) {
+      return res.status(400).json({ error: "acesso negado!" });
+    }
+    try {
+      if (id) {
+        const response = await vetModel.findOne({ _id: id }, "-senha");
+        return res.status(200).json({ response });
+      } else {
+        return res.status(400).json({ error: "token invalido" });
+      }
+    } catch (error) {
+      return res.status(400).json({ error });
     }
   },
 };
