@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import { Cliente as clienteModel } from "../models/cliente";
 import { Veterinario as vetModel } from "../models/veterinario";
+import { Admin as adminModel } from "../models/admin";
 
 const secret = process.env.SECRET;
 
@@ -11,6 +12,9 @@ const validaId = async (id: string, collection: string) => {
       return true;
     } else if (collection === "vet") {
       await vetModel.findOne({ _id: id });
+      return true;
+    } else if (collection === "admin") {
+      await adminModel.findOne({ _id: id });
       return true;
     }
   } catch (error) {
