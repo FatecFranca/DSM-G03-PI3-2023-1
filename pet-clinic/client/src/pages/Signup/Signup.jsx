@@ -2,8 +2,8 @@
 import style from "./styleSignup.module.css";
 
 //toastify
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 //react
 import { useState, useEffect } from "react";
@@ -16,9 +16,7 @@ import {
   validateText,
   validateEmail,
   validatePassword,
-  validateCpf,
-  validateCep,
-  validateNumero,
+  validateNumero
 } from "../../Utils/regex";
 
 //components
@@ -47,16 +45,12 @@ const Signup = () => {
 
   //STATE DE ERROR CLIENTE
   const [inputNomeErr, setInputNomeErr] = useState(false);
-  const [inputCpfErr, setInputCpfErr] = useState(false);
   const [inputEmailErr, setInputEmailErr] = useState(false);
   const [inputPasswordErr, setInputPasswordErr] = useState(false);
   const [error, setError] = useState("");
 
   //STATE DE ERROR ENDERECO
-  const [inputCepErr, setInputCepErr] = useState(false);
-  // const [inputRuaErr, setInputRuaErr] = useState(false);
   const [inputNumeroErr, setInputNumeroErr] = useState(false);
-  // const [inputBairroErr, setInputBairroErr] = useState(false);
   const [inputCidadeErr, setInputCidadeErr] = useState(false);
   const [inputEstadoErr, setInputEstadoErr] = useState(false);
 
@@ -65,19 +59,13 @@ const Signup = () => {
   //VALIDAÇÃO FORA DO INPUT
   const onBlurHandler = (e) => {
     switch (e.target.name) {
+
       //CLIENTE
       case "nome":
         if (!validateText.test(nome) && nome.trim() !== "") {
           return setInputNomeErr(true);
         } else {
           return setInputNomeErr(false);
-        }
-
-      case "cpf":
-        if (!validateCpf.test(cpf) && cpf.trim() !== "") {
-          return setInputCpfErr(true);
-        } else {
-          return setInputCpfErr(false);
         }
 
       case "email":
@@ -95,33 +83,12 @@ const Signup = () => {
         }
 
       //ENDERECO
-      case "cep":
-        if (!validateCep.test(cep) && cep.trim() !== "") {
-          return setInputCepErr(true);
-        } else {
-          return setInputCepErr(false);
-        }
-
-      // case "rua":
-      //   if (!validateText.test(rua) && rua.trim() !== "") {
-      //     return setInputRuaErr(true);
-      //   } else {
-      //     return setInputRuaErr(false);
-      //   }
-
       case "numero":
         if (!validateNumero.test(numero) && numero.trim() !== "") {
           return setInputNumeroErr(true);
         } else {
           return setInputNumeroErr(false);
         }
-
-      // case "bairro":
-      //   if (!validateText.test(bairro) && bairro.trim() !== "") {
-      //     return setInputBairroErr(true);
-      //   } else {
-      //     return setInputBairroErr(false);
-      //   }
 
       case "cidade":
         if (!validateText.test(cidade) && cidade.trim() !== "") {
@@ -148,12 +115,6 @@ const Signup = () => {
       setInputNomeErr(false);
     }
 
-    if (!validateCpf.test(cpf) && cpf.trim() !== "") {
-      return setInputCpfErr(true);
-    } else {
-      setInputCpfErr(false);
-    }
-
     if (validateEmail.test(email) || email.trim() === "") {
       setInputEmailErr(false);
     }
@@ -163,29 +124,11 @@ const Signup = () => {
     }
 
     //ENDERECO
-    if (!validateCep.test(cep) && cep.trim() !== "") {
-      return setInputCepErr(true);
-    } else {
-      setInputCepErr(false);
-    }
-
-    // if (!validateText.test(rua) && rua.trim() !== "") {
-    //   return setInputRuaErr(true);
-    // } else {
-    //   setInputRuaErr(false);
-    // }
-
     if (!validateNumero.test(numero) && numero.trim() !== "") {
       return setInputNumeroErr(true);
     } else {
       setInputNumeroErr(false);
     }
-
-    // if (!validateText.test(bairro) && bairro.trim() !== "") {
-    //   return setInputBairroErr(true);
-    // } else {
-    //   setInputBairroErr(false);
-    // }
 
     if (!validateText.test(cidade) && cidade.trim() !== "") {
       return setInputCidadeErr(true);
@@ -198,7 +141,7 @@ const Signup = () => {
     } else {
       setInputEstadoErr(false);
     }
-  }, [nome, cpf, email, password, cep, numero, cidade, estado]);
+  }, [nome, email, password, numero, cidade, estado]);
 
   //API
   const registerSubmit = async () => {
@@ -209,7 +152,7 @@ const Signup = () => {
         cpf,
         email,
         senha: password,
-        endereco: { cep, rua, numero, bairro, cidade, estado },
+        endereco: { cep, rua, numero, bairro, cidade, estado }
       });
 
 
@@ -217,10 +160,93 @@ const Signup = () => {
       console.log(response);
 
 
-      console.log(response);
+    } catch (error) {
 
-    } catch (err) {
-      console.log(err);
+      if(error.response){
+
+        const { data } = error.response
+
+        if(data.err === 'CPF inválido'){
+          toast.error('CPF inválido. Verifique o CPF digitado.', {
+            className: "error-toast",
+            position: "bottom-left",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            });
+
+        } else if (data.err === "CEP inválido") {
+          toast.error('CEP inválido. Por favor, verifique o CEP digitado.', {
+            className: "error-toast",
+            position: "bottom-left",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            });
+
+        } else if (data.err === "email inválido") {
+          toast.error('Email inválido. Por favor, verifique o Email digitado.', {
+            className: "error-toast",
+            position: "bottom-left",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            });
+
+        } else if (data.err === "senha inválida") {
+          toast.error('Senha inválido. Por favor, verifique a Senha digitada.', {
+            className: "error-toast",
+            position: "bottom-left",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            });
+
+        } else if (data.error === "Este email ou CPF já está em uso.") {
+          toast.error('Este email ou CPF já está em uso. Por favor, escolha outro.', {
+            className: "error-toast",
+            position: "bottom-left",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
+        }
+
+      } else {
+        toast.info('Erro de conexão. Entre contato com o suporte.', {
+          className: "error-toast",
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      
+      }
+      console.log(error);
     }
   };
 
@@ -242,12 +268,32 @@ const Signup = () => {
       !cidade |
       !estado
     ) {
-      return setError("Preencha todos os campos");
+      return toast.warn('Preencha todos os campos', {
+        className: "error-toast",
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     }
 
     //RETORNA ERRO CASO A CONFIRMAÇÃO DE SENHA FOR DIFERENTE DA SENHA
     if (password !== passwordConf) {
-      return setError("As senhas precisam ser iguais");
+      return toast.warn('As senhas precisam ser iguais', {
+        className: "error-toast",
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     }
 
 
@@ -258,7 +304,6 @@ const Signup = () => {
       password &&
       passwordConf &&
       inputNomeErr &&
-      inputCpfErr &&
       inputEmailErr &&
       inputPasswordErr &&
       cep &&
@@ -267,10 +312,7 @@ const Signup = () => {
       bairro &&
       cidade &&
       estado &&
-      inputCepErr &&
-      // inputRuaErr &&
       inputNumeroErr &&
-      // inputBairroErr &&
       inputCidadeErr &&
       inputEstadoErr
     ) {}
@@ -312,12 +354,8 @@ const Signup = () => {
                 required
                 value={cpf}
                 onChange={(e) => [setCpf(e.target.value), setError("")]}
-                onBlur={onBlurHandler}
               />
               <div>
-                {inputCpfErr && (
-                  <p className={style.labelError}>Digite um CPF válido</p>
-                )}
               </div>
               <Input
                 name="email"
@@ -370,12 +408,8 @@ const Signup = () => {
                 required
                 value={cep}
                 onChange={(e) => [setCep(e.target.value), setError("")]}
-                onBlur={onBlurHandler}
               />
               <div>
-                {inputCepErr && (
-                  <p className={style.labelError}>Digite um CEP válido</p>
-                )}
               </div>
               <Input
                 name="rua"
@@ -384,12 +418,8 @@ const Signup = () => {
                 required
                 value={rua}
                 onChange={(e) => [setRua(e.target.value), setError("")]}
-                onBlur={onBlurHandler}
               />
               <div>
-                {/* {inputRuaErr && (
-                  <p className={style.labelError}>Não pode conte numeros</p>
-                )} */}
               </div>
               <Input
                 name="numero"
@@ -414,14 +444,8 @@ const Signup = () => {
                 required
                 value={bairro}
                 onChange={(e) => [setBairro(e.target.value), setError("")]}
-                onBlur={onBlurHandler}
               />
               <div>
-                {/* {inputBairroErr && (
-                  <p className={style.labelError}>
-                    Não pode conter numeros e características especiais
-                  </p>
-                )} */}
               </div>
               <Input
                 name="cidade"

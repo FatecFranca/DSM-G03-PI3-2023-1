@@ -1,6 +1,10 @@
 //CSS
 import style from "./styleSignin.module.css";
 
+//toastify
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
 //hooks
 import { useState, useEffect } from "react";
 
@@ -15,7 +19,7 @@ import DogSignup from "../../components/Animacao/DogSignup/DogSignup";
 //axios
 import http from "../../db/http";
 
-const Signin = () => {
+  const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -26,6 +30,7 @@ const Signin = () => {
 
   //API
   const signinSubmit = async () => {
+
     try {
       const response = await http.post("/cliente/login", {
         email,
@@ -34,8 +39,55 @@ const Signin = () => {
 
       navigate("/cliente");
       localStorage.setItem("token_API", JSON.stringify(response.data.token));
-    } catch (err) {
-      console.log(err);
+
+
+    } catch (error) {
+
+      if(error.response){
+
+        if(error.response.data.error === "Senha incorreta."){
+          toast.error('Senha incorreta. Por favor, verifique a Senha digitada.', {
+            className: "error-toast",
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            });
+
+        } else if (error.response.data.error === "Email não encontrado.") {
+          toast.error('Email não encontrado. Por favor, verifique o Email digitado.', {
+            className: "error-toast",
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            });
+            
+        } else {
+          toast.info('Erro de conexão. Entre contato com o suporte.', {
+            className: "error-toast",
+            position: "bottom-left",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
+        }
+      }
+
+      console.log(error);
+
     }
   };
 
@@ -43,8 +95,19 @@ const Signin = () => {
     e.preventDefault();
 
     if (!email | !password) {
-      setError("Preencha todos os campos");
-      return;
+
+      return toast.warn('Preencha todos os campos', {
+        className: "error-toast",
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+
     } else {
       signinSubmit();
     }
@@ -57,6 +120,8 @@ const Signin = () => {
   }, [loading, navigate]);
 
   return (
+    <>
+    <ToastContainer />
     <div className={style.pageLogin}>
       <div className={style.animacao}>
         <DogSignup />
@@ -82,12 +147,11 @@ const Signin = () => {
           <label className={style.labelError}>{error}</label>
           <Button Text="Entrar" onClick={handleSignin} />
           <label className={style.label}>Não tem conta?</label>
-          <Link to="/signup" className={style.link}>
-            &nbsp;Cadastre-se
-          </Link>
+          <Link to="/signup" className={style.link}>&nbsp;Cadastre-se</Link>
         </div>
       </form>
     </div>
+    </>
   );
 };
 

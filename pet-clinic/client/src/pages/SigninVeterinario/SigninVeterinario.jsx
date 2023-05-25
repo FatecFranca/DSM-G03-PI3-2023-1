@@ -1,43 +1,123 @@
 import style from './styleSigninVeterinario.module.css'
 
-import { useState } from "react"
+//toastify
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
-import { Link, useNavigate } from 'react-router-dom'
+import { useState, useEffect } from "react"
 
-import useAuth from '../../hooks/useAuth'
+import { useNavigate } from 'react-router-dom'
 
 import Input from '../../components/Input/Input'
 import Button from '../../components/Button/Button'
 import DogVeterinario from '../../components/Animacao/DogVeterinario/DogVeterinario'
 
+//axios
+import http from "../../db/http";
+
 const SigninVeterinario = () => {
 
-  const { signin } = useAuth()
   const navigate = useNavigate()
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
 
+  const [loading, setLoading] = useState(false);
+
+  const signinSubmit = async () => {
+
+    try {
+      const response = await http.post("/vet/login", {
+        email,
+        senha: password,
+      });
+
+      navigate("/veterinario");
+      localStorage.setItem("token_API", JSON.stringify(response.data.token));
+      localStorage.setItem("crmv_API", JSON.stringify(response.data.crmv));
+
+      console.log(response);
+      
+    } catch (error) {
+
+      if(error.response){
+
+        if(error.response.data.error === "Senha incorreta."){
+          toast.error('Senha incorreta. Por favor, verifique a Senha digitada.', {
+            className: "error-toast",
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            });
+
+        } else if (error.response.data.error === "Email não encontrado.") {
+          toast.error('Email não encontrado. Por favor, verifique o Email digitado.', {
+            className: "error-toast",
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            });
+            
+        } else {
+          toast.info('Erro de conexão. Entre contato com o suporte.', {
+            className: "error-toast",
+            position: "bottom-left",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
+        }
+      }
+
+      console.log(error);
+    }
+  };
+
   const handleLogin = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     if (!email | !password) {
-      setError("Preencha todos os campos")
-      return
+      return toast.warn('Preencha todos os campos', {
+        className: "error-toast",
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+
+    } else {
+      signinSubmit();
     }
+  };
 
-    const res = signin(email, password)
-
-    if (res) {
-      setError(res)
-      return
+  useEffect(() => {
+    if (!loading && localStorage.getItem("token_API") !== null) {
+      navigate("/veterinario");
     }
-
-    navigate("/cliente")
-  }
+  }, [loading, navigate]);
 
   return (
+    <>
+    <ToastContainer />
     <div className={style.pageLogin}>
       <div className={style.animacao}>
         <DogVeterinario />
@@ -68,6 +148,7 @@ const SigninVeterinario = () => {
         </div>
       </div>
     </div>
+    </>
   )
 }
 
