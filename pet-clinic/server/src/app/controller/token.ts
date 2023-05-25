@@ -1,12 +1,22 @@
 import jwt from "jsonwebtoken";
 import { Cliente as clienteModel } from "../models/cliente";
+import { Veterinario as vetModel } from "../models/veterinario";
+import { Admin as adminModel } from "../models/admin";
 
 const secret = process.env.SECRET;
 
-const validaId = async (id: string) => {
+const validaId = async (id: string, collection: string) => {
   try {
-    await clienteModel.findOne({ _id: id });
-    return true;
+    if (collection === "cliente") {
+      await clienteModel.findOne({ _id: id });
+      return true;
+    } else if (collection === "vet") {
+      await vetModel.findOne({ _id: id });
+      return true;
+    } else if (collection === "admin") {
+      await adminModel.findOne({ _id: id });
+      return true;
+    }
   } catch (error) {
     return false;
   }
@@ -24,7 +34,7 @@ interface DecodedToken {
   exp: number;
 }
 
-export const validateToken = async (token: string) => {
+export const validateToken = async (token: string, collection: string) => {
   try {
     const decodedToken: DecodedToken = jwt.verify(
       token.replace(/^['"]|['"]$/g, ""),
@@ -33,7 +43,7 @@ export const validateToken = async (token: string) => {
     const id = decodedToken.id || null;
 
     if (typeof id == "string") {
-      const validate = (await validaId(id)) ? id : null;
+      const validate = (await validaId(id, collection)) ? id : null;
       console.log(validate);
       return validate;
     } else {

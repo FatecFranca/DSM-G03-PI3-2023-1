@@ -1,7 +1,8 @@
 import bcrypt from "bcrypt";
 import { Request, Response } from "express";
-import { Cliente as clienteModel } from "../models/cliente";
-import { newToken, validateToken } from "./token";
+import { Cliente as clienteModel } from "../../models/cliente";
+import { newToken, validateToken } from "../token";
+import singInValid from "./singInValid";
 
 export const clienteController = {
   create: async (req: Request, res: Response) => {
@@ -18,11 +19,15 @@ export const clienteController = {
           endereco: req.body.endereco,
         };
 
-        const response = await clienteModel.create(cliente);
+        const clienteValid = singInValid(cliente);
 
-        res
-          .status(201)
-          .json({ response, msg: "Cliente Cadastrado com sucesso!" });
+        if (!clienteValid.valid) {
+          return res.status(400).json(clienteValid.data);
+        }
+
+        await clienteModel.create(cliente);
+
+        return res.status(201).json({ msg: "Cliente Cadastrado com sucesso!" });
       }
     } catch (error: any) {
       if (error.code === 11000) {
@@ -69,7 +74,7 @@ export const clienteController = {
       return res.status(400).json({ error: "acesso negado!" });
     }
 
-    const id = await validateToken(token);
+    const id = await validateToken(token, "cliente");
 
     if (id == null) {
       return res.status(400).json({ error: "acesso negado!" });

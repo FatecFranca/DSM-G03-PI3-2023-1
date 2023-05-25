@@ -11,7 +11,7 @@ export const petController = {
       return res.status(400).json({ error: "acesso negado!" });
     }
 
-    const id = await validateToken(token);
+    const id = await validateToken(token, "cliente");
 
     if (id == null) {
       return res.status(400).json({ error: "acesso negado!" });
@@ -44,7 +44,7 @@ export const petController = {
       return res.status(400).json({ error: "acesso negado!" });
     }
 
-    const id = await validateToken(token);
+    const id = await validateToken(token, "cliente");
 
     if (id == null) {
       return res.status(400).json({ error: "acesso negado!" });
@@ -68,7 +68,7 @@ export const petController = {
       return res.status(400).json({ error: "acesso negado!" });
     }
 
-    const id = await validateToken(token);
+    const id = await validateToken(token, "cliente");
 
     if (id == null) {
       return res.status(400).json({ error: "acesso negado!" });
@@ -114,7 +114,7 @@ export const petController = {
       return res.status(400).json({ error: "acesso negado!" });
     }
 
-    const id = await validateToken(token);
+    const id = await validateToken(token, "cliente");
 
     if (id == null) {
       return res.status(400).json({ error: "acesso negado!" });
