@@ -2,8 +2,8 @@
 import style from "./styleSignin.module.css";
 
 //toastify
-import { ToastContainer, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 //hooks
 import { useState, useEffect } from "react";
@@ -19,7 +19,7 @@ import DogSignup from "../../components/Animacao/DogSignup/DogSignup";
 //axios
 import http from "../../db/http";
 
-  const Signin = () => {
+const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -30,7 +30,6 @@ import http from "../../db/http";
 
   //API
   const signinSubmit = async () => {
-
     try {
       const response = await http.post("/cliente/login", {
         email,
@@ -39,40 +38,40 @@ import http from "../../db/http";
 
       navigate("/cliente");
       localStorage.setItem("token_API", JSON.stringify(response.data.token));
-
-
     } catch (error) {
-
-      if(error.response){
-
-        if(error.response.data.error === "Senha incorreta."){
-          toast.error('Senha incorreta. Por favor, verifique a Senha digitada.', {
-            className: "error-toast",
-            position: "bottom-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-            });
-
+      if (error.response) {
+        if (error.response.data.error === "Senha incorreta.") {
+          toast.error(
+            "Senha incorreta. Por favor, verifique a Senha digitada.",
+            {
+              className: "error-toast",
+              position: "bottom-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+            }
+          );
         } else if (error.response.data.error === "Email não encontrado.") {
-          toast.error('Email não encontrado. Por favor, verifique o Email digitado.', {
-            className: "error-toast",
-            position: "bottom-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-            });
-            
+          toast.error(
+            "Email não encontrado. Por favor, verifique o Email digitado.",
+            {
+              className: "error-toast",
+              position: "bottom-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+            }
+          );
         } else {
-          toast.info('Erro de conexão. Entre contato com o suporte.', {
+          toast.info("Erro de conexão. Entre contato com o suporte.", {
             className: "error-toast",
             position: "bottom-left",
             autoClose: 5000,
@@ -87,7 +86,6 @@ import http from "../../db/http";
       }
 
       console.log(error);
-
     }
   };
 
@@ -95,8 +93,7 @@ import http from "../../db/http";
     e.preventDefault();
 
     if (!email | !password) {
-
-      return toast.warn('Preencha todos os campos', {
+      return toast.warn("Preencha todos os campos", {
         className: "error-toast",
         position: "bottom-right",
         autoClose: 5000,
@@ -107,50 +104,51 @@ import http from "../../db/http";
         progress: undefined,
         theme: "colored",
       });
-
     } else {
       signinSubmit();
     }
   };
 
-  useEffect(() => {
-    if (!loading && localStorage.getItem("token_API") !== null) {
-      navigate("/cliente");
-    }
-  }, [loading, navigate]);
+  // useEffect(() => {
+  //   if (!loading && localStorage.getItem("token_API") !== null) {
+  //     navigate("/cliente");
+  //   }
+  // }, [loading, navigate]);
 
   return (
     <>
-    <ToastContainer />
-    <div className={style.pageLogin}>
-      <div className={style.animacao}>
-        <DogSignup />
+      <ToastContainer />
+      <div className={style.pageLogin}>
+        <div className={style.animacao}>
+          <DogSignup />
+        </div>
+        <form className={style.login} onSubmit={handleSignin}>
+          <div className={style.cabecalho}>
+            <label className={style.labelTitulo}>PetClinic,</label>
+            <label className={style.labelText}>Seja Bem-Vindo</label>
+          </div>
+          <div className={style.form}>
+            <Input
+              type="email"
+              placeholder="E-mail"
+              value={email}
+              onChange={(e) => [setEmail(e.target.value), setError("")]}
+            />
+            <Input
+              type="password"
+              placeholder="Senha"
+              value={password}
+              onChange={(e) => [setPassword(e.target.value), setError("")]}
+            />
+            <label className={style.labelError}>{error}</label>
+            <Button Text="Entrar" onClick={handleSignin} />
+            <label className={style.label}>Não tem conta?</label>
+            <Link to="/signup" className={style.link}>
+              &nbsp;Cadastre-se
+            </Link>
+          </div>
+        </form>
       </div>
-      <form className={style.login} onSubmit={handleSignin}>
-        <div className={style.cabecalho}>
-          <label className={style.labelTitulo}>PetClinic,</label>
-          <label className={style.labelText}>Seja Bem-Vindo</label>
-        </div>
-        <div className={style.form}>
-          <Input
-            type="email"
-            placeholder="E-mail"
-            value={email}
-            onChange={(e) => [setEmail(e.target.value), setError("")]}
-          />
-          <Input
-            type="password"
-            placeholder="Senha"
-            value={password}
-            onChange={(e) => [setPassword(e.target.value), setError("")]}
-          />
-          <label className={style.labelError}>{error}</label>
-          <Button Text="Entrar" onClick={handleSignin} />
-          <label className={style.label}>Não tem conta?</label>
-          <Link to="/signup" className={style.link}>&nbsp;Cadastre-se</Link>
-        </div>
-      </form>
-    </div>
     </>
   );
 };
