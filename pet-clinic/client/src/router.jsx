@@ -1,55 +1,61 @@
-import { Fragment } from "react"
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
+import React, { useState, useEffect, Fragment } from "react";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
-import Signin from '../src/pages/Signin/Signin'
-import Signup from '../src/pages/Signup/Signup'
-import Cliente from '../src/pages/Cliente/Cliente'
-import SigninVeterinario from '../src/pages/SigninVeterinario/SigninVeterinario'
-import Veterinario from '../src/pages/Veterinario/Veterinario'
+import Signin from "../src/pages/Signin/Signin";
+import Signup from "../src/pages/Signup/Signup";
+import Cliente from "../src/pages/Cliente/Cliente";
+import SigninVeterinario from "../src/pages/SigninVeterinario/SigninVeterinario";
+import Veterinario from "../src/pages/Veterinario/Veterinario";
+
+import validateToken from "./db/validateToken";
 
 // TESTE Cadastro de Veterinario
-import SignupVet from './pages/TESTESignupVet/SignupVet'
+import SignupVet from "./pages/TESTESignupVet/SignupVet";
 
 const RoutesApp = () => {
+  const PrivateRoute = ({ redirectTo, bdUrl, children }) => {
+    const token = localStorage.getItem("token_API");
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  //Protected rota cliente
-  const PrivateRouteCliente = ({ children, redirectTo }) => {
-    const isAuthenticated = localStorage.getItem('token_API') !== null
-    return isAuthenticated ? children : <Navigate to={redirectTo} />
-  }
+    useEffect(() => {
+      validateToken(token, bdUrl)
+        .then((result) => {
+          setIsAuthenticated(result);
+        })
+        .catch(() => {
+          setIsAuthenticated(false);
+        });
+    }, [token, bdUrl]);
 
-  //Protected rota veterinario
-  // const PrivateRouteVeterinario = ({ children, redirectTo }) => {
-  //   const isAuthenticated = localStorage.getItem('crmv_API') !== null
-  //   return isAuthenticated ? children : <Navigate to={redirectTo} />
-  // }
+    if (isAuthenticated) {
+      return children;
+    } else {
+      return <Navigate to={redirectTo} />;
+    }
+  };
 
   return (
     <BrowserRouter>
-        <Fragment>
-            <Routes>
+      <Routes>
+        <Route
+          path="/cliente"
+          element={
+            <PrivateRoute redirectTo="/" bdUrl={"/cliente"}>
+              <Cliente />
+            </PrivateRoute>
+          }
+        />
 
-                <Route path="/cliente" element={<PrivateRouteCliente redirectTo='/'> <Cliente /> </PrivateRouteCliente>}/>
+        <Route path="/" element={<Signin />} />
+        <Route path="/portalvet" element={<SigninVeterinario />} />
+        <Route exact path="/veterinario" element={<Veterinario />} />
+        <Route path="/signup" element={<Signup />} />
 
-
-                <Route path="/" element={<Signin />} />
-                <Route path="/portalvet" element={<SigninVeterinario />} />
-
-                
-                <Route exact path="/veterinario" element={<Veterinario />} />
-                {/* <Route path="/veterinario" element={<PrivateRouteVeterinario redirectTo='/'> <Veterinario /> </PrivateRouteVeterinario>}/> */}
-
-                <Route path="/signup" element={<Signup />} />
-
-                {/* TESTE Cadastro veterinario */}
-                <Route path="/signupvet" element={<SignupVet />} />
-                
-                <Route path="*" element={<Signin />} />
-
-            </Routes>
-        </Fragment>
+        {/* TESTE Cadastro veterinario */}
+        <Route path="/signupvet" element={<SignupVet />} />
+      </Routes>
     </BrowserRouter>
-  )
-}
+  );
+};
 
-export default RoutesApp
+export default RoutesApp;
