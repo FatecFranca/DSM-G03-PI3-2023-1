@@ -19,7 +19,7 @@ import DogSignup from "../../components/Animacao/DogSignup/DogSignup";
 //axios
 import http from "../../db/http";
 
-const Signin = () => {
+  const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -39,6 +39,7 @@ const Signin = () => {
 
       navigate("/cliente");
       localStorage.setItem("token_API", JSON.stringify(response.data.token));
+
 
     } catch (error) {
 
@@ -86,6 +87,7 @@ const Signin = () => {
       }
 
       console.log(error);
+
     }
   };
 
@@ -93,6 +95,7 @@ const Signin = () => {
     e.preventDefault();
 
     if (!email | !password) {
+
       return toast.warn('Preencha todos os campos', {
         className: "error-toast",
         position: "bottom-right",
@@ -150,7 +153,6 @@ const Signin = () => {
     </div>
     </>
   );
-  
 };
 
 export default Signin;
