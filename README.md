@@ -410,79 +410,287 @@ Authorization: Bearer <seu_token_de_autenticação>
 
 - **Código:** 500 Internal Server Error<br>
   **Conteúdo:** `{ "error": "Mensagem de erro" }`
-  
-  ## VETERINÁRIO
 
-### Cadastrar
+  Claro! Aqui está a documentação da API para a parte de cadastro de veterinário em formato .mkd (Markdown):
 
-**URL:** `/vet`
+**Cadastro de Veterinário**
 
-**Método HTTP:** `POST`
+- **URL**
 
-**Parâmetros de Requisição:**
+  `/vet`
 
-| Parâmetro | Tipo     | 
-| --------- | -------- | 
-| `nome`    | `string` | 
-| `cpf`     | `string` |
-| `crmv`    | `string` | 
-| `email`   | `string` | 
-| `senha`   | `string` | 
-| `celular` | `string` | 
+- **Método**
 
-**Corpo da Requisição:**
+  `POST`
 
-```json
-{
-  "nome": "jorge",
-  "email": "teste234@teste.com",
-  "senha": "12sssss3",
-  "cpf": "059.834.030-01",
-  "celular": "12345678912",
-	"crmv": "1234B"
-}
-```
+- **Corpo da Requisição (JSON)**
 
-**Respostas:**
+  | Parâmetro | Tipo   | Obrigatório | Descrição                                                       |
+  | --------- | ------ | ----------- | --------------------------------------------------------------- |
+  | nome      | string | Sim         | Nome completo do veterinário                                    |
+  | email     | string | Sim         | Endereço de e-mail do veterinário                               |
+  | senha     | string | Sim         | Senha do veterinário                                            |
+  | cpf       | string | Sim         | CPF do veterinário                                              |
+  | crmv      | string | Sim         | CRMV (Conselho Regional de Medicina Veterinária) do veterinário |
+  | celular   | string | Sim         | Número de celular do veterinário                                |
+  | jornada   | object | Sim         | Jornada de trabalho do veterinário                              |
 
-- **Status:** 200 OK
+  - A propriedade `jornada` é um objeto que contém os horários de trabalho do veterinário para cada dia da semana. Cada dia da semana é uma chave no objeto, com os seguintes subcampos:
 
-  **Corpo:**
+    - `isActive` (booleano): Indica se o veterinário está disponível para trabalhar no dia.
+    - `horaInicio` (string): Horário de início do expediente do veterinário no dia.
+    - `horaFim` (string): Horário de término do expediente do veterinário no dia.
+
+- **Resposta de Sucesso**
+
+  - **Código:** 201 CREATED<br />
+    **Conteúdo:** `{ "msg": "Veterinario Cadastrado com sucesso!" }`
+
+- **Respostas de Erro**
+
+  - **Código:** 400 BAD REQUEST<br />
+    **Conteúdo:** `{ "error": "Este email, CPF ou CRMV já está em uso." }`
+
+- **Exemplo de Requisição:**
 
   ```json
+  POST /veterinarios HTTP/1.1
+  Content-Type: application/json
+
   {
-    "response": {
-      "_id": "6156f1a6ebf08e2029ac6f61",
-       "nome": "jorge",
-       "email": "teste234@teste.com",
-       "senha": "12sssss3",
-       "cpf": "059.834.030-01",
-       "celular": "12345678912",
-	     "crmv": "1234B"
-      "createdAt": "2021-10-01T16:19:02.236Z",
-      "updatedAt": "2021-10-01T16:19:02.236Z",
-      "__v": 0
-    },
-    "msg": "Veterinario Cadastrado com Sucesso"
+    "nome": "João da Silva",
+    "email": "joao.silva@example.com",
+    "senha": "senha123",
+    "cpf": "123.456.789-00",
+    "crmv": "98765",
+    "celular": "(11) 98765-4321",
+    "jornada": {
+      "domingo": {
+        "isActive": true,
+        "horaInicio": "09:00",
+        "horaFim": "18:00"
+      },
+      "segunda": {
+        "isActive": true,
+        "horaInicio": "08:00",
+        "horaFim": "17:00"
+      },
+      "terca": {
+        "isActive": true,
+        "horaInicio": "08:30",
+        "horaFim": "17:30"
+      },
+      "quarta": {
+        "isActive": true,
+        "horaInicio": "08:00",
+        "horaFim": "16:30"
+      },
+      "quinta": {
+        "isActive": true,
+        "horaInicio": "09:00",
+        "horaFim": "18:00"
+      },
+      "sexta": {
+        "isActive": false
+      },
+      "sabado": {
+        "isActive
+  ```
+
+": false
+}
+}
+}
+
+````
+
+* **Exemplo de Resposta de Sucesso:**
+
+```json
+HTTP/1.1 201 Created
+Content-Type: application/json
+
+{
+  "msg": "Veterinario Cadastrado com sucesso!"
+}
+````
+
+- **Exemplo de Resposta de Erro (Email, CPF ou CRMV já em uso):**
+
+  ```json
+  HTTP/1.1 400 Bad Request
+  Content-Type: application/json
+
+  {
+    "error": "Este email, CPF ou CRMV já está em uso."
   }
   ```
 
-- **Status:** 400 Bad Request
+## **Login de Veterinário**
 
-  **Corpo:**
+Autentica um veterinário no sistema.
+
+- **URL**
+
+  `/vet/login`
+
+- **Método**
+
+  `POST`
+
+- **Corpo da Requisição (JSON)**
+
+  | Parâmetro | Tipo   | Obrigatório | Descrição                         |
+  | --------- | ------ | ----------- | --------------------------------- |
+  | email     | string | Sim         | Endereço de e-mail do veterinário |
+  | senha     | string | Sim         | Senha do veterinário              |
+
+- **Resposta de Sucesso**
+
+  - **Código:** 200 OK<br />
+    **Conteúdo:** `{ "token": "JWT_TOKEN" }`
+
+- **Respostas de Erro**
+
+  - **Código:** 403 Forbidden<br />
+    **Conteúdo:** `{ "error": "Senha incorreta." }`
+
+  - **Código:** 403 Forbidden<br />
+    **Conteúdo:** `{ "error": "Email não encontrado." }`
+
+- **Exemplo de Requisição:**
 
   ```json
+  POST /vet/login HTTP/1.1
+  Content-Type: application/json
+
+  {
+    "email": "joao.silva@example.com",
+    "senha": "senha123"
+  }
+  ```
+
+- **Exemplo de Resposta de Sucesso:**
+
+  ```json
+  HTTP/1.1 200 OK
+  Content-Type: application/json
+
+  {
+    "token": "JWT_TOKEN"
+  }
+  ```
+
+- **Exemplo de Resposta de Erro (Senha incorreta):**
+
+  ```json
+  HTTP/1.1 403 Forbidden
+  Content-Type: application/json
+
+  {
+    "error": "Senha incorreta."
+  }
+  ```
+
+- **Exemplo de Resposta de Erro (Email não encontrado):**
+
+  ```json
+  HTTP/1.1 403 Forbidden
+  Content-Type: application/json
+
+  {
+    "error": "Email não encontrado."
+  }
+  ```
+
+## **Obter Dados de um Veterinário**
+
+Obtém os dados de um veterinário autenticado.
+
+- **URL**
+
+  `/vet`
+
+- **Método**
+
+  `GET`
+
+- **Cabeçalho da Requisição**
+
+  | Parâmetro     | Tipo   | Descrição                         |
+  | ------------- | ------ | --------------------------------- |
+  | Authorization | string | Token de autenticação (JWT_TOKEN) |
+
+- **Resposta de Sucesso**
+
+  - **Código:** 200 OK<br />
+    **Conteúdo:** `{ "response": { dados do veterinário } }`
+
+- **Respostas de Erro**
+
+  - **Código:** 400 Bad Request<br />
+    **Conteúdo:** `{ "error": "acesso negado!" }`
+
+  - **Código:** 400 Bad Request<br />
+    **Conteúdo:** `{ "error": "token inválido" }`
+
+- **Exemplo de Requisição:**
+
+  ```json
+  GET /vet HTTP/1.1
+  Authorization: Bearer JWT_TOKEN
+  ```
+
+- **Exemplo de Resposta de Sucesso:**
+
+  ```json
+  HTTP/1.1 200 OK
+  Content-Type: application/json
+
+  {
+    "response": {
+      "nome": "João da Silva",
+      "email": "joao.silva@example.com",
+      "cpf": "123.456.789-00",
+      "crmv": "98765",
+
+
+      "celular": "(11) 98765-4321",
+      "jornada": {
+        "domingo": {
+          "isActive": true,
+          "horaInicio": "09:00",
+          "horaFim": "18:00"
+        },
+        "segunda": {
+          "isActive": true,
+          "horaInicio": "08:00",
+          "horaFim": "17:00"
+        },
+        ...
+      }
+    }
+  }
+  ```
+
+- **Exemplo de Resposta de Erro (Acesso negado):**
+
+  ```json
+  HTTP/1.1 400 Bad Request
+  Content-Type: application/json
+
   {
     "error": "acesso negado!"
   }
   ```
 
-- **Status:** 400 Bad Request
-
-  **Corpo:**
+- **Exemplo de Resposta de Erro (Token inválido):**
 
   ```json
+  HTTP/1.1 400 Bad Request
+  Content-Type: application/json
+
   {
-    "error": "mensagem de erro"
+    "error": "token inválido"
   }
   ```
