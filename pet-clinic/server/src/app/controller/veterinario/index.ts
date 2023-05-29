@@ -18,6 +18,7 @@ export const vetController = {
           cpf: req.body.cpf,
           crmv: req.body.crmv,
           celular: req.body.celular,
+          jornada: req.body.jornada,
         };
 
         const veterinarioValid = singInValid(veterinario);
