@@ -8,7 +8,7 @@ export default async (token, url) => {
   };
 
   try {
-    await http.get(url, config);
+    await http.get(url, config).then();
     return true;
   } catch {
     return false;

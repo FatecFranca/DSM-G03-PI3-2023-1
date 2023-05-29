@@ -4,7 +4,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Signin from "../src/pages/Signin/Signin";
 import Signup from "../src/pages/Signup/Signup";
 import Cliente from "../src/pages/Cliente/Cliente";
-import SigninVeterinario from "../src/pages/SigninVeterinario/SigninVeterinario";
+import SigninVeterinario from "../src/pages/SigninAdminVet/SigninAdminVeterinario";
 import Veterinario from "../src/pages/Veterinario/Veterinario";
 
 import validateToken from "./db/validateToken";
@@ -13,14 +13,15 @@ import validateToken from "./db/validateToken";
 import SignupVet from "./pages/TESTESignupVet/SignupVet";
 
 const RoutesApp = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const PrivateRoute = ({ redirectTo, bdUrl, children }) => {
     const token = localStorage.getItem("token_API");
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     useEffect(() => {
       validateToken(token, bdUrl)
         .then((result) => {
           setIsAuthenticated(result);
+          console.log(isAuthenticated);
         })
         .catch(() => {
           setIsAuthenticated(false);
@@ -46,9 +47,25 @@ const RoutesApp = () => {
           }
         />
 
+        <Route
+          path="/portal/vet"
+          element={
+            <PrivateRoute redirectTo={"/portal/singin"} bdUrl={"vet"}>
+              <Veterinario />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/portal/sec"
+          element={
+            <PrivateRoute redirectTo={"/portal/singin"} bdUrl={"admin"}>
+              <div>Tela Admin</div>
+            </PrivateRoute>
+          }
+        />
+
         <Route path="/" element={<Signin />} />
-        <Route path="/portalvet" element={<SigninVeterinario />} />
-        <Route exact path="/veterinario" element={<Veterinario />} />
+        <Route path="/portal/singin" element={<SigninVeterinario />} />
         <Route path="/signup" element={<Signup />} />
 
         {/* TESTE Cadastro veterinario */}

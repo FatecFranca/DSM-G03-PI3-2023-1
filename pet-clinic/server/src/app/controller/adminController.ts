@@ -6,10 +6,13 @@ import { newToken, validateToken } from "./token";
 export const adminController = {
   create: async (req: Request, res: Response) => {
     try {
+      const salt = await bcrypt.genSalt(12);
+      const passwordHash = await bcrypt.hash(req.body.senha, salt);
+
       const admin = {
         nome: req.body.nome,
         email: req.body.email,
-        senha: req.body.senha,
+        senha: passwordHash,
       };
 
       const response = await adminModel.create(admin);
