@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { Admin as adminModel } from "../models/admin";
 import { Cliente as clienteModel } from "../models/cliente";
+import { Veterinario as vetModel } from "../models/veterinario";
 import bcrypt from "bcrypt";
 import { newToken, validateToken } from "./token";
 
@@ -94,6 +95,27 @@ export const adminController = {
 
     try {
       const users = await clienteModel.find({}, "-senha");
+      return res.status(200).json({ users });
+    } catch (error) {
+      return res.status(500).json({ error });
+    }
+  },
+  getVets: async (req: Request, res: Response) => {
+    const authHeader = req.headers["authorization"];
+    const token = authHeader ? authHeader.split(" ")[1] : "";
+
+    if (token == "") {
+      return res.status(400).json({ error: "acesso negado!" });
+    }
+
+    const id = await validateToken(token, "admin");
+
+    if (id == null) {
+      return res.status(400).json({ error: "acesso negado!" });
+    }
+
+    try {
+      const users = await vetModel.find({}, "-senha");
       return res.status(200).json({ users });
     } catch (error) {
       return res.status(500).json({ error });

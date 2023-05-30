@@ -13,6 +13,10 @@ router
   .get((req, res) => adminController.getUsers(req, res));
 
 router
+  .route("/admin/vets")
+  .get((req, res) => adminController.getVets(req, res));
+
+router
   .route("/admin/login")
   .post((req, res) => adminController.login(req, res));
 
