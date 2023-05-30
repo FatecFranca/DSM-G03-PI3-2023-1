@@ -9,24 +9,33 @@ import Veterinario from "../src/pages/Veterinario/Veterinario";
 
 import validateToken from "./db/validateToken";
 
-// TESTE Cadastro de Veterinario
 import SignupVet from "./pages/TESTESignupVet/SignupVet";
 
 const RoutesApp = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
+
   const PrivateRoute = ({ redirectTo, bdUrl, children }) => {
     const token = localStorage.getItem("token_API");
 
     useEffect(() => {
-      validateToken(token, bdUrl)
-        .then((result) => {
+      const checkAuthentication = async () => {
+        try {
+          const result = await validateToken(token, bdUrl);
           setIsAuthenticated(result);
-          console.log(isAuthenticated);
-        })
-        .catch(() => {
+        } catch (error) {
           setIsAuthenticated(false);
-        });
+        } finally {
+          setIsCheckingAuth(false);
+        }
+      };
+
+      checkAuthentication();
     }, [token, bdUrl]);
+
+    // if (isCheckingAuth) {
+    //   return <Carregando />;
+    // }
 
     if (isAuthenticated) {
       return children;

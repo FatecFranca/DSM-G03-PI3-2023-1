@@ -36,6 +36,8 @@ const Signin = () => {
         senha: password,
       });
 
+      localStorage.clear("token_API");
+
       localStorage.setItem("token_API", JSON.stringify(response.data.token));
       navigate("/cliente");
     } catch (error) {
@@ -109,11 +111,11 @@ const Signin = () => {
     }
   };
 
-  // useEffect(() => {
-  //   if (!loading && localStorage.getItem("token_API") !== null) {
-  //     navigate("/cliente");
-  //   }
-  // }, [loading, navigate]);
+  useEffect(() => {
+    if (!loading && localStorage.getItem("token_API") !== null) {
+      navigate("/cliente");
+    }
+  }, [loading, navigate]);
 
   return (
     <>

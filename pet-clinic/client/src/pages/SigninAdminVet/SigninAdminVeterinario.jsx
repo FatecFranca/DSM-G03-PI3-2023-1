@@ -40,6 +40,7 @@ const SigninAdminVeterinario = () => {
       });
 
       navigate(routeNav);
+      localStorage.clear("token_API");
       localStorage.setItem("token_API", JSON.stringify(response.data.token));
 
       console.log(response);
