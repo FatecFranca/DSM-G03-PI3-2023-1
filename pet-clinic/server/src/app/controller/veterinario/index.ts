@@ -32,7 +32,7 @@ export const vetController = {
 
         console.log(veterinarioValid);
 
-        //await vetModel.create(veterinario);
+        await vetModel.create(veterinario);
 
         return res
           .status(201)
