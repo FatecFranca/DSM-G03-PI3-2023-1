@@ -10,7 +10,7 @@ export const consultaSchema = new Schema(
       type: String,
       required: true,
     },
-    descricao: {
+    motivo: {
       type: String,
       required: true,
     },
@@ -20,6 +20,14 @@ export const consultaSchema = new Schema(
     },
     exames: {
       type: Array,
+      required: false,
+    },
+    laudo: {
+      type: String,
+      required: false,
+    },
+    receita: {
+      type: String,
       required: false,
     },
   },
