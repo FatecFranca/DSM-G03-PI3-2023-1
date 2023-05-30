@@ -13,7 +13,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 //components
 import Input from "../../components/Input/Input";
-import Button from "../../components/Button/Button";
+import Button from "../../components/Buttons/Button";
 import DogSignup from "../../components/Animacao/DogSignup/DogSignup";
 
 //axios

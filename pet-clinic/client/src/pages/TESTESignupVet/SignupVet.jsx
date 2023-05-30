@@ -21,7 +21,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 //components
 import Input from "../../components/Input/Input";
-import Button from "../../components/Button/Button";
+import Button from "../../components/Buttons/Button";
 import DogSignin from "../../components/Animacao/DogSignin/DogSignin";
 
 // axios

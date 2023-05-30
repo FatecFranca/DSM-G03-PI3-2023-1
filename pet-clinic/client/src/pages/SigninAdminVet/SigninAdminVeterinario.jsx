@@ -10,7 +10,7 @@ import { Switch } from "antd";
 import { Route, useNavigate } from "react-router-dom";
 
 import Input from "../../components/Input/Input";
-import Button from "../../components/Button/Button";
+import Button from "../../components/Buttons/Button";
 import DogVeterinario from "../../components/Animacao/DogVeterinario/DogVeterinario";
 
 //axios
