@@ -89,7 +89,8 @@ const Signin = () => {
 
       console.log(error);
     }
-  };
+    
+  }
 
   const handleSignin = (e) => {
     e.preventDefault();

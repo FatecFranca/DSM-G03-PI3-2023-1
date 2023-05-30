@@ -18,6 +18,10 @@ export const petSchema = new Schema(
       type: String,
       required: true,
     },
+    sexo: {
+      type: String,
+      required: true,
+    },
     peso: {
       type: Number,
       required: false,
