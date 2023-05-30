@@ -9,6 +9,10 @@ router
   .post((req, res) => adminController.create(req, res));
 
 router
+  .route("/admin/users")
+  .get((req, res) => adminController.getUsers(req, res));
+
+router
   .route("/admin/login")
   .post((req, res) => adminController.login(req, res));
 
