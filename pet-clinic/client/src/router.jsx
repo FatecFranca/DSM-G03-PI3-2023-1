@@ -4,7 +4,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Signin from "../src/pages/Signin/Signin";
 import Signup from "../src/pages/Signup/Signup";
 import Cliente from "../src/pages/Cliente/Cliente";
-import SigninVeterinario from "../src/pages/SigninAdminVet/SigninAdminVeterinario";
+import SigninAdminVeterinario from "../src/pages/SigninAdminVet/SigninAdminVeterinario";
 import Veterinario from "../src/pages/Veterinario/Veterinario";
 
 import validateToken from "./db/validateToken";
@@ -59,7 +59,7 @@ const RoutesApp = () => {
         <Route
           path="/portal/vet"
           element={
-            <PrivateRoute redirectTo={"/portal/singin"} bdUrl={"vet"}>
+            <PrivateRoute redirectTo={"/portal/singin"} bdUrl={"/vet"}>
               <Veterinario />
             </PrivateRoute>
           }
@@ -67,14 +67,14 @@ const RoutesApp = () => {
         <Route
           path="/portal/sec"
           element={
-            <PrivateRoute redirectTo={"/portal/singin"} bdUrl={"admin"}>
+            <PrivateRoute redirectTo={"/portal/singin"} bdUrl={"/admin"}>
               <div>Tela Admin</div>
             </PrivateRoute>
           }
         />
 
         <Route path="/" element={<Signin />} />
-        <Route path="/portal/singin" element={<SigninVeterinario />} />
+        <Route path="/portal/singin" element={<SigninAdminVeterinario />} />
         <Route path="/signup" element={<Signup />} />
 
         {/* TESTE Cadastro veterinario */}

@@ -38,6 +38,8 @@ export const vetController = {
         return res
           .status(400)
           .json({ error: "Este email, CPF ou CRMV já está em uso." });
+      } else {
+        return res.status(400).json({ error });
       }
     }
   },

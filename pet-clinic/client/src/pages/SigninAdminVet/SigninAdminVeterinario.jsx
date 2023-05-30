@@ -39,10 +39,11 @@ const SigninAdminVeterinario = () => {
         senha: password,
       });
 
-      navigate(routeNav);
       localStorage.clear("token_API");
       localStorage.setItem("token_API", JSON.stringify(response.data.token));
+      localStorage.setItem("Page", JSON.stringify(routeNav));
 
+      navigate(routeNav);
       console.log(response);
     } catch (error) {
       if (error.response) {
@@ -115,11 +116,21 @@ const SigninAdminVeterinario = () => {
     }
   };
 
-  // useEffect(() => {
-  //   if (!loading && localStorage.getItem("token_API") !== null) {
-  //     navigate("/veterinario");
-  //   }
-  // }, [loading, navigate]);
+  useEffect(() => {
+    if (
+      !loading &&
+      localStorage.getItem("token_API") !== null &&
+      localStorage.getItem("Page") === "/portal/vet"
+    ) {
+      navigate("/portal/vet");
+    } else if (
+      !loading &&
+      localStorage.getItem("token_API") !== null &&
+      localStorage.getItem("Page") === "/portal/sec"
+    ) {
+      navigate("/portal/sec");
+    }
+  }, [loading, navigate]);
 
   return (
     <>
