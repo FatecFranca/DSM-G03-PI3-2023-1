@@ -80,6 +80,7 @@ export const CardAnimalTitle = styled.div`
   background: #008080;
   border-radius: 15px 15px 0 0;
   color: #FFFFFF;
+  display: flex;
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 700;
@@ -87,17 +88,15 @@ export const CardAnimalTitle = styled.div`
   line-height: 21px;
   padding: 10px;
 
-  & a {
-    margin-left: 80px;
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 14px;
+  & div {
+    margin-left: 40px;
+  }
+
+  & span {
+    padding: 8px;
 
     &:hover {
       cursor: pointer;
-      font-size: 14px;
     }
   }
 `;
