@@ -19,7 +19,7 @@ export const clienteController = {
           endereco: req.body.endereco,
         };
 
-        const clienteValid = singInValid(cliente);
+        const clienteValid = singInValid({ ...cliente, senha: req.body.senha });
 
         if (!clienteValid.valid) {
           return res.status(400).json(clienteValid.data);
