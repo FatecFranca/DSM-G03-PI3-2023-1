@@ -1,5 +1,7 @@
 import { createContext, useState } from "react";
 
+
+
 export const AuthContext = createContext({})
 
 export const AuthProvider = ({ children }) => {
@@ -11,6 +13,7 @@ export const AuthProvider = ({ children }) => {
 
         localStorage.removeItem('Page')
         localStorage.removeItem('token_API')
+        localStorage.removeItem('URL')
     }
 
     return (

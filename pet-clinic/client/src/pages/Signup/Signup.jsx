@@ -16,6 +16,8 @@ import {
   validateText,
   validateEmail,
   validatePassword,
+  validateCpf,
+  validateCep,
   validateNumero
 } from "../../Utils/regex";
 
@@ -46,10 +48,12 @@ const Signup = () => {
   //STATE DE ERROR CLIENTE
   const [inputNomeErr, setInputNomeErr] = useState(false);
   const [inputEmailErr, setInputEmailErr] = useState(false);
+  const [inputCpfErr, setInputCpfErr] = useState(false);
   const [inputPasswordErr, setInputPasswordErr] = useState(false);
   const [error, setError] = useState("");
 
   //STATE DE ERROR ENDERECO
+  const [inputCepErr, setInputCepErr] = useState(false);
   const [inputNumeroErr, setInputNumeroErr] = useState(false);
   const [inputCidadeErr, setInputCidadeErr] = useState(false);
   const [inputEstadoErr, setInputEstadoErr] = useState(false);
@@ -75,6 +79,13 @@ const Signup = () => {
           return setInputEmailErr(false);
         }
 
+      case "cpf":
+        if (!validateCpf.test(cpf) && cpf.trim() !== "") {
+          return setInputCpfErr(true);
+        } else {
+          return setInputCpfErr(false);
+        }
+
       case "password":
         if (!validatePassword.test(password) && password.trim() !== "") {
           return setInputPasswordErr(true);
@@ -83,6 +94,13 @@ const Signup = () => {
         }
 
       //ENDERECO
+      case "cep":
+        if (!validateCep.test(cep) && cep.trim() !== "") {
+          return setInputCepErr(true);
+        } else {
+          return setInputCepErr(false);
+        }
+
       case "numero":
         if (!validateNumero.test(numero) && numero.trim() !== "") {
           return setInputNumeroErr(true);
@@ -119,11 +137,21 @@ const Signup = () => {
       setInputEmailErr(false);
     }
 
+    if (validateCpf.test(cpf) || cpf.trim() === "") {
+      setInputCpfErr(false);
+    }
+
     if (validatePassword.test(password) || password.trim() === "") {
       setInputPasswordErr(false);
     }
 
     //ENDERECO
+    if (!validateCep.test(cep) && cep.trim() !== "") {
+      return setInputCepErr(true);
+    } else {
+      setInputCepErr(false);
+    }
+
     if (!validateNumero.test(numero) && numero.trim() !== "") {
       return setInputNumeroErr(true);
     } else {
@@ -141,7 +169,7 @@ const Signup = () => {
     } else {
       setInputEstadoErr(false);
     }
-  }, [nome, email, password, numero, cidade, estado]);
+  }, [nome, email, cpf, password, cep, numero, cidade, estado]);
 
   //API
   const registerSubmit = async () => {
@@ -305,6 +333,7 @@ const Signup = () => {
       passwordConf &&
       inputNomeErr &&
       inputEmailErr &&
+      inputCpfErr &&
       inputPasswordErr &&
       cep &&
       rua &&
@@ -312,6 +341,7 @@ const Signup = () => {
       bairro &&
       cidade &&
       estado &&
+      inputCepErr &&
       inputNumeroErr &&
       inputCidadeErr &&
       inputEstadoErr
@@ -354,8 +384,12 @@ const Signup = () => {
                 required
                 value={cpf}
                 onChange={(e) => [setCpf(e.target.value), setError("")]}
+                onBlur={onBlurHandler}
               />
               <div>
+              {inputCpfErr && (
+                  <p className={style.labelError}>Digite um CPF válido</p>
+                )}
               </div>
               <Input
                 name="email"
@@ -408,8 +442,12 @@ const Signup = () => {
                 required
                 value={cep}
                 onChange={(e) => [setCep(e.target.value), setError("")]}
+                onBlur={onBlurHandler}
               />
               <div>
+              {inputCepErr && (
+                  <p className={style.labelError}>Digite um CEP válido</p>
+                )}
               </div>
               <Input
                 name="rua"
