@@ -11,6 +11,7 @@ export const AuthProvider = ({ children }) => {
 
         localStorage.removeItem('Page')
         localStorage.removeItem('token_API')
+        localStorage.removeItem('URL')
     }
 
     return (

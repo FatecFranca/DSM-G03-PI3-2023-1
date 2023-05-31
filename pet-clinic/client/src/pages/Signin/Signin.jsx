@@ -16,7 +16,8 @@ import Input from "../../components/Input/Input";
 import Button from "../../components/Buttons/Button";
 import DogSignup from "../../components/Animacao/DogSignup/DogSignup";
 
-
+// axios
+import http from "../../db/http";
 
 const Signin = () => {
   const [email, setEmail] = useState("");
@@ -38,7 +39,12 @@ const Signin = () => {
       localStorage.clear("token_API");
 
       localStorage.setItem("token_API", JSON.stringify(response.data.token));
+      localStorage.setItem("URL", JSON.stringify(response.config.url));
+
       navigate("/cliente");
+
+      console.log(response)
+
     } catch (error) {
       if (error.response) {
         if (error.response.data.error === "Senha incorreta.") {
@@ -112,7 +118,10 @@ const Signin = () => {
   };
 
   useEffect(() => {
-    if (!loading && localStorage.getItem("token_API") !== null) {
+    if (
+      !loading && localStorage.getItem("token_API") !== null ||
+      localStorage.getItem("URL") === "/cliente/login") {
+
       navigate("/cliente");
     }
   }, [loading, navigate]);

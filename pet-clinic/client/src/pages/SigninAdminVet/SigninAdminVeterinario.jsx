@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useState, useEffect } from "react";
 import { Switch } from "antd";
 
-import { Route, useNavigate } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 
 import Input from "../../components/Input/Input";
 import Button from "../../components/Buttons/Button";
@@ -17,6 +17,7 @@ import DogVeterinario from "../../components/Animacao/DogVeterinario/DogVeterina
 import http from "../../db/http";
 
 const SigninAdminVeterinario = () => {
+
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -30,6 +31,23 @@ const SigninAdminVeterinario = () => {
     toggle ? setToggle(false) : setToggle(true);
   };
 
+  useEffect(() => {
+    // Verificar se há uma entrada no histórico de navegação
+    const { state } = navigate;
+
+    if (state && state.from) {
+      navigate(state.from);
+    } else {
+      // Verificar se há uma rota salva no localStorage
+      const savedRoute = localStorage.getItem("Page");
+
+      if (savedRoute) {
+        navigate(JSON.parse(savedRoute));
+      }
+    }
+  }, [navigate]);
+
+
   const signinSubmit = async () => {
     const routeBd = toggle ? "/admin/login" : "/vet/login";
     const routeNav = toggle ? "/portal/sec" : "/portal/vet";
@@ -39,12 +57,13 @@ const SigninAdminVeterinario = () => {
         senha: password,
       });
 
-      localStorage.clear("token_API");
+      localStorage.clear();
       localStorage.setItem("token_API", JSON.stringify(response.data.token));
       localStorage.setItem("Page", JSON.stringify(routeNav));
 
       navigate(routeNav);
       console.log(response);
+      
     } catch (error) {
       if (error.response) {
         if (error.response.data.error === "Senha incorreta.") {
@@ -123,7 +142,12 @@ const SigninAdminVeterinario = () => {
       localStorage.getItem("Page") === "/portal/vet"
     ) {
       navigate("/portal/vet");
-    } else if (
+
+    } 
+  }, [loading, navigate]);
+
+  useEffect(() => {
+    if (
       !loading &&
       localStorage.getItem("token_API") !== null &&
       localStorage.getItem("Page") === "/portal/sec"
@@ -131,6 +155,7 @@ const SigninAdminVeterinario = () => {
       navigate("/portal/sec");
     }
   }, [loading, navigate]);
+
 
   return (
     <>

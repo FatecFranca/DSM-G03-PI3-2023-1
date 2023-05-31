@@ -47,6 +47,8 @@ const RoutesApp = () => {
     <BrowserRouter>
       <Routes>
 
+
+
         {/* TELA CLIENTE */}
         <Route
           path="/cliente"

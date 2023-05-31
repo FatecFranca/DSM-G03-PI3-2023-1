@@ -1,11 +1,36 @@
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+
+import {
+  CardUsers,
+  CardEmail,
+  CardButton,
+  CardMap,
+  ButtonNewAdmin,
+  LabelMap,
+  CardUsersEmail,
+  PopupAdmin,
+  TitleAdmin,
+  LabelAdmin,
+  ButtonAdmin,
+  CardAdmin
+} from '../Buttons/buttons.styled';
+
 import React, { useEffect, useState } from 'react';
- 
-
-
 import http from "../../db/http";
 
 const CardClientes = () => {
-  
+
+  const [open, setOpen] = useState(false);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const CardCliente = ({ cliente, onDelete, onEdit }) => {
     const handleDelete = () => {
       onDelete(cliente._id);
@@ -16,12 +41,20 @@ const CardClientes = () => {
     };
 
     return (
-      <div>
-        <h3>{cliente.nome}</h3>
-        <p>{cliente.email}</p>
-        <button onClick={handleDelete}>Excluir</button>
-        <button onClick={handleEdit}>Editar</button>
-      </div>
+      <CardAdmin>
+        <CardUsersEmail>
+          <CardUsers>
+            <LabelAdmin>{cliente.nome} </LabelAdmin>
+          </CardUsers>
+          <CardEmail>
+            <LabelAdmin>{cliente.email} </LabelAdmin>
+          </CardEmail>
+        </CardUsersEmail>
+        <CardButton>
+          <span onClick={handleEdit}><EditIcon /></span>
+          <span onClick={handleDelete}><DeleteIcon /></span>
+        </CardButton>
+      </CardAdmin>
     );
   };
 
@@ -68,25 +101,39 @@ const CardClientes = () => {
   };
 
   return (
-    <div>
-      <h2>Clientes</h2>
-      {loading ? (
-        <p>Carregando clientes...</p>
-      ) : (
-        (Array.isArray(clientes) && clientes.length > 0) ? (
-          clientes.map((cliente) => (
-            <CardCliente
-              key={cliente._id}
-              cliente={cliente}
-              onDelete={handleDeleteCliente}
-              onEdit={handleEditCliente}
-            />
-          ))
-        ) : (
-          <p>Nenhum cliente encontrado.</p>
-        )
-      )}
-    </div>
+    <>
+      <div>
+        <ButtonNewAdmin onClick={handleClick}>Clientes</ButtonNewAdmin>
+
+        {open && (
+          <PopupAdmin>
+            <TitleAdmin>Clientes Cadastrados</TitleAdmin>
+            <CardMap>
+              <LabelMap>Nome: </LabelMap>
+              <LabelMap>Email: </LabelMap>
+            </CardMap>
+            {loading ? (
+              <LabelAdmin>Carregando clientes...</LabelAdmin>
+            ) : (
+              (Array.isArray(clientes) && clientes.length > 0) ? (
+                clientes.map((cliente) => (
+                  <CardCliente
+                    key={cliente._id}
+                    cliente={cliente}
+                    onDelete={handleDeleteCliente}
+                    onEdit={handleEditCliente}
+                  />
+                ))
+              ) : (
+                <LabelAdmin>Nenhum cliente encontrado.</LabelAdmin>
+              )
+            )}
+            <ButtonAdmin onClick={handleClose}>Fechar</ButtonAdmin>
+          </PopupAdmin>
+        )}
+
+      </div>
+    </>
   );
 };
 
