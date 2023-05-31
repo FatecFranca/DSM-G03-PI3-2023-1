@@ -11,6 +11,7 @@ interface Veterinario {
   cpf: string;
   crmv: string;
   celular: string;
+  jornada: object;
 }
 
 interface Valid {

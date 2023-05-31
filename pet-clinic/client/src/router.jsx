@@ -1,55 +1,89 @@
-import { Fragment } from "react"
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
+import React, { useState, useEffect } from "react";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
-import Signin from '../src/pages/Signin/Signin'
-import Signup from '../src/pages/Signup/Signup'
-import Cliente from '../src/pages/Cliente/Cliente'
-import SigninVeterinario from '../src/pages/SigninVeterinario/SigninVeterinario'
-import Veterinario from '../src/pages/Veterinario/Veterinario'
+import Signin from "../src/pages/Signin/Signin";
+import Signup from "../src/pages/Signup/Signup";
+import Cliente from "../src/pages/Cliente/Cliente";
+import SigninAdminVeterinario from "../src/pages/SigninAdminVet/SigninAdminVeterinario";
+import Veterinario from "../src/pages/Veterinario/Veterinario";
+import Admin from "./pages/Admin/Admin";
 
-// TESTE Cadastro de Veterinario
-import SignupVet from './pages/TESTESignupVet/SignupVet'
+import validateToken from "./db/validateToken";
 
 const RoutesApp = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
 
-  //Protected rota cliente
-  const PrivateRouteCliente = ({ children, redirectTo }) => {
-    const isAuthenticated = localStorage.getItem('token_API') !== null
-    return isAuthenticated ? children : <Navigate to={redirectTo} />
-  }
+  const PrivateRoute = ({ redirectTo, bdUrl, children }) => {
+    const token = localStorage.getItem("token_API");
 
-  //Protected rota veterinario
-  // const PrivateRouteVeterinario = ({ children, redirectTo }) => {
-  //   const isAuthenticated = localStorage.getItem('crmv_API') !== null
-  //   return isAuthenticated ? children : <Navigate to={redirectTo} />
-  // }
+    useEffect(() => {
+      const checkAuthentication = async () => {
+        try {
+          const result = await validateToken(token, bdUrl);
+          setIsAuthenticated(result);
+        } catch (error) {
+          setIsAuthenticated(false);
+        } finally {
+          setIsCheckingAuth(false);
+        }
+      };
+
+      checkAuthentication();
+    }, [token, bdUrl]);
+
+    // if (isCheckingAuth) {
+    //   return <Carregando />;
+    // }
+
+    if (isAuthenticated) {
+      return children;
+    } else {
+      return <Navigate to={redirectTo} />;
+    }
+  };
 
   return (
     <BrowserRouter>
-        <Fragment>
-            <Routes>
+      <Routes>
 
-                <Route path="/cliente" element={<PrivateRouteCliente redirectTo='/'> <Cliente /> </PrivateRouteCliente>}/>
+        {/* TELA CLIENTE */}
+        <Route
+          path="/cliente"
+          element={
+            <PrivateRoute redirectTo="/" bdUrl={"/cliente"}>
+              <Cliente />
+            </PrivateRoute>
+          }
+        />
 
+        {/* TELA VETERINARIO */}
+        <Route
+          path="/portal/vet"
+          element={
+            <PrivateRoute redirectTo={"/portal/singin"} bdUrl={"/vet"}>
+              <Veterinario />
+            </PrivateRoute>
+          }
+        />
 
-                <Route path="/" element={<Signin />} />
-                <Route path="/portalvet" element={<SigninVeterinario />} />
+        {/* TELA ADMIN */}
+        <Route
+          path="/portal/sec"
+          element={
+            <PrivateRoute redirectTo={"/portal/singin"} bdUrl={"/admin"}>
+              <Admin />
+            </PrivateRoute>
+          }
+        />
 
-                
-                <Route exact path="/veterinario" element={<Veterinario />} />
-                {/* <Route path="/veterinario" element={<PrivateRouteVeterinario redirectTo='/'> <Veterinario /> </PrivateRouteVeterinario>}/> */}
+        <Route path="/" element={<Signin />} />
+        <Route path="/portal/singin" element={<SigninAdminVeterinario />} />
+        <Route path="/signup" element={<Signup />} />
 
-                <Route path="/signup" element={<Signup />} />
-
-                {/* TESTE Cadastro veterinario */}
-                <Route path="/signupvet" element={<SignupVet />} />
-                
-                <Route path="*" element={<Signin />} />
-
-            </Routes>
-        </Fragment>
+      </Routes>
     </BrowserRouter>
-  )
-}
+  );
+};
 
-export default RoutesApp
+export default RoutesApp;

@@ -9,7 +9,7 @@ export const AuthProvider = ({ children }) => {
     const logout = () => {
         setUser(null)
 
-        localStorage.removeItem('crmv_API')
+        localStorage.removeItem('Page')
         localStorage.removeItem('token_API')
     }
 

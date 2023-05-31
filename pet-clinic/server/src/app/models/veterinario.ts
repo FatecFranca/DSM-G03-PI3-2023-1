@@ -29,6 +29,92 @@ export const veterinarioSchema = new Schema(
       required: true,
       unique: true,
     },
+    jornada: {
+      domingo: {
+        isActive: {
+          type: Boolean,
+          default: false,
+        },
+        horaInicio: {
+          type: String,
+        },
+        horaFim: {
+          type: String,
+        },
+      },
+      segunda: {
+        isActive: {
+          type: Boolean,
+          default: false,
+        },
+        horaInicio: {
+          type: String,
+        },
+        horaFim: {
+          type: String,
+        },
+      },
+      terca: {
+        isActive: {
+          type: Boolean,
+          default: false,
+        },
+        horaInicio: {
+          type: String,
+        },
+        horaFim: {
+          type: String,
+        },
+      },
+      quarta: {
+        isActive: {
+          type: Boolean,
+          default: false,
+        },
+        horaInicio: {
+          type: String,
+        },
+        horaFim: {
+          type: String,
+        },
+      },
+      quinta: {
+        isActive: {
+          type: Boolean,
+          default: false,
+        },
+        horaInicio: {
+          type: String,
+        },
+        horaFim: {
+          type: String,
+        },
+      },
+      sexta: {
+        isActive: {
+          type: Boolean,
+          default: false,
+        },
+        horaInicio: {
+          type: String,
+        },
+        horaFim: {
+          type: String,
+        },
+      },
+      sabado: {
+        isActive: {
+          type: Boolean,
+          default: false,
+        },
+        horaInicio: {
+          type: String,
+        },
+        horaFim: {
+          type: String,
+        },
+      },
+    },
   },
   { timestamps: true }
 );

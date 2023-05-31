@@ -18,15 +18,21 @@ export const vetController = {
           cpf: req.body.cpf,
           crmv: req.body.crmv,
           celular: req.body.celular,
+          jornada: req.body.jornada,
         };
 
-        const veterinarioValid = singInValid(veterinario);
+        const veterinarioValid = singInValid({
+          ...veterinario,
+          senha: req.body.senha,
+        });
 
         if (!veterinarioValid.valid) {
           return res.status(400).json(veterinarioValid.data);
         }
 
-        await vetModel.create(veterinarioValid.data);
+        console.log(veterinarioValid);
+
+        await vetModel.create(veterinario);
 
         return res
           .status(201)
@@ -37,6 +43,8 @@ export const vetController = {
         return res
           .status(400)
           .json({ error: "Este email, CPF ou CRMV já está em uso." });
+      } else {
+        return res.status(400).json({ error });
       }
     }
   },

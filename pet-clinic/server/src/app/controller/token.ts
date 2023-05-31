@@ -44,7 +44,6 @@ export const validateToken = async (token: string, collection: string) => {
 
     if (typeof id == "string") {
       const validate = (await validaId(id, collection)) ? id : null;
-      console.log(validate);
       return validate;
     } else {
       return null;

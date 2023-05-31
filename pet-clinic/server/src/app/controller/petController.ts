@@ -23,6 +23,7 @@ export const petController = {
         idade: req.body.idade,
         especie: req.body.especie,
         raca: req.body.raca,
+        sexo: req.body.sexo,
         cliente_id: id,
         peso: req.body.peso || null,
       };
@@ -81,6 +82,7 @@ export const petController = {
       idade: req.body.idade,
       especie: req.body.especie,
       raca: req.body.raca,
+      peso: req.body.peso || null,
     };
 
     if (

@@ -1,44 +1,50 @@
-//CSS
-import style from "./styleSignin.module.css";
+import style from "./styleSigninAdminVeterinario.module.css";
 
 //toastify
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-//hooks
 import { useState, useEffect } from "react";
+import { Switch } from "antd";
 
-//router
-import { Link, useNavigate } from "react-router-dom";
+import { Route, useNavigate } from "react-router-dom";
 
-//components
 import Input from "../../components/Input/Input";
 import Button from "../../components/Buttons/Button";
-import DogSignup from "../../components/Animacao/DogSignup/DogSignup";
+import DogVeterinario from "../../components/Animacao/DogVeterinario/DogVeterinario";
 
+//axios
+import http from "../../db/http";
 
+const SigninAdminVeterinario = () => {
+  const navigate = useNavigate();
 
-const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [toggle, setToggle] = useState(false);
 
   const [loading, setLoading] = useState(false);
 
-  const navigate = useNavigate();
+  const toggler = () => {
+    toggle ? setToggle(false) : setToggle(true);
+  };
 
-  //API
   const signinSubmit = async () => {
+    const routeBd = toggle ? "/admin/login" : "/vet/login";
+    const routeNav = toggle ? "/portal/sec" : "/portal/vet";
     try {
-      const response = await http.post("/cliente/login", {
+      const response = await http.post(routeBd, {
         email,
         senha: password,
       });
 
       localStorage.clear("token_API");
-
       localStorage.setItem("token_API", JSON.stringify(response.data.token));
-      navigate("/cliente");
+      localStorage.setItem("Page", JSON.stringify(routeNav));
+
+      navigate(routeNav);
+      console.log(response);
     } catch (error) {
       if (error.response) {
         if (error.response.data.error === "Senha incorreta.") {
@@ -88,10 +94,9 @@ const Signin = () => {
 
       console.log(error);
     }
-    
-  }
+  };
 
-  const handleSignin = (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
 
     if (!email | !password) {
@@ -112,8 +117,18 @@ const Signin = () => {
   };
 
   useEffect(() => {
-    if (!loading && localStorage.getItem("token_API") !== null) {
-      navigate("/cliente");
+    if (
+      !loading &&
+      localStorage.getItem("token_API") !== null &&
+      localStorage.getItem("Page") === "/portal/vet"
+    ) {
+      navigate("/portal/vet");
+    } else if (
+      !loading &&
+      localStorage.getItem("token_API") !== null &&
+      localStorage.getItem("Page") === "/portal/sec"
+    ) {
+      navigate("/portal/sec");
     }
   }, [loading, navigate]);
 
@@ -122,12 +137,12 @@ const Signin = () => {
       <ToastContainer />
       <div className={style.pageLogin}>
         <div className={style.animacao}>
-          <DogSignup />
+          <DogVeterinario />
         </div>
-        <form className={style.login} onSubmit={handleSignin}>
+        <div className={style.login}>
           <div className={style.cabecalho}>
-            <label className={style.labelTitulo}>PetClinic,</label>
-            <label className={style.labelText}>Seja Bem-Vindo</label>
+            <label className={style.labelText}>Seja Bem-Vindo,</label>
+            <label className={style.labelTitulo}>Doutor</label>
           </div>
           <div className={style.form}>
             <Input
@@ -143,16 +158,20 @@ const Signin = () => {
               onChange={(e) => [setPassword(e.target.value), setError("")]}
             />
             <label className={style.labelError}>{error}</label>
-            <Button Text="Entrar" onClick={handleSignin} />
-            <label className={style.label}>Não tem conta?</label>
-            <Link to="/signup" className={style.link}>
-              &nbsp;Cadastre-se
-            </Link>
+            <div>
+              <Switch onClick={toggler} />
+              {toggle ? (
+                <span>Secretario(a)</span>
+              ) : (
+                <span>Veterinário(a)</span>
+              )}
+            </div>
+            <Button Text="Entrar" onClick={handleLogin} />
           </div>
-        </form>
+        </div>
       </div>
     </>
   );
 };
 
-export default Signin;
+export default SigninAdminVeterinario;

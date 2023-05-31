@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ButtonNew, Popup, Form, Label, Input, Select, Option, Button } from './buttons.styled';
+import { ButtonNew, Popup, Title, Form, Label, Input, Select, Option, Button } from './buttons.styled';
 
 const NovaConsulta = () => {
 
@@ -37,7 +37,7 @@ const NovaConsulta = () => {
       <ButtonNew onClick={handleClick}>Nova Consulta</ButtonNew>
       {open && (
         <Popup>
-          <h1>Nova Consulta</h1>
+          <Title>Nova Consulta</Title>
           <Form>
             <Label htmlFor="data">Data</Label>
             <Input type="date" id="data" value={data} onChange={(e) => setdata(e.target.value)} />
