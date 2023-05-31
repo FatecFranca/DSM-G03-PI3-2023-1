@@ -16,8 +16,7 @@ import Input from "../../components/Input/Input";
 import Button from "../../components/Buttons/Button";
 import DogSignup from "../../components/Animacao/DogSignup/DogSignup";
 
-//axios
-import http from "../../db/http";
+
 
 const Signin = () => {
   const [email, setEmail] = useState("");

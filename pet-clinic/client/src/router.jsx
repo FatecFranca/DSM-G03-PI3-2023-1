@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import Signin from "../src/pages/Signin/Signin";
@@ -6,10 +6,9 @@ import Signup from "../src/pages/Signup/Signup";
 import Cliente from "../src/pages/Cliente/Cliente";
 import SigninAdminVeterinario from "../src/pages/SigninAdminVet/SigninAdminVeterinario";
 import Veterinario from "../src/pages/Veterinario/Veterinario";
+import Admin from "./pages/Admin/Admin";
 
 import validateToken from "./db/validateToken";
-
-import SignupVet from "./pages/TESTESignupVet/SignupVet";
 
 const RoutesApp = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -47,6 +46,8 @@ const RoutesApp = () => {
   return (
     <BrowserRouter>
       <Routes>
+
+        {/* TELA CLIENTE */}
         <Route
           path="/cliente"
           element={
@@ -56,6 +57,7 @@ const RoutesApp = () => {
           }
         />
 
+        {/* TELA VETERINARIO */}
         <Route
           path="/portal/vet"
           element={
@@ -64,11 +66,13 @@ const RoutesApp = () => {
             </PrivateRoute>
           }
         />
+
+        {/* TELA ADMIN */}
         <Route
           path="/portal/sec"
           element={
             <PrivateRoute redirectTo={"/portal/singin"} bdUrl={"/admin"}>
-              <div>Tela Admin</div>
+              <Admin />
             </PrivateRoute>
           }
         />
@@ -77,8 +81,6 @@ const RoutesApp = () => {
         <Route path="/portal/singin" element={<SigninAdminVeterinario />} />
         <Route path="/signup" element={<Signup />} />
 
-        {/* TESTE Cadastro veterinario */}
-        <Route path="/signupvet" element={<SignupVet />} />
       </Routes>
     </BrowserRouter>
   );
