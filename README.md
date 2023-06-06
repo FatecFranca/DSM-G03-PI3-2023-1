@@ -494,13 +494,10 @@ Authorization: Bearer <seu_token_de_autenticação>
         "isActive": false
       },
       "sabado": {
-        "isActive
-  ```
-
-": false
-}
-}
-}
+        "isActive": false
+      }
+    }
+  }
 
 ````
 
