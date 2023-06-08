@@ -1,4 +1,3 @@
-import obterDataHoraDiaSemana from "./dataHoraDia";
 import {
   getJornadaVeterinario,
   verificaHorarioConsulta,
