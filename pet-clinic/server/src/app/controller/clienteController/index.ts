@@ -47,6 +47,7 @@ export const clienteController = {
 
     try {
       const response = await clienteModel.findOne({
+        status: { $ne: false },
         email: clienteLogin.email,
       });
 
@@ -83,7 +84,10 @@ export const clienteController = {
     }
     try {
       if (id) {
-        const response = await clienteModel.findOne({ _id: id }, "-senha");
+        const response = await clienteModel.findOne(
+          { _id: id, status: { $ne: false } },
+          "-senha"
+        );
         return res.status(200).json({ response });
       } else {
         return res.status(400).json({ error: "token invalido" });
@@ -107,7 +111,7 @@ export const clienteController = {
     }
 
     try {
-      const vets = await vetModel.find({}, "nome _id");
+      const vets = await vetModel.find({ status: { $ne: false } }, "nome _id");
       return res.status(200).json({ vets });
     } catch (error) {
       return res.status(500).json({ error });

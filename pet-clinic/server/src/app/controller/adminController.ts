@@ -35,6 +35,7 @@ export const adminController = {
     try {
       const response = await adminModel.findOne({
         email: adminLogin.email,
+        status: { $ne: false },
       });
 
       if (response != null) {
@@ -70,7 +71,10 @@ export const adminController = {
     }
     try {
       if (id) {
-        const response = await adminModel.findOne({ _id: id }, "-senha");
+        const response = await adminModel.findOne(
+          { _id: id, status: { $ne: false } },
+          "-senha"
+        );
         return res.status(200).json({ response });
       } else {
         return res.status(400).json({ error: "token invalido" });
@@ -94,7 +98,10 @@ export const adminController = {
     }
 
     try {
-      const users = await clienteModel.find({}, "-senha");
+      const users = await clienteModel.find(
+        { status: { $ne: false } },
+        "-senha"
+      );
       return res.status(200).json({ users });
     } catch (error) {
       return res.status(500).json({ error });
@@ -115,7 +122,7 @@ export const adminController = {
     }
 
     try {
-      const users = await vetModel.find({}, "-senha");
+      const users = await vetModel.find({ status: { $ne: false } }, "-senha");
       return res.status(200).json({ users });
     } catch (error) {
       return res.status(500).json({ error });
@@ -177,6 +184,54 @@ export const adminController = {
       return res
         .status(201)
         .json({ msg: "veterinario atualizado com sucesso!!" });
+    } catch (error) {
+      return res.status(500).json({ error });
+    }
+  },
+  deleteVet: async (req: Request, res: Response) => {
+    const authHeader = req.headers["authorization"];
+    const token = authHeader ? authHeader.split(" ")[1] : "";
+
+    if (token == "") {
+      return res.status(400).json({ error: "acesso negado!" });
+    }
+
+    const id = await validateToken(token, "admin");
+
+    if (id == null) {
+      return res.status(400).json({ error: "acesso negado!" });
+    }
+
+    const vet_id = req.body.vet_id;
+
+    try {
+      await vetModel.findByIdAndUpdate(vet_id, { status: false });
+
+      return res.status(200).json({ msg: "veterinario deletado!!" });
+    } catch (error) {
+      return res.status(500).json({ error });
+    }
+  },
+  deleteCliente: async (req: Request, res: Response) => {
+    const authHeader = req.headers["authorization"];
+    const token = authHeader ? authHeader.split(" ")[1] : "";
+
+    if (token == "") {
+      return res.status(400).json({ error: "acesso negado!" });
+    }
+
+    const id = await validateToken(token, "admin");
+
+    if (id == null) {
+      return res.status(400).json({ error: "acesso negado!" });
+    }
+
+    const cliente_id = req.body.cliente_id;
+
+    try {
+      await vetModel.findByIdAndUpdate(cliente_id, { status: false });
+
+      return res.status(200).json({ msg: "cliente deletado!!" });
     } catch (error) {
       return res.status(500).json({ error });
     }
