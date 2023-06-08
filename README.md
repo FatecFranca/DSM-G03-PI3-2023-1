@@ -832,3 +832,121 @@ Obtém os dados de um veterinário autenticado.
     "error": "token inválido"
   }
   ```
+
+### ADMIN
+
+### Deletar Veterinario
+
+**URL:** `/api/admin/vets`
+
+**Método HTTP:** `DELETE`
+
+**Parâmetros de Requisição:**
+
+| Parâmetro | Tipo     | Descrição         |
+| --------- | -------- | ----------------- |
+| `vet_id`  | `string` | id do veterinario |
+
+**Cabeçalhos de Requisição:**
+
+| Cabeçalho       | Tipo     | Descrição                                 |
+| --------------- | -------- | ----------------------------------------- |
+| `Authorization` | `string` | `Bearer` Token de autenticação do cliente |
+
+**Corpo da Requisição:**
+
+```json
+{
+  "vet_id": "asfdhnousia4654"
+}
+```
+
+**Respostas:**
+
+- **Status:** 200 OK
+
+  **Corpo:**
+
+  ```json
+  {
+    "msg": "veterinario deletado!!"
+  }
+  ```
+
+- **Status:** 400 Bad Request
+
+  **Corpo:**
+
+  ```json
+  {
+    "error": "acesso negado!"
+  }
+  ```
+
+- **Status:** 400 Bad Request
+
+  **Corpo:**
+
+  ```json
+  {
+    "error": "mensagem de erro"
+  }
+  ```
+
+  ### Deletar CLIENTE
+
+**URL:** `/api/admin/vets`
+
+**Método HTTP:** `DELETE`
+
+**Parâmetros de Requisição:**
+
+| Parâmetro    | Tipo     | Descrição     |
+| ------------ | -------- | ------------- |
+| `cliente_id` | `string` | id do cliente |
+
+**Cabeçalhos de Requisição:**
+
+| Cabeçalho       | Tipo     | Descrição                                 |
+| --------------- | -------- | ----------------------------------------- |
+| `Authorization` | `string` | `Bearer` Token de autenticação do cliente |
+
+**Corpo da Requisição:**
+
+```json
+{
+  "cliente_id": "asfdhnousia4654"
+}
+```
+
+**Respostas:**
+
+- **Status:** 200 OK
+
+  **Corpo:**
+
+  ```json
+  {
+    "msg": "cliente deletado!!"
+  }
+  ```
+
+- **Status:** 400 Bad Request
+
+  **Corpo:**
+
+  ```json
+  {
+    "error": "acesso negado!"
+  }
+  ```
+
+- **Status:** 400 Bad Request
+
+  **Corpo:**
+
+  ```json
+  {
+    "error": "mensagem de erro"
+  }
+  ```
