@@ -58,22 +58,29 @@ function AnimalList() {
 
 function AnimalCard({ pets }) {
 
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedPet, setEditedPet] = useState({ ...pets });
+
   const handleEditClick = async () => {
     try {
       const token = localStorage.getItem('token_API');
-  
+
       if (token) {
-        // Lógica para abrir um formulário de edição com os dados do pet
-  
-        // Exemplo de requisição PUT para atualizar os dados do pet
-        const response = await http.put(`/pet/${pets.id}`, { /* dados atualizados do pet */ }, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-  
-        console.log(response.data);
-        // Lógica para lidar com a resposta da API
+        if (isEditing) {
+          // Lógica para salvar as alterações do pet
+          const response = await http.put(`/pet/${editedPet._id}`, editedPet, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+
+          console.log(response.data);
+          // Lógica para lidar com a resposta da API
+
+          setIsEditing(false); // Sai do modo de edição após salvar
+        } else {
+          setIsEditing(true); // Entra no modo de edição ao clicar no botão Editar
+        }
       } else {
         // Lógica para lidar com a ausência do token
       }
@@ -81,6 +88,13 @@ function AnimalCard({ pets }) {
       console.error(error);
       // Lógica para lidar com o erro da requisição
     }
+  };
+
+  const handleInputChange = (e) => {
+    setEditedPet((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
   };
   
   const handleDeleteClick = async () => {
@@ -130,9 +144,25 @@ function AnimalCard({ pets }) {
           <style.CardAnimalInfoList>
             <style.CardAnimalInfoItem><strong>Espécie:</strong> {pets.especie}</style.CardAnimalInfoItem>
             <style.CardAnimalInfoItem><strong>Raça:</strong> {pets.raca}</style.CardAnimalInfoItem>
-            <style.CardAnimalInfoItem><strong>Idade:</strong> {pets.idade}</style.CardAnimalInfoItem>
+            {isEditing ? (
+            <style.InputEdit 
+              type="text" 
+              name="idade"
+              placeholder='Nova idade' 
+              // value={editedPet.idade} 
+              onChange={handleInputChange}/>) : (
+              <style.CardAnimalInfoItem><strong>Idade:</strong> {editedPet.idade} anos</style.CardAnimalInfoItem>
+            )}
             <style.CardAnimalInfoItem><strong>Sexo:</strong> {pets.sexo}</style.CardAnimalInfoItem>
-            <style.CardAnimalInfoItem><strong>Peso:</strong> {pets.peso} kg</style.CardAnimalInfoItem>
+            {isEditing ? (
+            <style.InputEdit 
+              type="text" 
+              name="peso"
+              placeholder='Novo peso' 
+              // value={editedPet.peso} 
+              onChange={handleInputChange}/>) : (
+              <style.CardAnimalInfoItem><strong>Peso:</strong> {editedPet.peso} kg</style.CardAnimalInfoItem>
+            )}
           </style.CardAnimalInfoList>
         </style.CardAnimalInfos>
     </style.CardAnimal>
