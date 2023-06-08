@@ -1,5 +1,5 @@
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 // --
 
@@ -16,18 +16,16 @@ import {
   TitleAdmin,
   LabelAdmin,
   ButtonAdmin,
-  CardAdmin
-} from '../Buttons/buttons.styled';
+  CardAdmin,
+} from "../Buttons/buttons.styled";
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import http from "../../db/http";
 
 const CardVeterinarios = () => {
-
   const [open, setOpen] = useState(false);
   const [veterinarios, setVeterinarios] = useState([]);
   const [loading, setLoading] = useState(true);
-
 
   const handleClick = () => {
     setOpen(true);
@@ -60,17 +58,20 @@ const CardVeterinarios = () => {
           </CardCrmv>
         </CardUsersEmail>
         <CardButton>
-          <span onClick={handleEdit}><EditIcon /></span>
-          <span onClick={handleDelete}><DeleteIcon /></span>
+          <span onClick={handleEdit}>
+            <EditIcon />
+          </span>
+          <span onClick={handleDelete}>
+            <DeleteIcon />
+          </span>
         </CardButton>
       </CardAdmin>
     );
   };
 
-
   useEffect(() => {
     fetchVeterinarios();
-    const intervalId = setInterval(fetchVeterinarios, 90000); 
+    const intervalId = setInterval(fetchVeterinarios, 90000);
 
     return () => {
       clearInterval(intervalId);
@@ -79,8 +80,8 @@ const CardVeterinarios = () => {
 
   const fetchVeterinarios = async () => {
     try {
-      const token = localStorage.getItem('token_API');
-      const response = await http.get('/admin/vets', {
+      const token = localStorage.getItem("token_API");
+      const response = await http.get("/admin/vets", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -88,31 +89,34 @@ const CardVeterinarios = () => {
 
       setVeterinarios(response.data.users);
       setLoading(false);
-      console.log('Response:', response.data);
+      console.log("Response:", response.data);
     } catch (error) {
       console.log(error);
     }
   };
 
   const handleDeleteVeterinario = async (vet_id) => {
+    console.log(vet_id);
     try {
-      const token = localStorage.getItem('token_API');
-      await http.delete(`/admin/vets`, {
-        body: {
-          vet_id
+      const token = localStorage.getItem("token_API");
+      const response = await http.delete(`/admin/vets`, {
+        data: {
+          vet_id: vet_id,
         },
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       fetchVeterinarios();
+
+      console.log(response);
     } catch (error) {
       console.log(error);
     }
   };
 
   const handleEditVeterinario = (vet_id) => {
-    console.log('Editar veterinario:', vet_id);
+    console.log("Editar veterinario:", vet_id);
   };
 
   return (
@@ -130,24 +134,21 @@ const CardVeterinarios = () => {
             </CardMapVet>
             {loading ? (
               <LabelAdmin>Carregando veterinarios...</LabelAdmin>
+            ) : Array.isArray(veterinarios) && veterinarios.length > 0 ? (
+              veterinarios.map((veterinario) => (
+                <CardVeterinario
+                  key={veterinario._id}
+                  veterinario={veterinario}
+                  onDelete={handleDeleteVeterinario}
+                  onEdit={handleEditVeterinario}
+                />
+              ))
             ) : (
-              (Array.isArray(veterinarios) && veterinarios.length > 0) ? (
-                veterinarios.map((veterinario) => (
-                  <CardVeterinario
-                    key={veterinario._id}
-                    veterinario={veterinario}
-                    onDelete={handleDeleteVeterinario}
-                    onEdit={handleEditVeterinario}
-                  />
-                ))
-              ) : (
-                <LabelAdmin>Nenhum veterinario encontrado.</LabelAdmin>
-              )
+              <LabelAdmin>Nenhum veterinario encontrado.</LabelAdmin>
             )}
             <ButtonAdmin onClick={handleClose}>Fechar</ButtonAdmin>
           </PopupAdmin>
         )}
-
       </div>
     </>
   );
