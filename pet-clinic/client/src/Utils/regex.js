@@ -10,3 +10,5 @@ export const validateCep = new RegExp(/^\d{5}-?\d{3}$/);
 
 export const validateNumero = new RegExp(/^[0-9]{1,6}$/);
 
+export const validatetime = new RegExp(/^[0-9]{1,6}$/);
+

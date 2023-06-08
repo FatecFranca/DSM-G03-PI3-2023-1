@@ -16,6 +16,8 @@ import Input from "../../components/Input/Input";
 import Button from "../../components/Buttons/Button";
 import DogSignup from "../../components/Animacao/DogSignup/DogSignup";
 
+import Loading from '../../components/Loading/Loading'
+
 // axios
 import http from "../../db/http";
 
@@ -31,6 +33,9 @@ const Signin = () => {
   //API
   const signinSubmit = async () => {
     try {
+
+      setLoading(true); // Iniciar o carregamento
+
       const response = await http.post("/cliente/login", {
         email,
         senha: password,
@@ -93,6 +98,10 @@ const Signin = () => {
       }
 
       console.log(error);
+
+    } finally {
+
+      setLoading(false); // Finalizar o carregamento, independentemente do resultado
     }
     
   }
@@ -158,6 +167,9 @@ const Signin = () => {
               &nbsp;Cadastre-se
             </Link>
           </div>
+          {/* {loading && (
+            <Loading />
+          )} */}
         </form>
       </div>
     </>

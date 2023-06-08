@@ -8,6 +8,8 @@ import SigninAdminVeterinario from "../src/pages/SigninAdminVet/SigninAdminVeter
 import Veterinario from "../src/pages/Veterinario/Veterinario";
 import Admin from "./pages/Admin/Admin";
 
+import Loading from '../src/components/Loading/Loading'
+
 import validateToken from "./db/validateToken";
 
 const RoutesApp = () => {
@@ -32,9 +34,9 @@ const RoutesApp = () => {
       checkAuthentication();
     }, [token, bdUrl]);
 
-    // if (isCheckingAuth) {
-    //   return <Carregando />;
-    // }
+    if (isCheckingAuth) {
+      return <Loading />;
+    }
 
     if (isAuthenticated) {
       return children;
@@ -46,7 +48,6 @@ const RoutesApp = () => {
   return (
     <BrowserRouter>
       <Routes>
-
 
 
         {/* TELA CLIENTE */}

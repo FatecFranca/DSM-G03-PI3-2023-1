@@ -23,6 +23,9 @@ import http from "../../db/http";
 const CardVeterinarios = () => {
 
   const [open, setOpen] = useState(false);
+  const [veterinarios, setVeterinarios] = useState([]);
+  const [loading, setLoading] = useState(true);
+
 
   const handleClick = () => {
     setOpen(true);
@@ -62,11 +65,14 @@ const CardVeterinarios = () => {
     );
   };
 
-  const [veterinarios, setVeterinarios] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchVeterinarios();
+    const intervalId = setInterval(fetchVeterinarios, 90000); 
+
+    return () => {
+      clearInterval(intervalId);
+    };
   }, []);
 
   const fetchVeterinarios = async () => {
@@ -86,10 +92,13 @@ const CardVeterinarios = () => {
     }
   };
 
-  const handleDeleteVeterinario = async (veterinarioId) => {
+  const handleDeleteVeterinario = async (vet_id) => {
     try {
       const token = localStorage.getItem('token_API');
-      await http.delete(`/admin/vets/${veterinarioId}`, {
+      await http.delete(`/admin/vets`, {
+        body: {
+          vet_id
+        },
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -100,8 +109,8 @@ const CardVeterinarios = () => {
     }
   };
 
-  const handleEditVeterinario = (veterinarioId) => {
-    console.log('Editar veterinario:', veterinarioId);
+  const handleEditVeterinario = (vet_id) => {
+    console.log('Editar veterinario:', vet_id);
   };
 
   return (

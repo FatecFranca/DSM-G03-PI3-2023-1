@@ -1,0 +1,14 @@
+.containerLoading{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 80px;
+    margin-left: 50px;
+    margin-top: 50px;
+    background: url('../../assets/dogLoading.gif');
+    background-repeat: no-repeat;
+    z-index: 999;
+
+   
+}
