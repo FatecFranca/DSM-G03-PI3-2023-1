@@ -3,10 +3,10 @@ import Time from '../Time/time';
 import BasicMenu from '../Menu/Menu';
 import { Header, Logo, ImgLogo, NomeLogo, NomeApp, FraseApp, Avatar, ImgAvatar, NomeUsuario } from './header.style';
 
-export default function Cabecalho(props) {
+export default function CabecalhoCliente(props) {
 
   return (
-    <Header backgroundColor="#008080">
+    <Header backgroundColor="#FFB505">
         <Logo>
             <ImgLogo src="../src/assets/logoPet.png" alt="Minha Figura"/>
             <NomeLogo>
@@ -17,7 +17,7 @@ export default function Cabecalho(props) {
         <Time/>
         <Avatar>
             <BasicMenu/>
-            <NomeUsuario>Ola, {props.name}</NomeUsuario>
+            <NomeUsuario margin="90px">Olá, {props.name}</NomeUsuario>
         </Avatar>
     </Header>
   )

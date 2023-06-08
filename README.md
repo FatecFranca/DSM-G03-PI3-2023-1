@@ -638,7 +638,6 @@ Authorization: Bearer <seu_token_de_autenticação>
       }
     }
   }
-  ```
 
 ````
 

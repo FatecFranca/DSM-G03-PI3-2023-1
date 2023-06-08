@@ -5,8 +5,8 @@ import NovaConsulta from '../../components/Buttons/NovaConsulta';
 import AnimalList from '../../components/CardAnimal/CardAnimal';
 import ConsultaList from '../../components/Consultas/Consultas';
 import { ClienteCard, ClienteConsultas, ClienteButtons} from './cliente.styled';
-import  Cabecalho from '../../components/Header/Header';
-import http from '../../db/http';
+import  CabecalhoCliente from '../../components/Header/Header_cliente';
+
 
 export default function Cliente() {
 
@@ -39,7 +39,7 @@ export default function Cliente() {
 
   return (
     <>
-      <Cabecalho name={nomeCliente}/>
+      <CabecalhoCliente name={nomeCliente}/>
       <ClienteCard>
         <AnimalList />
         <ClienteConsultas>
