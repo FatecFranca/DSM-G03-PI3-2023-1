@@ -135,8 +135,48 @@ export const adminController = {
       return res.status(400).json({ error: "acesso negado!" });
     }
 
+    const putUser = {
+      _id: req.body._id,
+      campo: req.body.campo,
+      valor: req.body.valor,
+    };
+
     try {
-      return true;
+      await clienteModel.findByIdAndUpdate(putUser._id, {
+        [putUser.campo]: putUser.valor,
+      });
+      return res.status(201).json({ msg: "cliente atualizado com sucesso!!" });
+    } catch (error) {
+      return res.status(500).json({ error });
+    }
+  },
+  putVet: async (req: Request, res: Response) => {
+    const authHeader = req.headers["authorization"];
+    const token = authHeader ? authHeader.split(" ")[1] : "";
+
+    if (token == "") {
+      return res.status(400).json({ error: "acesso negado!" });
+    }
+
+    const id = await validateToken(token, "admin");
+
+    if (id == null) {
+      return res.status(400).json({ error: "acesso negado!" });
+    }
+
+    const putVet = {
+      _id: req.body._id,
+      campo: req.body.campo,
+      valor: req.body.valor,
+    };
+
+    try {
+      await vetModel.findByIdAndUpdate(putVet._id, {
+        [putVet.campo]: putVet.valor,
+      });
+      return res
+        .status(201)
+        .json({ msg: "veterinario atualizado com sucesso!!" });
     } catch (error) {
       return res.status(500).json({ error });
     }
