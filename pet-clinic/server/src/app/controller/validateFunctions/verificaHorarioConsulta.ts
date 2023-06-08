@@ -3,6 +3,12 @@ import obterDataHoraDiaSemana from "./dataHoraDia";
 import { Veterinario as vetModel } from "../../models/veterinario";
 
 const verificaHorarioConsulta = async (vet_id: string, date_time: string) => {
+
+export const verificaHorarioConsulta = async (
+  vet_id: string,
+  date_time: string
+) => {
+
   return (await consultaModel.findOne({
     date_time,
     vet_id,
@@ -12,6 +18,9 @@ const verificaHorarioConsulta = async (vet_id: string, date_time: string) => {
 };
 
 const getJornadaVeterinario = async (id: string, dia: any) => {
+  
+export const getJornadaVeterinario = async (id: string, dia: any) => {
+
   const response = await vetModel.find({
     _id: id,
   });

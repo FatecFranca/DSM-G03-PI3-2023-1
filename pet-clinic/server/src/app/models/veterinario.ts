@@ -115,6 +115,10 @@ export const veterinarioSchema = new Schema(
         },
       },
     },
+    status: {
+      type: Boolean,
+      default: true,
+    },
   },
   { timestamps: true }
 );

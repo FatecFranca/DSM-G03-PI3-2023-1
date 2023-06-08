@@ -147,6 +147,7 @@ Endpoint para validar o token de um cliente.
 
 - **Código:** 200 OK
 - **Conteúdo:**
+
   ```
   {
       "response": {
@@ -166,6 +167,145 @@ Endpoint para validar o token de um cliente.
           "updatedAt": "2023-05-08T10:40:24.673Z",
           "__v": 0
       }
+  }
+  ```
+
+  ### Get Veterinarios na tela de cliente
+
+  **URL:** `/cliente/vet`
+
+**Método HTTP:** `get`
+
+**Cabeçalhos de Requisição:**
+
+| Cabeçalho       | Tipo     | Descrição                                 |
+| --------------- | -------- | ----------------------------------------- |
+| `Authorization` | `string` | `Bearer` Token de autenticação do cliente |
+
+**Respostas:**
+
+- **Status:** 200 OK
+
+  **Corpo:**
+
+  ```json
+  {
+    "vets": [
+      {
+        "_id": "646e7dc637747008ff8e457a",
+        "nome": "jorge"
+      },
+      {
+        "_id": "646e7f3f386cf861ce0ab919",
+        "nome": "jorge"
+      },
+      {
+        "_id": "646f893b6bff448a0aba0930",
+        "nome": "Higor"
+      }
+    ]
+  }
+  ```
+
+- **Status:** 400 Bad Request
+
+  **Corpo:**
+
+  ```json
+  {
+    "error": "acesso negado!"
+  }
+  ```
+
+- **Status:** 400 Bad Request
+
+  **Corpo:**
+
+  ```json
+  {
+    "error": "mensagem de erro"
+  }
+  ```
+
+  ### Get Horarios de Veterinarios disponiveis na tela de cliente
+
+  **URL:** `/cliente/vet/horario`
+
+**Método HTTP:** `GET`
+
+**Parâmetros de Requisição:**
+
+| Parâmetro | Tipo     | Descrição       |
+| --------- | -------- | --------------- |
+| `vet_id`  | `string` | Id do Vet       |
+| `data`    | `string` | data DD/MM/AAAA |
+
+**Cabeçalhos de Requisição:**
+
+| Cabeçalho       | Tipo     | Descrição                                 |
+| --------------- | -------- | ----------------------------------------- |
+| `Authorization` | `string` | `Bearer` Token de autenticação do cliente |
+
+**Corpo da Requisição:**
+
+```json
+{
+  "vet_id": "64793a37df02097afcd0cd50",
+  "date": "08/06/2023"
+}
+```
+
+**Respostas:**
+
+- **Status:** 200 OK
+
+  **Corpo:**
+
+  ```json
+  {
+    "horarioLivre": [
+      "08:15",
+      "08:45",
+      "09:15",
+      "09:45",
+      "10:15",
+      "10:45",
+      "11:15",
+      "11:45",
+      "12:15",
+      "12:45",
+      "13:15",
+      "13:45",
+      "14:15",
+      "14:45",
+      "15:15",
+      "15:45",
+      "16:15",
+      "16:45",
+      "17:15",
+      "17:45",
+      "18:15"
+    ]
+  }
+  ```
+
+- **Status:** 400 Bad Request
+
+  **Corpo:**
+
+  ```json
+  {
+    "error": "acesso negado!"
+  }
+  ```
+
+- **Status:** 400 Bad Request
+
+  **Corpo:**
+
+  ```json
+  {
+    "error": "mensagem de erro"
   }
   ```
 
@@ -689,5 +829,123 @@ Obtém os dados de um veterinário autenticado.
 
   {
     "error": "token inválido"
+  }
+  ```
+
+### ADMIN
+
+### Deletar Veterinario
+
+**URL:** `/api/admin/vets`
+
+**Método HTTP:** `DELETE`
+
+**Parâmetros de Requisição:**
+
+| Parâmetro | Tipo     | Descrição         |
+| --------- | -------- | ----------------- |
+| `vet_id`  | `string` | id do veterinario |
+
+**Cabeçalhos de Requisição:**
+
+| Cabeçalho       | Tipo     | Descrição                                 |
+| --------------- | -------- | ----------------------------------------- |
+| `Authorization` | `string` | `Bearer` Token de autenticação do cliente |
+
+**Corpo da Requisição:**
+
+```json
+{
+  "vet_id": "asfdhnousia4654"
+}
+```
+
+**Respostas:**
+
+- **Status:** 200 OK
+
+  **Corpo:**
+
+  ```json
+  {
+    "msg": "veterinario deletado!!"
+  }
+  ```
+
+- **Status:** 400 Bad Request
+
+  **Corpo:**
+
+  ```json
+  {
+    "error": "acesso negado!"
+  }
+  ```
+
+- **Status:** 400 Bad Request
+
+  **Corpo:**
+
+  ```json
+  {
+    "error": "mensagem de erro"
+  }
+  ```
+
+  ### Deletar CLIENTE
+
+**URL:** `/api/admin/cliente`
+
+**Método HTTP:** `DELETE`
+
+**Parâmetros de Requisição:**
+
+| Parâmetro    | Tipo     | Descrição     |
+| ------------ | -------- | ------------- |
+| `cliente_id` | `string` | id do cliente |
+
+**Cabeçalhos de Requisição:**
+
+| Cabeçalho       | Tipo     | Descrição                                 |
+| --------------- | -------- | ----------------------------------------- |
+| `Authorization` | `string` | `Bearer` Token de autenticação do cliente |
+
+**Corpo da Requisição:**
+
+```json
+{
+  "cliente_id": "asfdhnousia4654"
+}
+```
+
+**Respostas:**
+
+- **Status:** 200 OK
+
+  **Corpo:**
+
+  ```json
+  {
+    "msg": "cliente deletado!!"
+  }
+  ```
+
+- **Status:** 400 Bad Request
+
+  **Corpo:**
+
+  ```json
+  {
+    "error": "acesso negado!"
+  }
+  ```
+
+- **Status:** 400 Bad Request
+
+  **Corpo:**
+
+  ```json
+  {
+    "error": "mensagem de erro"
   }
   ```
