@@ -895,7 +895,7 @@ Obtém os dados de um veterinário autenticado.
 
   ### Deletar CLIENTE
 
-**URL:** `/api/admin/vets`
+**URL:** `/api/admin/cliente`
 
 **Método HTTP:** `DELETE`
 
