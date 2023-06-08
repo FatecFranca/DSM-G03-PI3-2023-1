@@ -121,4 +121,24 @@ export const adminController = {
       return res.status(500).json({ error });
     }
   },
+  putUser: async (req: Request, res: Response) => {
+    const authHeader = req.headers["authorization"];
+    const token = authHeader ? authHeader.split(" ")[1] : "";
+
+    if (token == "") {
+      return res.status(400).json({ error: "acesso negado!" });
+    }
+
+    const id = await validateToken(token, "admin");
+
+    if (id == null) {
+      return res.status(400).json({ error: "acesso negado!" });
+    }
+
+    try {
+      return true;
+    } catch (error) {
+      return res.status(500).json({ error });
+    }
+  },
 };
