@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ButtonNew, Popup, Title, Form, Label, Input, Select, Option, Button } from './buttons.styled';
 import { toast } from 'react-toastify';
 import http from '../../db/http';
@@ -8,35 +8,62 @@ const NovaConsulta = () => {
   const [open, setOpen] = useState(false);
   const [data, setData] = useState('');
   const [motivo, setMotivo] = useState('');
-  const [veterinario, setVeterinario] = useState('');
-  const [pet, setPet] = useState('');
+  const [veterinario, setVeterinario] = useState(null);
   const [veterinarios, setVeterinarios] = useState([]);
+  const [pet, setPet] = useState(null);
+  const [petsData, setPetsData] = useState([]);
 
-  // Transforma os veterinários em array
-  // useEffect(() => {
-  //   async function fetchVeterinarios() {
-  //     try {
-  //       const token = localStorage.getItem('token_API');
+  // GET veterinarios para mostrar nas options 
+  useEffect(() => {
+    const fetchVeterinarios = async () => {
+      try {
+        const token = localStorage.getItem('token_API');
 
-  //       if (token) {
-  //         const response = await http.get('/vet', {
-  //           headers: {
-  //             Authorization: `Bearer ${token}`,
-  //           },
-  //         });
+        if (token) {
+          const response = await http.get('/cliente/vet', {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            }
+          });
 
-  //         setVeterinarios(response.data);
-  //       } else {
-  //         // Lógica para lidar com a ausência do token
-  //       }
-  //     } catch (error) {
-  //       console.error(error);
-  //       // Lógica para lidar com o erro da requisição
-  //     }
-  //   };
+          setVeterinarios(response.data.vets);
+        } else {
+          // Lógica para lidar com a ausência do token
+        }
+      } catch (error) {
+        console.error(error);
+        // Lógica para lidar com o erro da requisição
+      }
+    };
 
-  //   fetchVeterinarios();
-  // }, []);
+    fetchVeterinarios();
+  }, []);
+
+  //GET pets para mostrar nas options
+  useEffect(() => {
+    const fetchPetsData = async () => {
+      try {
+        const token = localStorage.getItem('token_API');
+
+        if (token) {
+          const response = await http.get('/pet', {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            }
+          });
+
+          setPetsData(response.data);
+        } else {
+          // Lógica para lidar com a ausência do token
+        }
+      } catch (error) {
+        console.error(error);
+        // Lógica para lidar com o erro da requisição
+      }
+    };
+
+    fetchPetsData();
+  }, []);
 
   const handleClick = () => {
     setOpen(true);
@@ -50,8 +77,9 @@ const NovaConsulta = () => {
     const novaConsulta = {
       date_time: data,
       motivo: motivo,
-      vet_id: veterinario,
-      pet_id: pet,
+      vet_id: veterinario ? veterinario._id : null,
+      pet_id: pet ? pet._id : null,
+      user: "cliente",
     };
     try {
       const token = localStorage.getItem('token_API');
@@ -105,16 +133,31 @@ const NovaConsulta = () => {
             <Label htmlFor="veterinario">Veterinário</Label>
             <Select
               id="veterinario"
-              value={veterinario}
-              onChange={(e) => setVeterinario(e.target.value)}
+              value={veterinario ? veterinario._id : ''}
+              onChange={(e) => {
+                const selectedVeterinario = veterinarios.find(vet => vet._id === e.target.value);
+                setVeterinario(selectedVeterinario);
+              }}
             >
               <Option value="">Selecione uma opção</Option>
-              {veterinarios.map((veterinario) => (
-                <Option key={veterinario} value={veterinario}>{veterinario}</Option>
+              {veterinarios.map((vet) => (
+                <Option key={vet._id} value={vet._id}>{vet.nome}</Option>
               ))}
             </Select>
-            <Label htmlFor="pet">Hora</Label>
-            <Input type="time" id="pet" value={pet} onChange={(e) => setPet(e.target.value)} />
+            <Label htmlFor="pet">Pet</Label>
+            <Select
+              id="pet"
+              value={pet ? pet._id : ''}
+              onChange={(e) => {
+                const selectedPet = petsData.find(pet => pet._id === e.target.value);
+                setPet(selectedPet);
+              }}
+            >
+              <Option value="">Selecione uma opção</Option>
+              {petsData.map((pet) => (
+                <Option key={pet._id} value={pet._id}>{pet.nome}</Option>
+              ))}
+            </Select>
           </Form>
           <Button onClick={handleSubmit}>Adicionar</Button>
           <Button onClick={handleClose}>Cancelar</Button>
