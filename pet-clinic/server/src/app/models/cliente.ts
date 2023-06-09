@@ -50,6 +50,10 @@ export const clienteSchema = new Schema(
         required: false,
       },
     },
+    status: {
+      type: Boolean,
+      default: true,
+    },
   },
   { timestamps: true }
 );

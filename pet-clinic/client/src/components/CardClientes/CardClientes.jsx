@@ -22,6 +22,8 @@ import http from "../../db/http";
 const CardClientes = () => {
 
   const [open, setOpen] = useState(false);
+  const [clientes, setClientes] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const handleClick = () => {
     setOpen(true);
@@ -58,11 +60,14 @@ const CardClientes = () => {
     );
   };
 
-  const [clientes, setClientes] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchClientes();
+    const intervalId = setInterval(fetchClientes, 90000); 
+
+    return () => {
+      clearInterval(intervalId);
+    };
   }, []);
 
   const fetchClientes = async () => {

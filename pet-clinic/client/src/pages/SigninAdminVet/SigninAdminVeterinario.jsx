@@ -13,6 +13,8 @@ import Input from "../../components/Input/Input";
 import Button from "../../components/Buttons/Button";
 import DogVeterinario from "../../components/Animacao/DogVeterinario/DogVeterinario";
 
+import Loading from '../../components/Loading/Loading'
+
 //axios
 import http from "../../db/http";
 
@@ -52,6 +54,9 @@ const SigninAdminVeterinario = () => {
     const routeBd = toggle ? "/admin/login" : "/vet/login";
     const routeNav = toggle ? "/portal/sec" : "/portal/vet";
     try {
+
+      setLoading(true);
+
       const response = await http.post(routeBd, {
         email,
         senha: password,
@@ -112,6 +117,10 @@ const SigninAdminVeterinario = () => {
       }
 
       console.log(error);
+
+    } finally {
+
+      setLoading(false); // Finalizar o carregamento, independentemente do resultado
     }
   };
 
@@ -160,6 +169,7 @@ const SigninAdminVeterinario = () => {
   return (
     <>
       <ToastContainer />
+      
       <div className={style.pageLogin}>
         <div className={style.animacao}>
           <DogVeterinario />
@@ -193,6 +203,9 @@ const SigninAdminVeterinario = () => {
             </div>
             <Button Text="Entrar" onClick={handleLogin} />
           </div>
+          {/* {loading && (
+            <Loading />
+          )} */}
         </div>
       </div>
     </>

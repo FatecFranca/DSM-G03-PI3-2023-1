@@ -111,7 +111,7 @@ export const Option = styled.option`
   padding: 5px;
 `;
 
-export const Button = styled.div`
+export const Button  = styled.div`
   align-items: center;
   background: #008080;
   border-radius: 10px; 
@@ -288,4 +288,130 @@ export const ButtonAdmin = styled.div`
     background: #127171;
     cursor: pointer;
   }
+`;
+
+export const ButtonJornada  = styled.div`
+  align-items: center;
+  background: #ffff00;
+  border-radius: 10px; 
+  display: flex;
+  color: #000000;
+  cursor: pointer;  
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  justify-content: center;
+  line-height: 16px;
+  margin-top: 20px;
+  width: 200px;
+  height: 30px;
+  transition: background-color 0.3s ease;
+  text-align: center;
+
+  &:hover {
+    background: #ffff3d;
+    cursor: pointer;
+  }
+`;
+
+export const PopupJornada = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 450px;
+  min-height: 200px;
+  height: auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0,139,139, 1.0);
+  z-index: 9999;
+`;
+
+export const InputJornada = styled.input`
+  display: flex;
+  text-align: center;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  background-color: #ccc;
+  color: #000000;
+  padding: 5px;
+  width: 70px;
+
+ 
+`;
+
+export const InputJornadaCheck = styled.input`
+  
+`;
+
+export const Domingo = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 5px;
+
+  
+`;
+
+export const Segunda = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 5px;
+`;
+
+export const Terca = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 5px;
+
+  
+`;
+
+
+export const Quarta = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 5px;
+`;
+
+
+export const Quinta = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 5px;
+`;
+
+
+export const Sexta = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 5px;
+`;
+
+
+export const Sabado = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 5px;
+`;
+
+export const LabelJornada = styled.label`
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 16px;
+
+ 
 `;

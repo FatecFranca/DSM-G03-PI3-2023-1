@@ -58,10 +58,18 @@ export const FraseApp = styled.p`
 `;
 
 export const Avatar = styled.div`
-  display: flex;
+  /* display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   width: 250px;
   height: 100%;
-  top: 0;
+  top: 0; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: right;
+  width: 20%;
 `;
 
 export const Avatar_vet = styled.div`
@@ -103,9 +111,10 @@ export const NomeUsuario = styled.p`
   font-weight: 700;
   font-size: 18px;
   height: 100%;
-  justify-content: center;
+  margin-top: ${props => props.margin};
+  /* justify-content: center;
   align-items: center;
-  text-align: right;
+  text-align: center; */
 `;
 
 export const TipoUsuario = styled.p`

@@ -7,7 +7,6 @@ import singInValid from "./singInValid";
 export const vetController = {
   create: async (req: Request, res: Response) => {
     try {
-
       console.log("Chamou!!");
       if (req.body != null) {
         const salt = await bcrypt.genSalt(12);
@@ -58,6 +57,7 @@ export const vetController = {
 
     try {
       const response = await vetModel.findOne({
+        status: { $ne: false },
         email: vetLogin.email,
       });
 
@@ -91,7 +91,10 @@ export const vetController = {
     }
     try {
       if (id) {
-        const response = await vetModel.findOne({ _id: id }, "-senha");
+        const response = await vetModel.findOne(
+          { _id: id, status: { $ne: false } },
+          "-senha"
+        );
         return res.status(200).json({ response });
       } else {
         return res.status(400).json({ error: "token invalido" });
