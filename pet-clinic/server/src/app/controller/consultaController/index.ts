@@ -63,9 +63,11 @@ export const consultaController = {
 
     try {
       const verify = await petModel.find({
-        cliente_id: IdleDeadline,
+        cliente_id: id,
         _id: pet_id,
       });
+
+      console.log("oi");
 
       if (verify === null) {
         return res.status(404).json({
@@ -73,9 +75,9 @@ export const consultaController = {
         });
       }
 
-      console.log(verify);
+      const response = await consultaModel.find({ pet_id: pet_id });
 
-      // const response = await consultaModel.find()
+      return res.status(200).json({ response });
     } catch (error) {
       return res.status(400).json({ error });
     }
