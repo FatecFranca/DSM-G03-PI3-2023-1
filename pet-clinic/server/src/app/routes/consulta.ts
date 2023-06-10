@@ -8,7 +8,7 @@ router
   .post((req, res) => consultaController.create(req, res));
 
 router
-  .route("/consulta/cliente")
+  .route("/consulta/cliente/:petId")
   .get((req, res) => consultaController.getCliente(req, res));
 
 export default router;

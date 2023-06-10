@@ -59,7 +59,7 @@ export const consultaController = {
       return res.status(400).json({ error: "acesso negado!" });
     }
 
-    const pet_id = req.body.pet_id;
+    const pet_id = req.params.petId;
 
     try {
       const verify = await petModel.find({
@@ -72,6 +72,8 @@ export const consultaController = {
           error: "Esse pet não pertence a esse cliente ou pet_id invalido",
         });
       }
+
+      console.log(pet_id);
 
       const response = await consultaModel.find({ pet_id: pet_id });
 
