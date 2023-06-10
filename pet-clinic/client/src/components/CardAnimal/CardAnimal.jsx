@@ -4,6 +4,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { toast } from 'react-toastify';
 import http from '../../db/http';
+import ConsultaList from '../Consultas/Consultas';
 
 function AnimalList() {
   const [petsData, setPetsData] = useState([]);
@@ -44,7 +45,12 @@ function AnimalList() {
       <style.AnimalList>
         {petsData.map(pets => (
           <style.AnimalListItem key={pets._id}>
-            <style.AnimalListInput type="radio" id={pets.nome} name="animais" value={pets.nome} onChange={() => handleAnimalClick(pets)} />
+            <style.AnimalListInput type="radio" 
+              id={pets.nome} 
+              name="animais" 
+              value={pets.nome} 
+              onChange={() => handleAnimalClick(pets)}
+              />
             <style.AnimalListLabel htmlFor={pets.nome}>{pets.nome}</style.AnimalListLabel>
           </style.AnimalListItem>
         ))}

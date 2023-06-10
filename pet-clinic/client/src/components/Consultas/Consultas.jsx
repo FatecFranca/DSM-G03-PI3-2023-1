@@ -1,36 +1,36 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import * as style from './consultas.styled';
+import http from '../../db/http';
 
 function ConsultaList() {
   const [consultasData, setConsultasData] = useState([]);
-  const [consulta, setConsulta] = useState(null);
 
-  // Buscando pets na API
-  // useEffect(() => {
-  //   const fetchConsultaData = async () => {
-  //     try {
-  //       const token = localStorage.getItem('token_API');
+  // Buscando consultas na API
+  useEffect(() => {
+    const fetchConsultaData = async () => {
+      try {
+        const token = localStorage.getItem('token_API');
 
-  //       if (token) {
-  //         const response = await http.get('/consulta', {
-  //           headers: {
-  //             Authorization: `Bearer ${token}`,
-  //           },
-  //         });
+        if (token) {
+          const response = await http.get('/consulta/cliente', {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
 
-  //         setConsultasData(response.data);
-  //       } else {
-  //         // Lógica para lidar com a ausência do token
-  //       }
-  //     } catch (error) {
-  //       console.error(error);
-  //       // Lógica para lidar com o erro da requisição
-  //     }
-  //   };
+          setConsultasData(response.data);
+        } else {
+          // Lógica para lidar com a ausência do token
+        }
+      } catch (error) {
+        console.error(error);
+        // Lógica para lidar com o erro da requisição
+      }
+    };
 
-  //   fetchConsultaData();
-  // }, []);
+    fetchConsultaData();
+  }, []);
 
   return (
     <style.TableContainer>
@@ -42,7 +42,7 @@ function ConsultaList() {
             <style.Cell>Hora</style.Cell>
           </style.HeaderRow>
         
-        {/* {consultasData.map((consulta) => (
+        {/* {consultasData.map(consulta => (
           <style.Row key={consulta._id}>
             <style.Cell>{new Date(consulta.date_time).toLocaleDateString('pt-BR')}</style.Cell>
             <style.Cell>{consulta.motivo}</style.Cell>
