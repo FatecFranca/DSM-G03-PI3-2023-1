@@ -117,3 +117,11 @@ export const CardAnimalInfoItem = styled.li`
   margin-left: 14px;
   padding: 0.15em;
 `;
+
+export const InputEdit = styled.input`
+  border: none;
+  border-bottom: 1px solid #ccc;
+  background-color: #f0f0f0;
+  color: #000000;
+  padding: 5px;
+`;
