@@ -26,7 +26,7 @@ export const consultaController = {
       date_time: req.body.date_time,
     };
 
-    const verifica = verificaHorario(
+    const verifica = await verificaHorario(
       consulta.vet_id || "",
       consulta.date_time || ""
     );
