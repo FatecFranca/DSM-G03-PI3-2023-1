@@ -67,8 +67,6 @@ export const consultaController = {
         _id: pet_id,
       });
 
-      console.log("oi");
-
       if (verify === null) {
         return res.status(404).json({
           error: "Esse pet não pertence a esse cliente ou pet_id invalido",
