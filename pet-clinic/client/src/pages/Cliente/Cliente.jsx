@@ -6,6 +6,7 @@ import AnimalList from '../../components/CardAnimal/CardAnimal';
 import ConsultaList from '../../components/Consultas/Consultas';
 import { ClienteCard, ClienteConsultas, ClienteButtons} from './cliente.styled';
 import  CabecalhoCliente from '../../components/Header/Header_cliente';
+import http from '../../db/http';
 
 
 export default function Cliente() {
@@ -15,6 +16,7 @@ export default function Cliente() {
 
   // API functions
   const [nomeCliente, setNomeCliente] = useState('');
+  const [petsData, setPetsData] = useState('');
 
   useEffect(() => {
 
@@ -43,7 +45,7 @@ export default function Cliente() {
       <ClienteCard>
         <AnimalList />
         <ClienteConsultas>
-          <ConsultaList />
+          <ConsultaList/>
         </ClienteConsultas>
         <ClienteButtons>      
           <NovoPet />
