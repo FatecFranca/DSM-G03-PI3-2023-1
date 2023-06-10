@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { consulta as consultaModel } from "../../models/consulta";
+import { Pet as petModel } from "../../models/pet";
 import { validateToken } from "../token";
 import verificaHorario from "../validateFunctions/verificaHorarioConsulta";
 
@@ -40,6 +41,41 @@ export const consultaController = {
       return res
         .status(200)
         .json({ response, msg: "Consulta Cadastrada com Sucesso" });
+    } catch (error) {
+      return res.status(400).json({ error });
+    }
+  },
+  getCliente: async (req: Request, res: Response) => {
+    const authHeader = req.headers["authorization"];
+    const token = authHeader ? authHeader.split(" ")[1] : "";
+
+    if (token == "") {
+      return res.status(400).json({ error: "acesso negado!" });
+    }
+
+    const id = await validateToken(token, "cliente");
+
+    if (id == null) {
+      return res.status(400).json({ error: "acesso negado!" });
+    }
+
+    const pet_id = req.body.pet_id;
+
+    try {
+      const verify = await petModel.find({
+        cliente_id: IdleDeadline,
+        _id: pet_id,
+      });
+
+      if (verify === null) {
+        return res.status(404).json({
+          error: "Esse pet não pertence a esse cliente ou pet_id invalido",
+        });
+      }
+
+      console.log(verify);
+
+      // const response = await consultaModel.find()
     } catch (error) {
       return res.status(400).json({ error });
     }
