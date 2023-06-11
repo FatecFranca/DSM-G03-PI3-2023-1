@@ -82,6 +82,44 @@ export const consultaController = {
       return res.status(400).json({ error });
     }
   },
+  getVet: async (req: Request, res: Response) => {
+    const authHeader = req.headers["authorization"];
+    const token = authHeader ? authHeader.split(" ")[1] : "";
+
+    if (token == "") {
+      return res.status(400).json({ error: "acesso negado!" });
+    }
+
+    const id = await validateToken(token, "cliente");
+
+    if (id == null) {
+      return res.status(400).json({ error: "acesso negado!" });
+    }
+
+    const date = req.body.date;
+
+    function formatDate(dateString: string): string {
+      const date = new Date(dateString);
+      const day = date.getDate().toString().padStart(2, "0");
+      const month = (date.getMonth() + 1).toString().padStart(2, "0");
+      const year = date.getFullYear();
+      return `${day}/${month}/${year}`;
+    }
+
+    try {
+      const response = await consultaModel.find({ vet_id: id });
+
+      const array = response.filter((e) => {
+        const dateE = formatDate(e.date_time);
+
+        return dateE === date ? true : false;
+      });
+
+      return res.status(200).json({ response: array });
+    } catch (error) {
+      return res.status(400).json({ error });
+    }
+  },
 };
 
 export default consultaController;
