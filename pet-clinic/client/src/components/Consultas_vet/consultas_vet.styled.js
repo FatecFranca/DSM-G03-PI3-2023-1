@@ -8,7 +8,7 @@ export const ContainerAll = styled.div`
 
 export const TableContainer = styled.div`
   border-radius: 15px;
-  width: 70%;
+  width: 80%;
   margin-bottom: 1rem;
   justify-content: center;
   align-items: center;
@@ -18,6 +18,8 @@ export const TableContainer = styled.div`
 
 export const Table = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
   border-collapse: collapse;
 `;

@@ -1,7 +1,12 @@
+//toastify
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 // --
+// ---
 
 import {
   CardUsers,
@@ -17,6 +22,14 @@ import {
   LabelAdmin,
   ButtonAdmin,
   CardAdmin,
+  Title,
+  LabelDelete,
+  ButtonDelete,
+  ButtonCancelar,
+  Segunda,
+  LabelCliente,
+  PopupJornada
+
 } from "../Buttons/buttons.styled";
 
 import React, { useEffect, useState } from "react";
@@ -26,6 +39,7 @@ const CardVeterinarios = () => {
   const [open, setOpen] = useState(false);
   const [veterinarios, setVeterinarios] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [veterinarioSelecionado, setVeterinarioSelecionado] = useState(null);
 
   const handleClick = () => {
     setOpen(true);
@@ -33,11 +47,25 @@ const CardVeterinarios = () => {
 
   const handleClose = () => {
     setOpen(false);
+    setOpenDelete(false);
   };
 
   const CardVeterinario = ({ veterinario, onDelete, onEdit }) => {
-    const handleDelete = () => {
+
+    const [openDelete, setOpenDelete] = useState(false);
+
+    const handleClickDelete = (veterinario) => {
+      setVeterinarioSelecionado(veterinario.nome);
+      setOpenDelete(true);
+    };
+
+    const handleCloseDelete = () => {
+      setOpenDelete(false);
+    };
+
+    const handleConfirmDelete = () => {
       onDelete(veterinario._id);
+      handleCloseDelete();
     };
 
     const handleEdit = () => {
@@ -45,6 +73,35 @@ const CardVeterinarios = () => {
     };
 
     return (
+      <>
+        <ToastContainer />
+        <CardAdmin>
+          <CardUsersEmail>
+            <CardUsers>
+              <LabelAdmin>{veterinario.nome} </LabelAdmin>
+            </CardUsers>
+            <CardEmailVet>
+              <LabelAdmin>{veterinario.email} </LabelAdmin>
+            </CardEmailVet>
+            <CardCrmv>
+              <LabelAdmin>{veterinario.crmv} </LabelAdmin>
+            </CardCrmv>
+          </CardUsersEmail>
+          <CardButton>
+          <span onClick={handleEdit}><EditIcon /></span>
+            <DeleteIcon onClick={() => handleClickDelete(veterinario)}></DeleteIcon>
+            {openDelete && (
+              <PopupJornada>
+                <Title>Você tem certeza que deseja <LabelDelete>DELETAR</LabelDelete> o veterinário <LabelCliente>{veterinarioSelecionado}</LabelCliente>?</Title>
+                <Segunda>
+                  <ButtonDelete onClick={handleConfirmDelete}>Deletar</ButtonDelete>
+                  <ButtonCancelar onClick={handleCloseDelete}>Cancelar</ButtonCancelar>
+                </Segunda>
+              </PopupJornada>
+            )}
+          </CardButton>
+        </CardAdmin>
+      </>
       <CardAdmin>
         <CardUsersEmail>
           <CardUsers>
@@ -107,9 +164,27 @@ const CardVeterinarios = () => {
           Authorization: `Bearer ${token}`,
         },
       });
+
+      toast.warn("Veterinário deletado", {
+        className: "error-toast",
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+
       fetchVeterinarios();
 
+      setOpenDelete(false);
+
       console.log(response);
+
+      console.log(response);
+
     } catch (error) {
       console.log(error);
     }
@@ -121,6 +196,7 @@ const CardVeterinarios = () => {
 
   return (
     <>
+    <ToastContainer />
       <div>
         <ButtonNewAdmin onClick={handleClick}>Veterinarios</ButtonNewAdmin>
 
