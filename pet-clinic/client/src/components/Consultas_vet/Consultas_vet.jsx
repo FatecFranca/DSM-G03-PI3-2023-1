@@ -1,20 +1,87 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import * as style from './consultas_vet.styled';
 
-function ConsultaList_vet() {
-  const consultas = JSON.parse(localStorage.getItem('consultas')) || [];
+import {
+  CardUsers,
+  CardEmailVet,
+  CardButton,
+  CardMapVet,
+  CardCrmv,
+  ButtonNewAdmin,
+  LabelMap,
+  CardUsersEmail,
+  PopupAdmin,
+  TitleAdmin,
+  LabelAdmin,
+  ButtonAdmin,
+  CardAdmin,
+} from "../Buttons/buttons.styled";
 
-  // Get the current date and time
-  const currentDate = new Date();
-  currentDate.setHours(0, 0, 0, 0); // Set the time to midnight
+import http from "../../db/http";
 
-  // Filter the consultas array to get only the dates that are due to today
-  const todayConsultas = consultas.filter((consulta) => {
-    const consultaDate = new Date(consulta.data);
-    consultaDate.setHours(0, 0, 0, 0); // Set the time to midnight
+function ConsultaList_vet(props) {
+  const [consultas, setConsultas] = useState([]);
+  
+  const CardConsulta = ({ consulta }) => {
+    return (
+      <CardAdmin>
+        <CardUsersEmail>
+          <CardUsers>
+            <LabelAdmin>{consulta.date_time} </LabelAdmin>
+          </CardUsers>
+          <CardEmailVet>
+            <LabelAdmin>{consulta.date_time} </LabelAdmin>
+          </CardEmailVet>
+          <CardCrmv>
+            <LabelAdmin>{consulta.pet_id} </LabelAdmin>
+          </CardCrmv>
+          <CardCrmv>
+            <LabelAdmin>{consulta.motivo} </LabelAdmin>
+          </CardCrmv>
+        </CardUsersEmail>
+      </CardAdmin>
+    );
+  };
 
-    return consultaDate.getTime() === currentDate.getTime();
-  });
+  //  Buscando consultas na API
+
+  useEffect(() => {
+    fetchConsultas();
+    const intervalId = setInterval(fetchConsultas, 90000);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [props.data]);
+
+  const fetchConsultas = async () => {
+    try {
+      const token = localStorage.getItem("token_API");
+      const date = props.data;
+  
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      }
+
+      const body = {
+        date: date,
+      }
+  
+      const response = await axios({
+        method: "GET",
+        url: `http://localhost:3333/api/consulta/vet`,
+        data: body,
+        headers: headers,
+      })
+  
+      setConsultas(response.data);
+      console.log("Response Data:", response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
 
   return (
     <style.ContainerAll>
@@ -22,20 +89,18 @@ function ConsultaList_vet() {
         <style.Table>
           <style.HeaderRow>
             <style.Cell>Data</style.Cell>
-            <style.Cell>Servico</style.Cell>
-            <style.Cell>Veterinário</style.Cell>
             <style.Cell>Hora</style.Cell>
+            <style.Cell>Pet</style.Cell>
+            <style.Cell>Motivo</style.Cell>
           </style.HeaderRow>
-
-          {todayConsultas.map((consulta, index) => (
-            <style.Row key={index}>
-              <style.Cell>{new Date(consulta.data).toLocaleDateString('pt-BR')}</style.Cell>
-              <style.Cell>{consulta.servico}</style.Cell>
-              <style.Cell>{consulta.veterinario}</style.Cell>
-              <style.Cell>{consulta.hora}</style.Cell>
-            </style.Row>
-          ))}
-        </style.Table>
+            {Array.isArray(consultas) ? (
+              consultas.map((consulta) => (
+                <CardConsulta key={consulta._id} consulta={consulta} />
+              ))
+            ) : (
+              <p>Nenhuma consulta encontrada.</p>
+            )}
+          </style.Table>
       </style.TableContainer>
     </style.ContainerAll>
   );

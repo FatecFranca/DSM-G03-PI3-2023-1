@@ -1,7 +1,7 @@
 import React from 'react';
 import Time from '../Time/time';
 import BasicMenu from '../Menu/Menu';
-import { Header, Logo, ImgLogo, NomeLogo, NomeApp, FraseApp, Avatar, ImgAvatar, NomeUsuario } from './header.style';
+import { Header, Logo, ImgLogo, NomeLogo, NomeApp, FraseApp, Avatar, ImgAvatar, NomeUsuario, TimeStyle } from './header.style';
 
 export default function CabecalhoCliente(props) {
 
@@ -14,7 +14,9 @@ export default function CabecalhoCliente(props) {
                 <FraseApp>O melhor jeito de cuidar do seu pet</FraseApp>
             </NomeLogo>
         </Logo>
-        <Time/>
+        <TimeStyle>
+          <Time/>
+        </TimeStyle>
         <Avatar>
             <BasicMenu/>
             <NomeUsuario margin="90px">Olá, {props.name}</NomeUsuario>
