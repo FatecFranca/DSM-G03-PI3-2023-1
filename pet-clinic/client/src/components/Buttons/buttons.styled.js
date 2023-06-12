@@ -413,5 +413,74 @@ export const LabelJornada = styled.label`
   font-size: 16px;
   line-height: 16px;
 
- 
+`;
+
+export const ButtonDelete  = styled.div`
+  align-items: center;
+  background: #ff0000;
+  border-radius: 10px; 
+  display: flex;
+  color: #ffffff;
+  cursor: pointer;  
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  justify-content: center;
+  line-height: 16px;
+  margin-top: 20px;
+  width: 100px;
+  height: 30px;
+  transition: background-color 0.3s ease;
+  text-align: center;
+
+  &:hover {
+    background: #ce2c00;
+    cursor: pointer;
+  }
+`;
+
+export const ButtonCancelar  = styled.div`
+  align-items: center;
+  background: #008080;
+  border-radius: 10px; 
+  display: flex;
+  color: #ffffff;
+  cursor: pointer;  
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  justify-content: center;
+  line-height: 16px;
+  margin-top: 20px;
+  width: 100px;
+  height: 30px;
+  transition: background-color 0.3s ease;
+  text-align: center;
+
+  &:hover {
+    background: #127171;
+    cursor: pointer;
+  }
+`;
+
+export const LabelDelete = styled.label`
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 16px;
+  color: #ff0000;
+
+`;
+
+export const LabelCliente = styled.label`
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 16px;
+  color: black;
+
 `;

@@ -135,4 +135,30 @@ export const petController = {
       return res.status(400).json(error);
     }
   },
+  getByID: async (req: Request, res: Response) => {
+    const authHeader = req.headers["authorization"];
+    const token = authHeader ? authHeader.split(" ")[1] : "";
+
+    if (token == "") {
+      return res.status(400).json({ error: "acesso negado!" });
+    }
+
+    const id = await validateToken(token, "vet");
+
+    if (id == null) {
+      return res.status(400).json({ error: "acesso negado!" });
+    }
+
+    const pet_id = req.params.pet_id;
+
+    try {
+      const response = await petModel.find({
+        _id: pet_id,
+        status: { $ne: false },
+      });
+      return res.status(200).json(response);
+    } catch (error) {
+      return res.status(400).json(error);
+    }
+  },
 };

@@ -11,6 +11,7 @@ router
 router
   .route("/pet/:petId")
   .put((req, res) => petController.put(req, res))
-  .delete((req, res) => petController.delete(req, res));
+  .delete((req, res) => petController.delete(req, res))
+  .get((req, res) => petController.getByID(req, res));
 
 export default router;
