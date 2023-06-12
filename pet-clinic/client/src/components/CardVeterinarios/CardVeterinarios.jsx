@@ -29,13 +29,13 @@ import {
   Segunda,
   LabelCliente,
   PopupJornada
+
 } from "../Buttons/buttons.styled";
 
 import React, { useEffect, useState } from "react";
 import http from "../../db/http";
 
 const CardVeterinarios = () => {
-
   const [open, setOpen] = useState(false);
   const [veterinarios, setVeterinarios] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -102,6 +102,27 @@ const CardVeterinarios = () => {
           </CardButton>
         </CardAdmin>
       </>
+      <CardAdmin>
+        <CardUsersEmail>
+          <CardUsers>
+            <LabelAdmin>{veterinario.nome} </LabelAdmin>
+          </CardUsers>
+          <CardEmailVet>
+            <LabelAdmin>{veterinario.email} </LabelAdmin>
+          </CardEmailVet>
+          <CardCrmv>
+            <LabelAdmin>{veterinario.crmv} </LabelAdmin>
+          </CardCrmv>
+        </CardUsersEmail>
+        <CardButton>
+          <span onClick={handleEdit}>
+            <EditIcon />
+          </span>
+          <span onClick={handleDelete}>
+            <DeleteIcon />
+          </span>
+        </CardButton>
+      </CardAdmin>
     );
   };
 
@@ -157,7 +178,10 @@ const CardVeterinarios = () => {
       });
 
       fetchVeterinarios();
+
       setOpenDelete(false);
+
+      console.log(response);
 
       console.log(response);
 
