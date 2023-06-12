@@ -212,6 +212,7 @@ export const adminController = {
       return res.status(500).json({ error });
     }
   },
+  
   deleteCliente: async (req: Request, res: Response) => {
     const authHeader = req.headers["authorization"];
     const token = authHeader ? authHeader.split(" ")[1] : "";
@@ -229,7 +230,7 @@ export const adminController = {
     const cliente_id = req.body.cliente_id;
 
     try {
-      await vetModel.findByIdAndUpdate(cliente_id, { status: false });
+      await clienteModel.findByIdAndUpdate(cliente_id, { status: false });
 
       return res.status(200).json({ msg: "cliente deletado!!" });
     } catch (error) {
