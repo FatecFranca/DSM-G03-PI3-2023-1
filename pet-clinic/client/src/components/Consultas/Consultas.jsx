@@ -44,13 +44,13 @@ function ConsultaList(props) {
   useEffect(() => {
     const fetchPetsData = async () => {
       try {
-        const token = localStorage.getItem('token_API');
+        const token = localStorage.getItem("token_API");
 
         if (token) {
           const response = await http.get(`/pet/${pet_id}`, {
             headers: {
               Authorization: `Bearer ${token}`,
-            }
+            },
           });
 
           setPetsData(response.data);
@@ -94,12 +94,12 @@ function ConsultaList(props) {
           <style.Cell>Pet</style.Cell>
         </style.HeaderRow>
 
-        {consultasData.map(consulta => (
+        {consultasData.map((consulta) => (
           <style.Row key={consulta.pet_id}>
             <style.Cell>{formatDateTime(consulta.date_time)}</style.Cell>
             <style.Cell>{consulta.motivo}</style.Cell>
             <style.Cell>{consulta.vet_id}</style.Cell>
-            <style.Cell>{consulta.pet_id}</style.Cell>
+            <style.Cell>{props.petName}</style.Cell>
           </style.Row>
         ))}
       </style.Table>
