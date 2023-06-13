@@ -73,8 +73,6 @@ export const consultaController = {
         });
       }
 
-      console.log(pet_id);
-
       const response = await consultaModel.find({ pet_id: pet_id });
 
       return res.status(200).json({ response });
