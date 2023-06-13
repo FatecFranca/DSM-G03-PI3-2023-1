@@ -6,6 +6,7 @@ import http from "../../db/http";
 function ConsultaList(props) {
   const [consultasData, setConsultasData] = useState([]);
   const [petsData, setPetsData] = useState([]);
+  const [vetsName, setVetsName] = useState([]);
 
   const pet_id = props.petId;
 
@@ -22,7 +23,25 @@ function ConsultaList(props) {
             },
           });
 
+          const res = response.data.response;
+
           setConsultasData(response.data.response);
+
+          // const vets = [];
+
+          // response.data.response.map(async (consulta, index) => {
+          //   await getNameVet(consulta.vet_id).then(
+          //     (res) => (vets[index] = res)
+          //   );
+          // });
+          // setVetsName(vets);
+          // console.log(vets);
+
+          const vetsPromises = response.data.response.map((consulta) =>
+            getNameVet(consulta.vet_id)
+          );
+          const vets = await Promise.all(vetsPromises);
+          setVetsName(vets);
         } else {
           // Lógica para lidar com a ausência do token
         }
@@ -34,43 +53,6 @@ function ConsultaList(props) {
 
     fetchConsultaData();
   }, [props.setPetId, props.petId]);
-
-  // // Função para obter o nome do pet com base no ID
-  // const getPetName = (petId) => {
-  //   const pet = petsData.find((pet) => pet._id === petId);
-  //   return pet ? pet.nome : "";
-  // };
-  //GET pets para mostrar nas options
-  useEffect(() => {
-    const fetchPetsData = async () => {
-      try {
-        const token = localStorage.getItem("token_API");
-
-        if (token) {
-          const response = await http.get(`/pet/${pet_id}`, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-
-          setPetsData(response.data);
-        } else {
-          // Lógica para lidar com a ausência do token
-        }
-      } catch (error) {
-        console.error(error);
-        // Lógica para lidar com o erro da requisição
-      }
-    };
-
-    fetchPetsData();
-  }, [props.setPetId, props.petId]);
-
-  // // Função para obter o nome do veterinário com base no ID
-  // const getVetName = (vetId) => {
-  //   const vet = vetsData.find((vet) => vet._id === vetId);
-  //   return vet ? vet.nome : "";
-  // };
 
   // Função para formatar a data e hora no formato desejado
   const formatDateTime = (dateTime) => {
@@ -84,6 +66,22 @@ function ConsultaList(props) {
     return new Date(dateTime).toLocaleString("pt-BR", options);
   };
 
+  const getNameVet = async (vet_id) => {
+    const token = localStorage.getItem("token_API");
+    try {
+      const { data } = await http.get(`/cliente/vet/${vet_id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      return data.response.nome;
+    } catch (error) {
+      console.error(error);
+      // Lógica para lidar com o erro da requisição
+    }
+  };
+
   return (
     <style.TableContainer>
       <style.Table>
@@ -94,14 +92,16 @@ function ConsultaList(props) {
           <style.Cell>Pet</style.Cell>
         </style.HeaderRow>
 
-        {consultasData.map((consulta) => (
-          <style.Row key={consulta.pet_id}>
-            <style.Cell>{formatDateTime(consulta.date_time)}</style.Cell>
-            <style.Cell>{consulta.motivo}</style.Cell>
-            <style.Cell>{consulta.vet_id}</style.Cell>
-            <style.Cell>{props.petName}</style.Cell>
-          </style.Row>
-        ))}
+        {consultasData.map((consulta, index) => {
+          return (
+            <style.Row key={consulta._id}>
+              <style.Cell>{formatDateTime(consulta.date_time)}</style.Cell>
+              <style.Cell>{consulta.motivo}</style.Cell>
+              <style.Cell>{`Dr. ${vetsName[index]}`}</style.Cell>
+              <style.Cell>{props.petName}</style.Cell>
+            </style.Row>
+          );
+        })}
       </style.Table>
     </style.TableContainer>
   );
