@@ -65,17 +65,16 @@ export default function Veterinario() {
             onSelectOption={setSelectedOption}
             setData={setData}
           /> */}
-        <ClienteButtons>
-          {/* Implementar criar novo pet no futuro */}
-          {/* <NovoPet /> */}
-          <NovaConsulta />
-        </ClienteButtons>
+        {/* <ClienteButtons> */}
+        {/* Implementar criar novo pet no futuro */}
+        {/* <NovoPet /> */}
+        {/* <NovaConsulta /> */}
+        {/* </ClienteButtons> */}
         <ClienteConsultas>
-          //{" "}
-          <SearchComponent
-          //             onSelectOption={setSelectedOption}
-          //             setData={setData}
-          />
+          {/* //           <SearchComponent
+//             onSelectOption={setSelectedOption}
+//             setData={setData}
+          /> */}
           <Align>
             {/* Implementar filtro por PET no futuro*/}
             {/* {selectedOption === 'Date' ? (
