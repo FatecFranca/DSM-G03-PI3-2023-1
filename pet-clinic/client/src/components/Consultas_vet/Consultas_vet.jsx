@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import * as style from "./consultas_vet.styled";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 
+import UploadExame from "../InputUploadExame/UploadExame";
+
 import {
   CardDataVet,
   CardHoraVetVet,
@@ -19,6 +21,13 @@ import http from "../../db/http";
 
 function ConsultaList_vet(props) {
   const [consultas, setConsultas] = useState([]);
+  const [modalUpload, setModalUpload] = useState(false);
+  const [consulta_id, setConsulta_id] = useState();
+
+  const handleChangeConsulta_id = (value) => {
+    setConsulta_id(value);
+    setModalUpload(true);
+  };
 
   const CardConsulta = ({ consulta }) => {
     return (
@@ -37,7 +46,7 @@ function ConsultaList_vet(props) {
             <LabelVet>{consulta.motivo} </LabelVet>
           </CardMotivoVet>
           <Upload>
-            <span>
+            <span onClick={() => handleChangeConsulta_id(consulta._id)}>
               <FileDownloadIcon />
             </span>
           </Upload>
@@ -117,6 +126,11 @@ function ConsultaList_vet(props) {
           )}
         </style.Table>
       </TableContainer>
+      <UploadExame
+        isOpen={modalUpload}
+        consulta_id={consulta_id}
+        setIsOpen={setModalUpload}
+      />
     </style.TableContainer>
   );
 }
