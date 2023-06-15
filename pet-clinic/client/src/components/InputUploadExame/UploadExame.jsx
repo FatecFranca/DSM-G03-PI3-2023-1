@@ -1,6 +1,16 @@
 import React, { useState } from "react";
 import http from "../../db/http";
-import { ModalUpload } from "./uploadExame.styled";
+import {
+  PopupUpload,
+  TitleUpload,
+  LabelUpload,
+  InputUpload,
+  ButtonFechar,
+  ButtonEnviar,
+  ButtonUpload,
+  NomeUpload,
+  ImageUpload
+} from "./uploadExame.styled";
 
 const UploadExame = ({ isOpen, consulta_id, setIsOpen }) => {
   const [nome, setNome] = useState("");
@@ -13,6 +23,8 @@ const UploadExame = ({ isOpen, consulta_id, setIsOpen }) => {
 
   const handleChangeIsOpen = () => {
     setMessage("");
+    setNome("")
+    setFile(null)
     setIsOpen(false);
   };
 
@@ -49,25 +61,33 @@ const UploadExame = ({ isOpen, consulta_id, setIsOpen }) => {
   };
 
   return (
-    <ModalUpload>
+    <PopupUpload>
       <div className="container">
         <form onSubmit={handleSubmit}>
+          <TitleUpload>Adicione aqui o Exame do paciente</TitleUpload>
           <div>
-            <label>Nome:</label>
-            <input type="text" value={nome} onChange={handleNomeChange} />
+            <NomeUpload>
+              <LabelUpload>Tipo do Exame:</LabelUpload>
+              <InputUpload
+                type="text"
+                value={nome}
+                onChange={handleNomeChange}
+                placeholder="Escreva o nome do exame"
+              />
+            </NomeUpload>
+            <ImageUpload>
+              <LabelUpload>Anexar Imagem:</LabelUpload>
+              <InputUpload type="file" onChange={handleFileChange} />
+            </ImageUpload>
           </div>
-          <div>
-            <label>Imagem:</label>
-            <input type="file" onChange={handleFileChange} />
-          </div>
-          <button type="submit">Enviar</button>
+          <ButtonUpload>
+            <ButtonEnviar type="submit">Enviar</ButtonEnviar>
+            <ButtonFechar onClick={handleChangeIsOpen}>Fechar</ButtonFechar>
+          </ButtonUpload>
+          {message && <p>{message}</p>}
         </form>
-
-        {message && <p>{message}</p>}
-
-        <button onClick={handleChangeIsOpen}>Fechar</button>
       </div>
-    </ModalUpload>
+    </PopupUpload>
   );
 };
 

@@ -1,5 +1,7 @@
 import style from "./styleSigninAdminVeterinario.module.css";
 
+import { Label } from '../../components/Buttons/buttons.styled'
+
 //toastify
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -196,9 +198,9 @@ const SigninAdminVeterinario = () => {
             <div>
               <Switch onClick={toggler} />
               {toggle ? (
-                <span>Admin</span>
+                <Label>Admin</Label>
               ) : (
-                <span>Veterinário(a)</span>
+                <Label>Veterinário(a)</Label>
               )}
             </div>
             <Button Text="Entrar" onClick={handleLogin} />
