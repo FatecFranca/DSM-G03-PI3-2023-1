@@ -120,6 +120,50 @@ export const consultaController = {
       return res.status(400).json({ error });
     }
   },
+  upload: async (req: Request, res: Response) => {
+    const authHeader = req.headers["authorization"];
+    const token = authHeader ? authHeader.split(" ")[1] : "";
+
+    if (token == "") {
+      return res.status(400).json({ error: "acesso negado!" });
+    }
+
+    const id = await validateToken(token, "vet");
+
+    if (id == null) {
+      return res.status(400).json({ error: "acesso negado!" });
+    }
+
+    try {
+      const nome = req.body.nome;
+      const file = req.file;
+      const consulta_id = req.body.consulta_id;
+
+      const picture = {
+        nome,
+        src: file?.path,
+      };
+
+      const response = await consultaModel.findById(consulta_id, "exames");
+
+      const exames = response?.exames || [];
+      exames.push(picture);
+
+      if (!response) {
+        return res.status(500).json({ error: "consulta não encontrada" });
+      } else if (!picture.src) {
+        return res.status(500).json({ error: "não possui nenhuma imagem" });
+      }
+
+      await consultaModel.findByIdAndUpdate(consulta_id, {
+        exames: exames,
+      });
+
+      return res.status(200).json({ response: "exame adicionado ao banco" });
+    } catch (error) {
+      return res.status(400).json({ error });
+    }
+  },
 };
 
 export default consultaController;
