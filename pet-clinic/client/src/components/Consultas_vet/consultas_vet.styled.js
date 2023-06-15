@@ -9,6 +9,7 @@ import styled from 'styled-components';
 export const TableContainer = styled.div`
   border-radius: 15px;
   width: 100%;
+//   width: 80%;
   margin-bottom: 1rem;
   justify-content: center;
   align-items: center;

@@ -7,7 +7,6 @@ import singInValid from "./singInValid";
 export const vetController = {
   create: async (req: Request, res: Response) => {
     try {
-      console.log("Chamou!!");
       if (req.body != null) {
         const salt = await bcrypt.genSalt(12);
         const passwordHash = await bcrypt.hash(req.body.senha, salt);

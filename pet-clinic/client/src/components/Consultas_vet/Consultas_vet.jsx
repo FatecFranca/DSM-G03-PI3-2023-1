@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+
 import * as style from "./consultas_vet.styled";
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 
@@ -12,6 +13,24 @@ import {
   LabelTitleVet,
   TableContainer,
   Upload
+import axios from "axios";
+import * as style from "./consultas_vet.styled";
+
+import {
+  CardUsers,
+  CardEmailVet,
+  CardButton,
+  CardMapVet,
+  CardCrmv,
+  ButtonNewAdmin,
+  LabelMap,
+  CardUsersEmail,
+  PopupAdmin,
+  TitleAdmin,
+  LabelAdmin,
+  ButtonAdmin,
+  CardAdmin,
+
 } from "../Buttons/buttons.styled";
 
 import http from "../../db/http";
@@ -21,6 +40,7 @@ function ConsultaList_vet(props) {
 
   const CardConsulta = ({ consulta }) => {
     return (
+      <>
       <CardVet>
           <CardDataVet>
             <LabelVet>{consulta.date_time} </LabelVet>
@@ -36,6 +56,8 @@ function ConsultaList_vet(props) {
           </CardMotivoVet>
           <Upload><span><FileDownloadIcon /></span></Upload>
       </CardVet>
+     </>
+
     );
   };
 
@@ -106,7 +128,6 @@ function ConsultaList_vet(props) {
           {Array.isArray(consultas) ? (
             consultas.map((consulta) => (
               <CardConsulta key={consulta._id} consulta={consulta} />
-              
             ))
           ) : (
             <p>Nenhuma consulta encontrada.</p>

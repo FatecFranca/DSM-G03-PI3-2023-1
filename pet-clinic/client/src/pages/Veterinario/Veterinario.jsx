@@ -26,7 +26,7 @@ export default function Veterinario() {
 
     day = day < 10 ? "0" + day : day;
     month = month < 10 ? "0" + month : month;
-
+    
     return `${day}/${month}/${year}`;
   }
 
@@ -65,6 +65,16 @@ export default function Veterinario() {
             onSelectOption={setSelectedOption}
             setData={setData}
           /> */}
+        <ClienteButtons>
+          {/* Implementar criar novo pet no futuro */}
+          {/* <NovoPet /> */}
+          <NovaConsulta />
+        </ClienteButtons>
+        <ClienteConsultas>
+//           <SearchComponent
+//             onSelectOption={setSelectedOption}
+//             setData={setData}
+          />
           <Align>
             {/* Implementar filtro por PET no futuro*/}
             {/* {selectedOption === 'Date' ? (
