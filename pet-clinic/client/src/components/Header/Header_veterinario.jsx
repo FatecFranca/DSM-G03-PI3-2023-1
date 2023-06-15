@@ -1,7 +1,7 @@
 import React from 'react';
 import Time from '../Time/time';
 import BasicMenu from '../Menu/Menu';
-import { Header, Logo, ImgLogo, NomeLogo, NomeApp, FraseApp, Avatar, Avatar_vet, ImgAvatar, Usuario, NomeUsuario, TipoUsuario, Avatar_text } from './header.style';
+import { Header, Logo, ImgLogo, NomeLogo, NomeApp, FraseApp, Avatar, Avatar_vet, ImgAvatar, Usuario, NomeUsuario, TipoUsuario, Avatar_text, TimeStyle } from './header.style';
 
 import logoPet from '../../assets/logoPet.png'
 
@@ -16,7 +16,9 @@ export default function Cabecalho_veterinario(props) {
                 <FraseApp>O melhor jeito de cuidar do seu pet</FraseApp>
             </NomeLogo>
         </Logo>
-        <Time/> 
+        <TimeStyle>
+          <Time/>
+        </TimeStyle> 
             <Usuario>
               <Avatar_vet> 
                 <Avatar_text>

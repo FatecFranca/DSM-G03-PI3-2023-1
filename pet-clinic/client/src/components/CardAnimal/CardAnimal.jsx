@@ -39,6 +39,7 @@ function AnimalList(props) {
   function handleAnimalClick(pets) {
     setSelectedAnimal(pets);
     props.setPetId(pets?._id);
+    props.setPetName(pets?.nome);
   }
 
   return (
@@ -81,7 +82,6 @@ function AnimalCard({ pets }) {
             },
           });
 
-          console.log(response.data);
           // Lógica para lidar com a resposta da API
 
           setIsEditing(false); // Sai do modo de edição após salvar

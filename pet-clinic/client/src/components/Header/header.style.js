@@ -72,6 +72,14 @@ export const Avatar = styled.div`
   width: 20%;
 `;
 
+export const TimeStyle = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const Avatar_vet = styled.div`
   display: flex;
   justify-content: center;

@@ -44,10 +44,20 @@ export const Cell = styled.p`
   &:last-child {
     border-right: none;
   }
+
+  & span {
+    padding: 8px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
 `;
 
 export const EvenRow = styled(Row)`
   background-color: #f5e2e2;
 `;
 
+export const Span = styled.span`
+`;
 

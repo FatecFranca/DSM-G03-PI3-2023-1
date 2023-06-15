@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import * as style from './search.styled';
 
-const SearchComponent = ( { onSelectOption } ) => {
+const SearchComponent = ({ onSelectOption, setData }) => {
   const [searchOption, setSearchOption] = useState('Date');
 
   const handleSearchOptionChange = (event) => {
     const selectedValue = event.target.value;
     setSearchOption(event.target.value);
     onSelectOption(selectedValue);
+    setData({ searchOption: selectedValue, data: event.target.value });
   };
 
   return (
@@ -15,7 +16,8 @@ const SearchComponent = ( { onSelectOption } ) => {
       <style.Container>
         <select value={searchOption} onChange={handleSearchOptionChange}>
           <option value="Date">Date</option>
-          <option value="Pet">Pet</option>
+          {/* Implementar filtro por PET no Futuro */}
+          {/* <option value="Pet">Pet</option> */}
         </select>
         <input
           type={searchOption === 'Date' ? 'date' : 'text'}

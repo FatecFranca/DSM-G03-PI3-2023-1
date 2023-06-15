@@ -13,6 +13,10 @@ router
   .get((req, res) => clienteController.getVet(req, res));
 
 router
+  .route("/cliente/vet/:vet_id")
+  .get((req, res) => clienteController.getVetName(req, res));
+
+router
   .route("/cliente/vet/horario")
   .get((req, res) => clienteController.getVetHorario(req, res));
 

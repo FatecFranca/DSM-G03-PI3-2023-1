@@ -29,13 +29,13 @@ import {
   Segunda,
   LabelCliente,
   PopupJornada
+
 } from "../Buttons/buttons.styled";
 
 import React, { useEffect, useState } from "react";
 import http from "../../db/http";
 
 const CardVeterinarios = () => {
-
   const [open, setOpen] = useState(false);
   const [veterinarios, setVeterinarios] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -157,6 +157,7 @@ const CardVeterinarios = () => {
       });
 
       fetchVeterinarios();
+
       setOpenDelete(false);
 
       console.log(response);

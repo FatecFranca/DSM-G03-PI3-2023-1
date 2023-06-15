@@ -19,6 +19,7 @@ export default function Cliente() {
   // API functions
   const [nomeCliente, setNomeCliente] = useState("");
   const [petId, setPetId] = useState();
+  const [petName, setPetName] = useState();
 
   useEffect(() => {
     const token = localStorage.getItem("token_API");
@@ -44,9 +45,9 @@ export default function Cliente() {
     <>
       <CabecalhoCliente name={nomeCliente} />
       <ClienteCard>
-        <AnimalList setPetId={setPetId} petId={petId} />
+        <AnimalList setPetId={setPetId} petId={petId} setPetName={setPetName} />
         <ClienteConsultas>
-          <ConsultaList petId={petId} setPetId={setPetId} />
+          <ConsultaList petId={petId} setPetId={setPetId} petName={petName} />
         </ClienteConsultas>
         <ClienteButtons>
           <NovoPet />

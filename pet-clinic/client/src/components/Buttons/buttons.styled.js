@@ -208,10 +208,6 @@ export const CardUsers = styled.div`
  
 `;
 
-export const CardEmailVet = styled.div`
- width: 40%;
-
-`;
 
 export const CardEmail = styled.div`
  width: 52%;
@@ -225,6 +221,10 @@ export const CardCrmv = styled.div`
 
 `;
 
+export const CardEmailVet = styled.div`
+ width: 40%;
+
+`;
 
 
 export const CardButton = styled.div`
@@ -484,3 +484,106 @@ export const LabelCliente = styled.label`
   color: black;
 
 `;
+
+// --------------********CONSULTAS_VETERINARIO********--------------
+
+export const TableContainer = styled.div`
+display: flex;
+align-items: center;
+flex-direction: column;
+width: 100%;
+
+  padding-right: 300px;
+
+`;
+
+export const CardVet = styled.div`
+  display: flex;
+  
+  margin: 1px;
+  width: 100%;
+  height: auto;
+
+  background-color: #9ac6ed;
+  
+`;
+
+export const CardDataVet = styled.div`
+
+display: flex;
+align-items: center;
+justify-content: center;
+
+  width: 20%;
+
+
+`;
+
+export const CardHoraVetVet = styled.div`
+
+display: flex;
+align-items: center;
+justify-content: center;
+
+ width: 20%;
+
+ 
+
+
+`;
+
+export const CardPetVet = styled.div`
+display: flex;
+align-items: center;
+justify-content: center;
+
+ width: 20%;
+
+ 
+
+`;
+
+export const CardMotivoVet = styled.div`
+display: flex;
+align-items: center;
+justify-content: center;
+  width: 20%;
+
+
+ 
+
+`;
+
+export const Upload = styled.div`
+
+display: flex;
+align-items: center;
+justify-content: center;
+
+ width: 20%;
+
+`;
+
+export const LabelVet = styled.label`
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+`;
+
+export const LabelTitleVet = styled.label`
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size:25px;
+  line-height: 16px;
+  
+  margin-bottom: 30px;
+  margin-top: 15px;
+`;
+
+
