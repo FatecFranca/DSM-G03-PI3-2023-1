@@ -9,7 +9,7 @@ import {
   ButtonEnviar,
   ButtonUpload,
   NomeUpload,
-  ImageUpload
+  ImageUpload,
 } from "./uploadExame.styled";
 
 const UploadExame = ({ isOpen, consulta_id, setIsOpen }) => {
@@ -23,8 +23,8 @@ const UploadExame = ({ isOpen, consulta_id, setIsOpen }) => {
 
   const handleChangeIsOpen = () => {
     setMessage("");
-    setNome("")
-    setFile(null)
+    setNome("");
+    setFile(null);
     setIsOpen(false);
   };
 
@@ -81,7 +81,9 @@ const UploadExame = ({ isOpen, consulta_id, setIsOpen }) => {
             </ImageUpload>
           </div>
           <ButtonUpload>
-            <ButtonEnviar type="submit">Enviar</ButtonEnviar>
+            <ButtonEnviar type="submit" onClick={handleSubmit}>
+              Enviar
+            </ButtonEnviar>
             <ButtonFechar onClick={handleChangeIsOpen}>Fechar</ButtonFechar>
           </ButtonUpload>
           {message && <p>{message}</p>}
