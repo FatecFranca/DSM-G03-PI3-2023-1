@@ -12,6 +12,7 @@ const UploadExame = ({ isOpen, consulta_id, setIsOpen }) => {
   }
 
   const handleChangeIsOpen = () => {
+    setMessage("");
     setIsOpen(false);
   };
 
