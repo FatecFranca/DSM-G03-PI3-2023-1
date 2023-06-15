@@ -196,7 +196,7 @@ const SigninAdminVeterinario = () => {
             <div>
               <Switch onClick={toggler} />
               {toggle ? (
-                <span>Secretario(a)</span>
+                <span>Admin</span>
               ) : (
                 <span>Veterinário(a)</span>
               )}
