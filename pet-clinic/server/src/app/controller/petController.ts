@@ -149,13 +149,17 @@ export const petController = {
       return res.status(400).json({ error: "acesso negado!" });
     }
 
-    const pet_id = req.params.pet_id;
+    const pet_id = req.params.petId;
 
     try {
       const response = await petModel.find({
         _id: pet_id,
         status: { $ne: false },
       });
+
+      if (!response) {
+        return res.status(404).json("Pet não encontrado");
+      }
       return res.status(200).json(response);
     } catch (error) {
       return res.status(400).json(error);
