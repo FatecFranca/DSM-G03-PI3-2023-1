@@ -186,6 +186,7 @@ export const consultaController = {
     try {
       const pet_id = req.params.petId;
       const consulta_id = req.params.consulta_id;
+      const number = req.params.number;
       const verify = await petModel.find({
         cliente_id: id,
         _id: pet_id,
@@ -209,16 +210,14 @@ export const consultaController = {
           .json({ error: "não possui exames disponiveis!" });
       }
 
-      exames.forEach((p) => {
-        console.log(p);
-        res.download(
-          `${p?.["src" as keyof typeof p]}`,
-          `${p?.["nome" as keyof typeof p]}`
+      return res
+        .status(200)
+        .download(
+          `${exames[Number(number)]?.["src" as keyof typeof exames]}`,
+          `${exames[Number(number)]?.["nome" as keyof typeof exames]}`
         );
-        return p;
-      });
 
-      return res.status(200).json({ response: "download concluido!" });
+      // return res.status(200).json({ response: "download concluido!" });
     } catch (error) {
       return res.status(400).json({ error });
     }

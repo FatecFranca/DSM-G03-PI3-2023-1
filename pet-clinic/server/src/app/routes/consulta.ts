@@ -23,7 +23,7 @@ router
   );
 
 router
-  .route("/consulta/download/:petId/:consulta_id")
+  .route("/consulta/download/:petId/:consulta_id/:number")
   .get((req, res) => consultaController.download(req, res));
 
 export default router;
