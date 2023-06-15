@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import * as style from "./consultas_vet.styled";
-import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import FileDownloadIcon from "@mui/icons-material/FileDownload";
 
 import {
   CardDataVet,
@@ -12,25 +12,7 @@ import {
   CardVet,
   LabelTitleVet,
   TableContainer,
-  Upload
-import axios from "axios";
-import * as style from "./consultas_vet.styled";
-
-import {
-  CardUsers,
-  CardEmailVet,
-  CardButton,
-  CardMapVet,
-  CardCrmv,
-  ButtonNewAdmin,
-  LabelMap,
-  CardUsersEmail,
-  PopupAdmin,
-  TitleAdmin,
-  LabelAdmin,
-  ButtonAdmin,
-  CardAdmin,
-
+  Upload,
 } from "../Buttons/buttons.styled";
 
 import http from "../../db/http";
@@ -41,7 +23,7 @@ function ConsultaList_vet(props) {
   const CardConsulta = ({ consulta }) => {
     return (
       <>
-      <CardVet>
+        <CardVet>
           <CardDataVet>
             <LabelVet>{consulta.date_time} </LabelVet>
           </CardDataVet>
@@ -54,10 +36,13 @@ function ConsultaList_vet(props) {
           <CardMotivoVet>
             <LabelVet>{consulta.motivo} </LabelVet>
           </CardMotivoVet>
-          <Upload><span><FileDownloadIcon /></span></Upload>
-      </CardVet>
-     </>
-
+          <Upload>
+            <span>
+              <FileDownloadIcon />
+            </span>
+          </Upload>
+        </CardVet>
+      </>
     );
   };
 
@@ -112,10 +97,8 @@ function ConsultaList_vet(props) {
   };
 
   return (
-    
-      
-      <style.TableContainer>
-        <TableContainer>
+    <style.TableContainer>
+      <TableContainer>
         <LabelTitleVet>CONFIRA SUAS CONSULTAS DO DIA</LabelTitleVet>
         <style.Table>
           <style.HeaderRow>
@@ -134,9 +117,7 @@ function ConsultaList_vet(props) {
           )}
         </style.Table>
       </TableContainer>
-      </style.TableContainer>
-      
-
+    </style.TableContainer>
   );
 }
 

@@ -26,7 +26,7 @@ export default function Veterinario() {
 
     day = day < 10 ? "0" + day : day;
     month = month < 10 ? "0" + month : month;
-    
+
     return `${day}/${month}/${year}`;
   }
 
@@ -56,12 +56,12 @@ export default function Veterinario() {
       <Cabecalho_veterinario name={nomeVeterinario} />
       <ClienteCard>
         {/* <ClienteButtons> */}
-          {/* Implementar criar novo pet no futuro */}
-          {/* <NovoPet /> */}
-          {/* <NovaConsulta /> */}
+        {/* Implementar criar novo pet no futuro */}
+        {/* <NovoPet /> */}
+        {/* <NovaConsulta /> */}
         {/* </ClienteButtons> */}
-        <ClienteConsultas>
-          {/* <SearchComponent
+        {/* <ClienteConsultas> */}
+        {/* <SearchComponent
             onSelectOption={setSelectedOption}
             setData={setData}
           /> */}
@@ -71,9 +71,10 @@ export default function Veterinario() {
           <NovaConsulta />
         </ClienteButtons>
         <ClienteConsultas>
-//           <SearchComponent
-//             onSelectOption={setSelectedOption}
-//             setData={setData}
+          //{" "}
+          <SearchComponent
+          //             onSelectOption={setSelectedOption}
+          //             setData={setData}
           />
           <Align>
             {/* Implementar filtro por PET no futuro*/}
