@@ -23,13 +23,32 @@ function ConsultaList_vet(props) {
   const [consultas, setConsultas] = useState([]);
   const [modalUpload, setModalUpload] = useState(false);
   const [consulta_id, setConsulta_id] = useState();
+  const [petsName, setPetsName] = useState([]);
 
   const handleChangeConsulta_id = (value) => {
     setConsulta_id(value);
     setModalUpload(true);
   };
 
-  const CardConsulta = ({ consulta }) => {
+  const getPetName = async (pet_id) => {
+    const token = localStorage.getItem("token_API");
+
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+
+    try {
+      const response = await http.get(`/pet/${pet_id}`, {
+        headers,
+      });
+
+      return response.data[0].nome;
+    } catch {
+      return "error";
+    }
+  };
+
+  const CardConsulta = ({ consulta, petName }) => {
     return (
       <>
         <CardVet>
@@ -40,7 +59,7 @@ function ConsultaList_vet(props) {
             <LabelVet>{formatarHora(consulta.date_time)} </LabelVet>
           </CardHoraVetVet>
           <CardPetVet>
-            <LabelVet>{consulta.pet_id} </LabelVet>
+            <LabelVet>{petName} </LabelVet>
           </CardPetVet>
           <CardMotivoVet>
             <LabelVet>{consulta.motivo} </LabelVet>
@@ -109,6 +128,13 @@ function ConsultaList_vet(props) {
       });
 
       setConsultas(response.data.response);
+
+      const petsPromises = response.data.response.map((consulta) => {
+        return getPetName(consulta.pet_id);
+      });
+
+      const pets = await Promise.all(petsPromises);
+      setPetsName(pets);
     } catch (error) {
       console.log(error);
     }
@@ -127,8 +153,12 @@ function ConsultaList_vet(props) {
             <style.Cell>Upload Exames</style.Cell>
           </style.HeaderRow>
           {Array.isArray(consultas) ? (
-            consultas.map((consulta) => (
-              <CardConsulta key={consulta._id} consulta={consulta} />
+            consultas.map((consulta, index) => (
+              <CardConsulta
+                key={consulta._id}
+                consulta={consulta}
+                petName={petsName[index]}
+              />
             ))
           ) : (
             <p>Nenhuma consulta encontrada.</p>
