@@ -4,6 +4,11 @@ import { Pet as petModel } from "../../models/pet";
 import { validateToken } from "../token";
 import verificaHorario from "../validateFunctions/verificaHorarioConsulta";
 
+interface Picture {
+  nome: string;
+  src: string;
+}
+
 export const consultaController = {
   create: async (req: Request, res: Response) => {
     const authHeader = req.headers["authorization"];
@@ -160,6 +165,60 @@ export const consultaController = {
       });
 
       return res.status(200).json({ response: "exame adicionado ao banco" });
+    } catch (error) {
+      return res.status(400).json({ error });
+    }
+  },
+  download: async (req: Request, res: Response) => {
+    const authHeader = req.headers["authorization"];
+    const token = authHeader ? authHeader.split(" ")[1] : "";
+
+    if (token == "") {
+      return res.status(400).json({ error: "acesso negado!" });
+    }
+
+    const id = await validateToken(token, "cliente");
+
+    if (id == null) {
+      return res.status(400).json({ error: "acesso negado!" });
+    }
+
+    try {
+      const pet_id = req.params.petId;
+      const consulta_id = req.params.consulta_id;
+      const verify = await petModel.find({
+        cliente_id: id,
+        _id: pet_id,
+      });
+
+      const response = await consultaModel.findById(consulta_id, "exames");
+
+      if (verify === null) {
+        return res.status(404).json({
+          error: "Esse pet não pertence a esse cliente ou pet_id invalido",
+        });
+      } else if (!response) {
+        return res.status(500).json({ error: "consulta não encontrada" });
+      }
+
+      const exames = response?.exames || [];
+
+      if (exames.length == 0) {
+        return res
+          .status(404)
+          .json({ error: "não possui exames disponiveis!" });
+      }
+
+      exames.forEach((p) => {
+        console.log(p);
+        res.download(
+          `${p?.["src" as keyof typeof p]}`,
+          `${p?.["nome" as keyof typeof p]}`
+        );
+        return p;
+      });
+
+      return res.status(200).json({ response: "download concluido!" });
     } catch (error) {
       return res.status(400).json({ error });
     }
