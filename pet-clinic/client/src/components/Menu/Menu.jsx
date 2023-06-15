@@ -35,7 +35,7 @@ export default function BasicMenu() {
         currentPath === '/portal/vet' ||
         currentPath === '/portal/sec'
       ) {
-        navigate('/portal/singin');
+        navigate('/portal/signin');
       }
     };
 

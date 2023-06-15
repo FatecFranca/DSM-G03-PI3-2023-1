@@ -64,7 +64,7 @@ const RoutesApp = () => {
         <Route
           path="/portal/vet"
           element={
-            <PrivateRoute redirectTo={"/portal/singin"} bdUrl={"/vet"}>
+            <PrivateRoute redirectTo={"/portal/signin"} bdUrl={"/vet"}>
               <Veterinario />
             </PrivateRoute>
           }
@@ -74,14 +74,14 @@ const RoutesApp = () => {
         <Route
           path="/portal/sec"
           element={
-            <PrivateRoute redirectTo={"/portal/singin"} bdUrl={"/admin"}>
+            <PrivateRoute redirectTo={"/portal/signin"} bdUrl={"/admin"}>
               <Admin />
             </PrivateRoute>
           }
         />
 
         <Route path="/" element={<Signin />} />
-        <Route path="/portal/singin" element={<SigninAdminVeterinario />} />
+        <Route path="/portal/signin" element={<SigninAdminVeterinario />} />
         <Route path="/signup" element={<Signup />} />
 
       </Routes>
