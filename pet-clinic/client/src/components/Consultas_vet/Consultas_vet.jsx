@@ -1,4 +1,18 @@
 import React, { useState, useEffect } from "react";
+
+import * as style from "./consultas_vet.styled";
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
+
+import {
+  CardDataVet,
+  CardHoraVetVet,
+  CardPetVet,
+  CardMotivoVet,
+  LabelVet,
+  CardVet,
+  LabelTitleVet,
+  TableContainer,
+  Upload
 import axios from "axios";
 import * as style from "./consultas_vet.styled";
 
@@ -16,6 +30,7 @@ import {
   LabelAdmin,
   ButtonAdmin,
   CardAdmin,
+
 } from "../Buttons/buttons.styled";
 
 import http from "../../db/http";
@@ -25,22 +40,24 @@ function ConsultaList_vet(props) {
 
   const CardConsulta = ({ consulta }) => {
     return (
-      <CardAdmin>
-        <CardUsersEmail>
-          <CardUsers>
-            <LabelAdmin>{consulta.date_time} </LabelAdmin>
-          </CardUsers>
-          <CardEmailVet>
-            <LabelAdmin>{consulta.date_time} </LabelAdmin>
-          </CardEmailVet>
-          <CardCrmv>
-            <LabelAdmin>{consulta.pet_id} </LabelAdmin>
-          </CardCrmv>
-          <CardCrmv>
-            <LabelAdmin>{consulta.motivo} </LabelAdmin>
-          </CardCrmv>
-        </CardUsersEmail>
-      </CardAdmin>
+      <>
+      <CardVet>
+          <CardDataVet>
+            <LabelVet>{consulta.date_time} </LabelVet>
+          </CardDataVet>
+          <CardHoraVetVet>
+            <LabelVet>{consulta.date_time} </LabelVet>
+          </CardHoraVetVet>
+          <CardPetVet>
+            <LabelVet>{consulta.pet_id} </LabelVet>
+          </CardPetVet>
+          <CardMotivoVet>
+            <LabelVet>{consulta.motivo} </LabelVet>
+          </CardMotivoVet>
+          <Upload><span><FileDownloadIcon /></span></Upload>
+      </CardVet>
+     </>
+
     );
   };
 
@@ -95,14 +112,18 @@ function ConsultaList_vet(props) {
   };
 
   return (
-    <style.ContainerAll>
+    
+      
       <style.TableContainer>
+        <TableContainer>
+        <LabelTitleVet>CONFIRA SUAS CONSULTAS DO DIA</LabelTitleVet>
         <style.Table>
           <style.HeaderRow>
             <style.Cell>Data</style.Cell>
             <style.Cell>Hora</style.Cell>
             <style.Cell>Pet</style.Cell>
             <style.Cell>Motivo</style.Cell>
+            <style.Cell>Upload Exames</style.Cell>
           </style.HeaderRow>
           {Array.isArray(consultas) ? (
             consultas.map((consulta) => (
@@ -112,8 +133,10 @@ function ConsultaList_vet(props) {
             <p>Nenhuma consulta encontrada.</p>
           )}
         </style.Table>
+      </TableContainer>
       </style.TableContainer>
-    </style.ContainerAll>
+      
+
   );
 }
 

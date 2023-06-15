@@ -1,19 +1,23 @@
 import styled from 'styled-components';
 
-export const ContainerAll = styled.div`
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-`;
+// export const ContainerAll = styled.div`
+//   width: 100%;
+//   justify-content: center;
+//   align-items: center;
+// `;
 
 export const TableContainer = styled.div`
   border-radius: 15px;
-  width: 80%;
+  width: 100%;
+//   width: 80%;
   margin-bottom: 1rem;
   justify-content: center;
   align-items: center;
   font-size: 1rem;
   line-height: 1.5;
+
+  padding: 0;
+  margin: 0;
 `;
 
 export const Table = styled.div`
@@ -22,6 +26,10 @@ export const Table = styled.div`
   align-items: center;
   flex-direction: column;
   border-collapse: collapse;
+
+  width: 100%;
+  padding: 0;
+  margin: 0;
 `;
 
 export const Row = styled.div`
