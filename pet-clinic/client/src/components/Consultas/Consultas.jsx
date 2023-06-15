@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import * as style from "./consultas.styled";
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import http from "../../db/http";
 
 function ConsultaList(props) {
@@ -90,6 +91,7 @@ function ConsultaList(props) {
           <style.Cell>Serviço</style.Cell>
           <style.Cell>Veterinário</style.Cell>
           <style.Cell>Pet</style.Cell>
+          <style.Cell>Exames</style.Cell>
         </style.HeaderRow>
 
         {consultasData.map((consulta, index) => {
@@ -99,6 +101,7 @@ function ConsultaList(props) {
               <style.Cell>{consulta.motivo}</style.Cell>
               <style.Cell>{`Dr. ${vetsName[index]}`}</style.Cell>
               <style.Cell>{props.petName}</style.Cell>
+              <style.Cell><span><FileDownloadIcon /></span></style.Cell>
             </style.Row>
           );
         })}
