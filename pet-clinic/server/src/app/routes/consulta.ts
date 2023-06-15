@@ -12,7 +12,7 @@ router
   .get((req, res) => consultaController.getCliente(req, res));
 
 router
-  .route("/consulta/vet")
+  .route("/consulta/vet/:dia/:mes/:ano")
   .get((req, res) => consultaController.getVet(req, res));
 
 export default router;

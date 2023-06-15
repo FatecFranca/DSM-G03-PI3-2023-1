@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import * as style from './consultas_vet.styled';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import * as style from "./consultas_vet.styled";
 
 import {
   CardUsers,
@@ -22,7 +22,7 @@ import http from "../../db/http";
 
 function ConsultaList_vet(props) {
   const [consultas, setConsultas] = useState([]);
-  
+
   const CardConsulta = ({ consulta }) => {
     return (
       <CardAdmin>
@@ -44,6 +44,20 @@ function ConsultaList_vet(props) {
     );
   };
 
+  function getCurrentDate() {
+    let date = new Date();
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+    if (day < 10) {
+      day = "0" + day;
+    }
+    if (month < 10) {
+      month = "0" + month;
+    }
+    return day + "/" + month + "/" + year;
+  }
+
   //  Buscando consultas na API
 
   useEffect(() => {
@@ -58,30 +72,27 @@ function ConsultaList_vet(props) {
   const fetchConsultas = async () => {
     try {
       const token = localStorage.getItem("token_API");
-      const date = props.data;
-  
+      const date = getCurrentDate();
+      console.log(date);
+
       const headers = {
         Authorization: `Bearer ${token}`,
-      }
+      };
 
       const body = {
         date: date,
-      }
-  
-      const response = await axios({
-        method: "GET",
-        url: `http://localhost:3333/api/consulta/vet`,
-        data: body,
-        headers: headers,
-      })
-  
-      setConsultas(response.data);
-      console.log("Response Data:", response.data);
+      };
+
+      const response = await http.get(`/consulta/vet/${date}`, {
+        headers,
+      });
+
+      setConsultas(response.data.response);
+      console.log("Response Data:", response.data.response);
     } catch (error) {
       console.log(error);
     }
   };
-
 
   return (
     <style.ContainerAll>
@@ -93,14 +104,14 @@ function ConsultaList_vet(props) {
             <style.Cell>Pet</style.Cell>
             <style.Cell>Motivo</style.Cell>
           </style.HeaderRow>
-            {Array.isArray(consultas) ? (
-              consultas.map((consulta) => (
-                <CardConsulta key={consulta._id} consulta={consulta} />
-              ))
-            ) : (
-              <p>Nenhuma consulta encontrada.</p>
-            )}
-          </style.Table>
+          {Array.isArray(consultas) ? (
+            consultas.map((consulta) => (
+              <CardConsulta key={consulta._id} consulta={consulta} />
+            ))
+          ) : (
+            <p>Nenhuma consulta encontrada.</p>
+          )}
+        </style.Table>
       </style.TableContainer>
     </style.ContainerAll>
   );

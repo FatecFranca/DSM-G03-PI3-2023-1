@@ -88,13 +88,15 @@ export const consultaController = {
       return res.status(400).json({ error: "acesso negado!" });
     }
 
-    const id = await validateToken(token, "cliente");
+    const id = await validateToken(token, "vet");
 
     if (id == null) {
       return res.status(400).json({ error: "acesso negado!" });
     }
 
-    const date = req.body.date;
+    const date = `${req.params.dia}/${req.params.mes}/${req.params.ano}`;
+
+    console.log(date);
 
     function formatDate(dateString: string): string {
       const date = new Date(dateString);
