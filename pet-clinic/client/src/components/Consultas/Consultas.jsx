@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import * as style from "./consultas.styled";
-import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import http from "../../db/http";
 
 function ConsultaList(props) {
@@ -83,6 +83,46 @@ function ConsultaList(props) {
     }
   };
 
+  const downloadExames = async (pet_id, consulta_id, number) => {
+    const token = localStorage.getItem("token_API");
+
+    try {
+      const response = await http.get(
+        `/consulta/download/${pet_id}/${consulta_id}/${number}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          responseType: "blob",
+        }
+      );
+
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "imagem.jpg"); // nome do arquivo para download
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      return response;
+    } catch (error) {
+      console.error(error);
+      // Lógica para lidar com o erro da requisição
+    }
+  };
+
+  const handleDownload = async (pet_id, consulta_id) => {
+    for (let i = 0; i < 10; i++) {
+      console.log(i);
+      const response = await downloadExames(pet_id, consulta_id, i);
+
+      if (response.status >= 400) {
+        i = 10;
+      }
+    }
+  };
+
   return (
     <style.TableContainer>
       <style.Table>
@@ -101,7 +141,16 @@ function ConsultaList(props) {
               <style.Cell>{consulta.motivo}</style.Cell>
               <style.Cell>{`Dr. ${vetsName[index]}`}</style.Cell>
               <style.Cell>{props.petName}</style.Cell>
-              <style.Cell><span><FileDownloadIcon /></span></style.Cell>
+              <style.Cell>
+                <button
+                  onClick={() => {
+                    console.log(consulta.exames);
+                    handleDownload(consulta.pet_id, consulta._id);
+                  }}
+                >
+                  <FileDownloadIcon />
+                </button>
+              </style.Cell>
             </style.Row>
           );
         })}
